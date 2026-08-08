@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageTransition, RouteProgress } from "@/components/motion/PageTransition";
 import { NotificationPanel } from "@/components/overlays/NotificationPanel";
+import { usePollingQuery } from "@/hooks/usePollingQuery";
 import { authClient } from "@/lib/auth-client";
 import type { Session, View } from "@/types";
 import type { PortalShellData } from "@/features/portal/types";
@@ -38,7 +39,23 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const [isNavigating, startNavigation] = useTransition();
   const previousPathname = useRef(pathname);
+  const updateVersion = useRef<string | null>(null);
   const activeView = resolveActiveView(pathname);
+
+  usePollingQuery<{ version: string }>({
+    url: "/api/portal/updates",
+    intervalMs: 2000,
+    onData: ({ version }) => {
+      if (updateVersion.current === null) {
+        updateVersion.current = version;
+        return;
+      }
+      if (version === updateVersion.current) return;
+      updateVersion.current = version;
+      router.refresh();
+    },
+    onAccessDenied: () => router.refresh(),
+  });
 
   useEffect(() => {
     Object.values(viewPaths).forEach((path) => router.prefetch(`/${session.role}/${path}`));

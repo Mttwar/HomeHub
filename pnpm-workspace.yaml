@@ -1,0 +1,14 @@
+packages:
+  - "."
+
+confirmModulesPurge: false
+
+# I link simbolici del layout isolato non sono attraversabili nel sandbox Windows.
+nodeLinker: hoisted
+
+onlyBuiltDependencies:
+  - "@prisma/engines"
+  - esbuild
+  - prisma
+  - sharp
+  - unrs-resolver

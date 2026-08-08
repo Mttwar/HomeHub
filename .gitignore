@@ -1,0 +1,15 @@
+node_modules/
+node_modules.*/
+.pnpm-store/
+.next/
+.vercel/
+.env
+.env.*.local
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+.DS_Store
+Thumbs.db

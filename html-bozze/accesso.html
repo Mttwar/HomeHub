@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CasaHub — Accesso</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen bg-[#101828]">
+  <main class="grid min-h-screen lg:grid-cols-[1.05fr_.95fr]">
+    <section class="relative hidden overflow-hidden p-12 text-white lg:flex lg:flex-col">
+      <div class="absolute -left-40 -top-40 size-[560px] rounded-full bg-[#7657FF]/25 blur-3xl"></div>
+      <div class="absolute -bottom-48 right-0 size-[560px] rounded-full bg-[#B8F45D]/15 blur-3xl"></div>
+      <a href="index.html" class="relative flex items-center gap-3"><span class="grid size-11 place-items-center rounded-[15px] bg-[#B8F45D] text-[#101828]"><i data-lucide="home" class="size-5"></i></span><b class="text-2xl tracking-[-.04em]">CasaHub</b></a>
+      <div class="relative my-auto max-w-xl"><span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-bold text-[#B8F45D]"><i data-lucide="sparkles" class="size-4"></i> Tutta la casa, in un solo posto</span><h1 class="mt-7 text-5xl font-extrabold leading-[1.02] tracking-[-.065em]">Gestire un affitto può essere semplice.</h1><p class="mt-6 max-w-lg text-lg leading-8 text-slate-400">Bollette, pagamenti, consumi, guasti e appuntamenti condivisi tra proprietario e inquilino.</p></div>
+      <p class="relative text-xs text-slate-600">CasaHub · Prototipo web 2026</p>
+    </section>
+    <section class="flex min-h-screen items-center justify-center bg-[#f7f8fb] p-5 sm:p-10">
+      <div class="w-full max-w-md rounded-[32px] bg-white p-7 shadow-[0_30px_80px_rgba(15,23,42,.14)] sm:p-9">
+        <div class="flex items-center gap-3 lg:hidden"><span class="grid size-10 place-items-center rounded-[14px] bg-[#B8F45D]"><i data-lucide="home" class="size-5"></i></span><b class="text-xl">CasaHub</b></div>
+        <p class="mt-8 text-[11px] font-extrabold uppercase tracking-[.16em] text-[#7657FF] lg:mt-0">Bentornato</p>
+        <h2 class="mt-2 text-3xl font-extrabold tracking-[-.05em]">Accedi al tuo spazio</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-500">Accedi con il tuo account. CasaHub riconoscerà automaticamente se sei proprietario o inquilino e aprirà il portale corretto.</p>
+        <div class="mt-6 flex items-start gap-3 rounded-2xl bg-[#eef0ff] p-4"><span class="grid size-9 shrink-0 place-items-center rounded-xl bg-white text-[#7657FF]"><i data-lucide="shield-check" class="size-4"></i></span><p class="text-xs leading-5 text-slate-600"><b class="text-[#101828]">Ruolo protetto.</b> Non è possibile cambiare profilo manualmente dall’interfaccia.</p></div>
+        <form class="mt-7 space-y-4" action="index.html"><label class="block"><span class="mb-2 block text-xs font-bold text-slate-600">Email</span><input type="email" value="matteo@casahub.it" autocomplete="username" class="h-12 w-full rounded-2xl border border-slate-200 px-4 text-sm outline-none focus:border-[#7657FF] focus:ring-4 focus:ring-[#7657FF]/10"></label><label class="block"><span class="mb-2 block text-xs font-bold text-slate-600">Password</span><div class="relative"><input type="password" value="password" autocomplete="current-password" class="h-12 w-full rounded-2xl border border-slate-200 px-4 pr-12 text-sm outline-none focus:border-[#7657FF] focus:ring-4 focus:ring-[#7657FF]/10"><i data-lucide="eye" class="absolute right-4 top-1/2 size-4 -translate-y-1/2 text-slate-400"></i></div></label><div class="flex items-center justify-between text-xs"><label class="flex items-center gap-2 text-slate-500"><input type="checkbox" checked> Ricordami</label><a href="#" class="font-bold text-[#7657FF]">Password dimenticata?</a></div><button class="mt-2 h-12 w-full rounded-2xl bg-[#B8F45D] font-extrabold text-[#101828] shadow-[0_12px_30px_rgba(184,244,93,.28)]">Accedi a CasaHub</button></form>
+        <p class="mt-7 text-center text-xs text-slate-400">Non hai ancora un invito? <a href="#" class="font-bold text-[#101828]">Contatta il proprietario</a></p>
+      </div>
+    </section>
+  </main>
+  <script>window.addEventListener('load',()=>window.lucide?.createIcons())</script>
+</body>
+</html>

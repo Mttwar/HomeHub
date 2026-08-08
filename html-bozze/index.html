@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CasaHub — Dashboard</title>
+  <meta name="description" content="Dashboard per la gestione dell'appartamento in affitto.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="dashboard">
+  <div class="flex min-h-screen">
+    <div id="sidebar"></div>
+    <div class="min-w-0 flex-1">
+      <div id="topbar"></div>
+      <main class="mx-auto max-w-[1500px] space-y-6 px-4 py-6 sm:px-6 lg:px-8 lg:pb-12">
+        <section class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="mb-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#7657FF]">Martedì, 21 luglio</p>
+            <h1 class="text-3xl font-extrabold tracking-[-.045em] sm:text-[34px]">Bentornato a casa, Matteo.</h1>
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Ecco cosa richiede la tua attenzione oggi nell’appartamento di Via Garibaldi.</p>
+          </div>
+          <button class="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-[#101828] px-5 text-sm font-bold text-white shadow-[0_10px_30px_rgba(17,24,39,.16)]"><i data-lucide="plus" class="size-4"></i> Nuova voce</button>
+        </section>
+
+        <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <article class="surface-card surface-card-hover rounded-[24px] p-5"><div class="flex items-start justify-between"><span class="grid size-10 place-items-center rounded-2xl bg-violet-100 text-[#7657FF]"><i data-lucide="credit-card" class="size-[18px]"></i></span><span class="rounded-full bg-slate-50 px-2 py-1 text-[10px] font-bold text-emerald-600">↘ 8,4%</span></div><p class="mt-5 text-sm font-medium text-slate-500">Da incassare</p><p class="mt-1 text-2xl font-extrabold tracking-[-.04em]">€1.184</p></article>
+          <article class="surface-card surface-card-hover rounded-[24px] p-5"><div class="flex items-start justify-between"><span class="grid size-10 place-items-center rounded-2xl bg-[#e8ffd0] text-emerald-700"><i data-lucide="check-circle-2" class="size-[18px]"></i></span><span class="rounded-full bg-slate-50 px-2 py-1 text-[10px] font-bold text-emerald-600">↘ 2 in più</span></div><p class="mt-5 text-sm font-medium text-slate-500">Spese saldate</p><p class="mt-1 text-2xl font-extrabold tracking-[-.04em]">12 / 14</p></article>
+          <article class="surface-card surface-card-hover rounded-[24px] p-5"><div class="flex items-start justify-between"><span class="grid size-10 place-items-center rounded-2xl bg-rose-100 text-rose-600"><i data-lucide="wrench" class="size-[18px]"></i></span><span class="rounded-full bg-slate-50 px-2 py-1 text-[10px] font-bold text-emerald-600">↘ 1 urgente</span></div><p class="mt-5 text-sm font-medium text-slate-500">Segnalazioni aperte</p><p class="mt-1 text-2xl font-extrabold tracking-[-.04em]">3</p></article>
+          <article class="surface-card surface-card-hover rounded-[24px] p-5"><div class="flex items-start justify-between"><span class="grid size-10 place-items-center rounded-2xl bg-sky-100 text-sky-600"><i data-lucide="calendar-days" class="size-[18px]"></i></span><span class="rounded-full bg-slate-50 px-2 py-1 text-[10px] font-bold text-emerald-600">↘ tra 3 giorni</span></div><p class="mt-5 text-sm font-medium text-slate-500">Prossimo intervento</p><p class="mt-1 text-2xl font-extrabold tracking-[-.04em]">24 lug</p></article>
+        </section>
+
+        <section class="grid gap-5 xl:grid-cols-[1.35fr_1fr]">
+          <article class="relative overflow-hidden rounded-[28px] bg-[#101828] p-6 text-white shadow-[0_20px_60px_rgba(17,24,39,.2)]">
+            <div class="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-[#7657FF]/30 blur-3xl"></div>
+            <div class="relative flex items-start justify-between"><div><p class="flex items-center gap-2 text-xs font-bold text-slate-400"><span class="size-2 rounded-full bg-[#B8F45D]"></span> CONSUMO LIVE · DATI DEMO</p><p class="mt-3 text-4xl font-extrabold tracking-[-.06em]">1.34 <span class="text-base font-medium text-slate-400">kW</span></p><p class="mt-1 text-xs text-slate-500">Ultimo aggiornamento pochi secondi fa</p></div><span class="grid size-11 place-items-center rounded-2xl bg-[#B8F45D] text-[#101828]"><i data-lucide="zap" class="size-5"></i></span></div>
+            <div class="energy-bars relative mt-6"><span style="height:38%"></span><span style="height:46%"></span><span style="height:42%"></span><span style="height:58%"></span><span style="height:51%"></span><span style="height:65%"></span><span style="height:72%"></span><span style="height:67%"></span><span style="height:82%"></span><span style="height:74%"></span><span style="height:88%"></span><span style="height:79%"></span></div>
+            <div class="relative mt-4 flex items-center justify-between border-t border-white/10 pt-4 text-xs"><span class="text-slate-500">Oggi</span><span class="font-semibold text-[#B8F45D]">7,84 kWh · €2,14 stimati</span></div>
+          </article>
+          <article class="relative overflow-hidden rounded-[28px] bg-[#ffe4e3] p-6"><div class="absolute -right-8 -top-10 size-40 rounded-full bg-white/30"></div><p class="relative flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.12em] text-rose-600"><i data-lucide="triangle-alert" class="size-4"></i> Richiede attenzione</p><h2 class="relative mt-7 text-xl font-extrabold tracking-[-.04em]">Perdita sotto il lavello</h2><p class="relative mt-2 text-sm leading-6 text-slate-600">Segnalata da Giulia questa mattina. L’idraulico attende conferma.</p><div class="relative mt-8 flex items-center justify-between"><div class="flex -space-x-2"><span class="grid size-8 place-items-center rounded-full border-2 border-[#ffe4e3] bg-[#7657FF] text-[10px] font-bold text-white">G</span><span class="grid size-8 place-items-center rounded-full border-2 border-[#ffe4e3] bg-[#101828] text-[10px] font-bold text-white">M</span><span class="grid size-8 place-items-center rounded-full border-2 border-[#ffe4e3] bg-[#B8F45D] text-[10px] font-bold">L</span></div><a href="segnalazioni.html" class="grid size-11 place-items-center rounded-full bg-[#101828] text-white" aria-label="Apri segnalazione"><i data-lucide="arrow-right" class="size-4"></i></a></div></article>
+        </section>
+
+        <section class="grid gap-5 xl:grid-cols-[1.6fr_.8fr]">
+          <article class="surface-card rounded-[28px] p-6"><div class="flex items-start justify-between"><div><h2 class="font-extrabold">Andamento spese</h2><p class="mt-1 text-xs text-slate-400">Ultimi 6 mesi · tutte le categorie</p></div><button class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-500">6 mesi⌄</button></div><div class="mt-6 flex items-center gap-3"><b class="text-3xl tracking-[-.05em]">€1.284</b><span class="text-xs font-bold text-emerald-600">↘ 8,4%</span></div><div class="chart-bars mt-5"><span style="height:25%"></span><span style="height:35%"></span><span style="height:31%"></span><span style="height:58%"></span><span style="height:49%"></span><span style="height:76%"></span><span style="height:64%"></span><span style="height:88%"></span></div><div class="mt-2 flex justify-between px-2 text-[10px] font-bold text-slate-400"><span>FEB</span><span>MAR</span><span>APR</span><span>MAG</span><span>GIU</span><span>LUG</span></div></article>
+          <article class="rounded-[28px] bg-[#eef0ff] p-6"><div class="flex items-start justify-between"><div><h2 class="font-extrabold">In agenda</h2><p class="mt-1 text-xs text-slate-400">I prossimi appuntamenti</p></div><span class="grid size-10 place-items-center rounded-2xl bg-white text-[#7657FF]"><i data-lucide="calendar-days" class="size-4"></i></span></div><div class="mt-6 space-y-5"><div class="flex gap-3"><span class="grid size-12 place-items-center rounded-2xl bg-white text-center text-xs font-extrabold">24<br><small class="text-[8px] text-slate-400">LUG</small></span><div><b class="text-sm">Intervento idraulico</b><p class="mt-1 text-[11px] text-slate-400">10:30 – 11:30</p></div></div><div class="flex gap-3"><span class="grid size-12 place-items-center rounded-2xl bg-white text-center text-xs font-extrabold">29<br><small class="text-[8px] text-slate-400">LUG</small></span><div><b class="text-sm">Assemblea condominiale</b><p class="mt-1 text-[11px] text-slate-400">18:00 – 19:30</p></div></div></div></article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="mobile-nav"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+

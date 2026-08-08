@@ -12,7 +12,7 @@ const presentation = {
   document: { icon: ReceiptText, tone: "bg-slate-100 text-slate-600" },
 } as const;
 
-export function NotificationPanel({ open, notifications, unread, onClose }: { open: boolean; notifications: NotificationListItem[]; unread: number; onClose: () => void }) {
+export function NotificationPanel({ open, notifications, unread, onClose, onOpenNotification }: { open: boolean; notifications: NotificationListItem[]; unread: number; onClose: () => void; onOpenNotification: (notification: NotificationListItem) => void }) {
   return (
     <div className={cx("fixed inset-0 z-[70] transition-[visibility] duration-300", open ? "visible" : "invisible delay-300")} role="dialog" aria-modal="true" aria-label="Notifiche" aria-hidden={!open}>
       <button className={cx("absolute inset-0 bg-slate-950/20 backdrop-blur-sm transition-opacity duration-300", open ? "opacity-100" : "opacity-0")} tabIndex={open ? 0 : -1} onClick={onClose} aria-label="Chiudi notifiche" />
@@ -22,7 +22,7 @@ export function NotificationPanel({ open, notifications, unread, onClose }: { op
           {notifications.map((notification, index) => {
             const item = presentation[notification.type as keyof typeof presentation] ?? presentation.document;
             const Icon = item.icon;
-            return <article key={notification.id} style={{ transitionDelay: open ? `${90 + index * 45}ms` : "0ms" }} className={cx("flex w-full gap-3 rounded-2xl p-3 transition-[transform,opacity,background-color] duration-300", notification.read ? "bg-white" : "bg-slate-50", open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0")}><span className={cx("grid size-10 shrink-0 place-items-center rounded-2xl", item.tone)}><Icon className="size-4" /></span><span className="min-w-0"><b className="block text-xs">{notification.title}</b><span className="mt-1 block text-[11px] leading-5 text-slate-500">{notification.body}</span><small className="mt-1 block text-[9px] text-slate-400">{notification.createdAt}</small></span></article>;
+            return <button type="button" key={notification.id} tabIndex={open ? 0 : -1} onClick={() => onOpenNotification(notification)} style={{ transitionDelay: open ? `${90 + index * 45}ms` : "0ms" }} className={cx("motion-control flex w-full gap-3 rounded-2xl p-3 text-left transition-[transform,opacity,background-color] duration-300 hover:bg-slate-100", notification.read ? "bg-white" : "bg-slate-50", open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0")}><span className={cx("grid size-10 shrink-0 place-items-center rounded-2xl", item.tone)}><Icon className="size-4" /></span><span className="min-w-0"><b className="block text-xs">{notification.title}</b><span className="mt-1 block text-[11px] leading-5 text-slate-500">{notification.body}</span><small className="mt-1 block text-[9px] text-slate-400">{notification.createdAt}</small></span></button>;
           })}
           {!notifications.length && <p className="rounded-2xl bg-slate-50 p-6 text-center text-xs text-slate-400">Nessuna notifica.</p>}
         </div>

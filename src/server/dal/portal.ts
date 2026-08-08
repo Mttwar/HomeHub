@@ -225,7 +225,7 @@ export async function getProfile(expectedRole: MembershipRole): Promise<{ sessio
 
 export async function getPortalShellData(context: Context): Promise<PortalShellData> {
   const [notifications, unreadNotifications, openIssues, unreadMessages] = await Promise.all([
-    db.notification.findMany({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id }, orderBy: { createdAt: "desc" }, take: 20 }),
+    db.notification.findMany({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null }, orderBy: { createdAt: "desc" }, take: 20 }),
     db.notification.count({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null } }),
     db.issue.count({ where: { apartmentId: context.membership.apartmentId, status: { in: ["OPEN", "IN_PROGRESS", "SCHEDULED"] } } }),
     db.notification.count({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, type: "message", readAt: null } }),

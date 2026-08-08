@@ -6,6 +6,8 @@ import { requireMembership } from "@/server/auth/require-membership";
 import { db } from "@/server/db";
 import { assertCan } from "@/server/permissions";
 import type { PortalMutationState } from "@/features/portal/state";
+import { notificationTypesForView } from "@/features/portal/notifications";
+import type { View } from "@/types";
 
 const idSchema = z.string().cuid();
 const billStatusSchema = z.enum(["DRAFT", "DUE", "SCHEDULED", "PAID", "OVERDUE", "DISPUTED"]);
@@ -132,6 +134,33 @@ export async function markAllNotificationsRead() {
   assertCan(membership.role, "notification:update");
   await db.notification.updateMany({ where: { apartmentId: membership.apartmentId, userId: session.user.id, readAt: null }, data: { readAt: new Date() } });
   revalidatePath(`/${areaFor(membership.role)}`);
+}
+
+export async function markNotificationsForViewRead(view: View) {
+  const parsed = z.enum(["bills", "expenses", "issues", "messages", "calendar", "documents"]).safeParse(view);
+  if (!parsed.success) return { updated: 0 };
+
+  const { session, membership } = await requireMembership();
+  assertCan(membership.role, "notification:update");
+  const types = notificationTypesForView(parsed.data);
+
+  const [notifications] = await db.$transaction([
+    db.notification.updateMany({
+      where: { apartmentId: membership.apartmentId, userId: session.user.id, type: { in: types }, readAt: null },
+      data: { readAt: new Date() },
+    }),
+    ...(parsed.data === "messages"
+      ? [db.threadParticipant.updateMany({
+          where: { userId: session.user.id, thread: { apartmentId: membership.apartmentId } },
+          data: { readAt: new Date() },
+        })]
+      : []),
+  ]);
+
+  if (notifications.count > 0) {
+    revalidatePath(`/${areaFor(membership.role)}`, "layout");
+  }
+  return { updated: notifications.count };
 }
 
 export async function updateApartment(formData: FormData) {

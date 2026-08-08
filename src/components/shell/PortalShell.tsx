@@ -9,6 +9,9 @@ import { usePollingQuery } from "@/hooks/usePollingQuery";
 import { authClient } from "@/lib/auth-client";
 import type { Session, View } from "@/types";
 import type { PortalShellData } from "@/features/portal/types";
+import type { NotificationListItem } from "@/features/portal/types";
+import { markNotificationsForViewRead } from "@/features/portal/actions";
+import { notificationTypesForView, viewForNotificationType } from "@/features/portal/notifications";
 import { MobileNav } from "./MobileNav";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
@@ -41,6 +44,10 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   const previousPathname = useRef(pathname);
   const updateVersion = useRef<string | null>(null);
   const activeView = resolveActiveView(pathname);
+  const activeNotificationTypes = notificationTypesForView(activeView);
+  const visibleNotifications = data.notifications.filter((notification) => !activeNotificationTypes.includes(notification.type));
+  const visibleUnreadNotifications = Math.max(0, data.unreadNotifications - (data.notifications.length - visibleNotifications.length));
+  const visibleUnreadMessages = activeView === "messages" ? 0 : data.unreadMessages;
 
   usePollingQuery<{ version: string }>({
     url: "/api/portal/updates",
@@ -60,6 +67,14 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   useEffect(() => {
     Object.values(viewPaths).forEach((path) => router.prefetch(`/${session.role}/${path}`));
   }, [router, session.role]);
+
+  useEffect(() => {
+    if (!activeNotificationTypes.length) return;
+
+    void markNotificationsForViewRead(activeView).then(({ updated }) => {
+      if (updated > 0) router.refresh();
+    });
+  }, [activeView, activeNotificationTypes.length, router]);
 
   useEffect(() => {
     if (previousPathname.current === pathname) return;
@@ -98,6 +113,11 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
 
   const search = (value: string) => setQuery(value);
 
+  const openNotification = (notification: NotificationListItem) => {
+    const targetView = viewForNotificationType(notification.type);
+    if (targetView) navigate(targetView);
+  };
+
   const signOut = async () => {
     await authClient.signOut();
     router.replace("/login");
@@ -108,16 +128,16 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
     <>
       <RouteProgress active={isNavigating} />
       <div className="min-h-screen bg-[#f5f6fa] lg:flex">
-        <Sidebar active={activeView} session={session} openIssues={data.openIssues} unreadMessages={data.unreadMessages} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
+        <Sidebar active={activeView} session={session} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
         <div className="min-w-0 flex-1">
-          <TopBar query={query} apartmentLabel={data.apartmentLabel} unreadNotifications={data.unreadNotifications} onSearch={search} onOpenMenu={() => setMobileMenuOpen(true)} onToggleNotifications={() => setNotificationsOpen((open) => !open)} />
+          <TopBar query={query} apartmentLabel={data.apartmentLabel} unreadNotifications={visibleUnreadNotifications} onSearch={search} onOpenMenu={() => setMobileMenuOpen(true)} onToggleNotifications={() => setNotificationsOpen((open) => !open)} />
           <main className="mx-auto max-w-[1480px] px-4 pb-28 pt-5 sm:px-6 lg:px-8 lg:pb-12 lg:pt-3">
             <PageTransition>{children}</PageTransition>
           </main>
         </div>
-        <MobileNav active={activeView} openIssues={data.openIssues} unreadMessages={data.unreadMessages} onNavigate={navigate} />
+        <MobileNav active={activeView} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} onNavigate={navigate} />
       </div>
-      <NotificationPanel open={notificationsOpen} notifications={data.notifications} unread={data.unreadNotifications} onClose={() => setNotificationsOpen(false)} />
+      <NotificationPanel open={notificationsOpen} notifications={visibleNotifications} unread={visibleUnreadNotifications} onClose={() => setNotificationsOpen(false)} onOpenNotification={openNotification} />
     </>
   );
 }

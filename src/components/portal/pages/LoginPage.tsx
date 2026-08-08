@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, MessageCircle, ReceiptText, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { Field, Input } from "@/components/ui/FormField";
@@ -59,6 +60,7 @@ export function LoginPage({ onLogin }: { onLogin: (email: string, password: stri
             {error && <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-3 text-xs font-semibold text-rose-700">{error}</p>}
             <button disabled={pending} className="motion-control group flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-ink text-sm font-bold text-white shadow-[0_12px_32px_rgba(17,24,39,.18)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_38px_rgba(17,24,39,.24)] disabled:cursor-wait disabled:opacity-60">{pending ? "Accesso in corso…" : "Accedi al portale"} <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></button>
           </form>
+          <p className="mt-6 text-center text-xs text-slate-500">Non hai ancora un account? <Link href="/registrazione" className="font-bold text-violet hover:underline">Registrati</Link></p>
         </div>
       </section>
     </main>

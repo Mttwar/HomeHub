@@ -7,7 +7,6 @@ import { getAppUrl } from "@/server/app-url";
 import { setActiveApartmentCookie } from "@/server/auth/active-apartment";
 import { requireMembership } from "@/server/auth/require-membership";
 import { requireSession } from "@/server/auth/require-session";
-import { emailVerificationRequired } from "@/server/auth/policy";
 import { db } from "@/server/db";
 import { sendTransactionalEmail } from "@/server/email/resend";
 import { invitationEmail } from "@/server/email/templates";
@@ -93,10 +92,6 @@ export async function acceptInvitation(token: string, _previous: InvitationState
   if (normalizeEmail(session.user.email) !== normalizeEmail(invitation.email)) {
     return { status: "error", message: `Accedi con l’indirizzo invitato (${maskEmail(invitation.email)}).` };
   }
-  if (emailVerificationRequired && !session.user.emailVerified) {
-    return { status: "error", message: "Verifica prima il tuo indirizzo email." };
-  }
-
   try {
     await db.$transaction(async (transaction) => {
       const claimed = await transaction.invitation.updateMany({

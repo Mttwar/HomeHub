@@ -85,16 +85,14 @@ DATABASE_URL_UNPOOLED
 BETTER_AUTH_SECRET
 BETTER_AUTH_URL
 NEXT_PUBLIC_APP_URL
-RESEND_API_KEY
-AUTH_EMAIL_FROM
 ```
 
-`BETTER_AUTH_URL` e `NEXT_PUBLIC_APP_URL` devono coincidere con il dominio pubblico HTTPS. `AUTH_EMAIL_FROM` deve usare un mittente appartenente a un dominio verificato su Resend. In un deployment Vercel Production la verifica email è obbligatoria e la build fallisce intenzionalmente se la configurazione Resend manca.
+`BETTER_AUTH_URL` e `NEXT_PUBLIC_APP_URL` devono coincidere con il dominio pubblico HTTPS. `RESEND_API_KEY` e `AUTH_EMAIL_FROM` sono opzionali e servono solo per il recupero password e l'invio automatico degli inviti; senza di essi gli inviti possono essere condivisi copiando il link generato dall'app.
 
 Il percorso beta previsto è:
 
-1. proprietario: registrazione → verifica email → creazione appartamento → dashboard;
-2. inquilino: link invito → registrazione/accesso → verifica email → accettazione → dashboard;
+1. proprietario: registrazione → creazione appartamento → dashboard;
+2. inquilino: link invito → registrazione/accesso → accettazione → dashboard;
 3. account con più appartamenti: selezione esplicita da `/appartamenti`, riconvalidata dal server a ogni richiesta.
 
 ## Storage privato degli allegati

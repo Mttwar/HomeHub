@@ -7,10 +7,7 @@ import { after } from "next/server";
 import { getAppUrl, getTrustedOrigins } from "@/server/app-url";
 import { db } from "@/server/db";
 import { emailIdempotencyKey, sendTransactionalEmail } from "@/server/email/resend";
-import { passwordResetEmail, verificationEmail } from "@/server/email/templates";
-import { assertProductionAuthConfiguration, emailVerificationRequired } from "@/server/auth/policy";
-
-assertProductionAuthConfiguration();
+import { passwordResetEmail } from "@/server/email/templates";
 
 export const auth = betterAuth({
   baseURL: getAppUrl(),
@@ -18,20 +15,11 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 12,
-    requireEmailVerification: emailVerificationRequired,
+    requireEmailVerification: false,
     revokeSessionsOnPasswordReset: true,
     sendResetPassword: async ({ user, url, token }) => {
       const template = passwordResetEmail(user.name, url);
       after(() => sendTransactionalEmail({ to: user.email, subject: "Reimposta la password di CasaHub", ...template, idempotencyKey: emailIdempotencyKey("password-reset", token) }));
-    },
-  },
-  emailVerification: {
-    sendOnSignUp: emailVerificationRequired,
-    sendOnSignIn: emailVerificationRequired,
-    autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, url, token }) => {
-      const template = verificationEmail(user.name, url);
-      after(() => sendTransactionalEmail({ to: user.email, subject: "Verifica il tuo account CasaHub", ...template, idempotencyKey: emailIdempotencyKey("email-verification", token) }));
     },
   },
   rateLimit: {

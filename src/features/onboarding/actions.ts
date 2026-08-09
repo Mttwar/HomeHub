@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { setActiveApartmentCookie } from "@/server/auth/active-apartment";
 import { requireSession } from "@/server/auth/require-session";
-import { emailVerificationRequired } from "@/server/auth/policy";
 import { db } from "@/server/db";
 
 export type OnboardingState = {
@@ -34,9 +33,6 @@ export async function createApartment(_previous: OnboardingState, formData: Form
   }
 
   const session = await requireSession("/onboarding");
-  if (emailVerificationRequired && !session.user.emailVerified) {
-    return { status: "error", message: "Verifica l’indirizzo email prima di creare un appartamento." };
-  }
 
   let apartmentId: string;
   try {

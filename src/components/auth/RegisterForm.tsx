@@ -14,10 +14,7 @@ export function RegisterForm({ callbackURL = "/onboarding" }: { callbackURL?: st
       return result.error.message ?? "Registrazione non riuscita";
     }
 
-    const destination = result.data.token
-      ? callbackURL
-      : `/verifica-email?email=${encodeURIComponent(email)}&callbackURL=${encodeURIComponent(callbackURL)}`;
-    router.replace(destination);
+    router.replace(callbackURL);
     router.refresh();
   };
 

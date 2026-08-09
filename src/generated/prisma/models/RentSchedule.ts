@@ -519,14 +519,6 @@ export type RentScheduleUncheckedUpdateManyWithoutApartmentNestedInput = {
   deleteMany?: Prisma.RentScheduleScalarWhereInput | Prisma.RentScheduleScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type RentScheduleCreateWithoutApartmentInput = {
   id?: string
   label: string

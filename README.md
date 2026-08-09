@@ -53,6 +53,11 @@ npm run dev
 ## Funzioni operative
 
 - login reale e logout con cookie di sessione;
+- registrazione self-service con onboarding: chi crea un appartamento riceve dal server la membership `OWNER`;
+- inviti monouso per gli inquilini, con token salvato solo come hash, scadenza, revoca e accettazione vincolata all'email;
+- selezione dell'appartamento attivo per account con più membership;
+- verifica email e recupero password tramite email transazionali Resend;
+- rate limit Better Auth persistito su PostgreSQL, adatto a più istanze serverless;
 - route proprietario/inquilino protette e ruolo verificato dal database;
 - isolamento delle query tramite `apartmentId` della membership attiva;
 - pagine separate per dashboard, bollette, spese, segnalazioni, messaggi, calendario, documenti e profilo;
@@ -66,7 +71,31 @@ npm run dev
 - audit attività consultabile dal profilo proprietario;
 - layout responsive desktop/mobile, ricerca e pannello notifiche.
 
-Inviti via email, notifiche realtime push e integrazioni esterne restano moduli successivi. La TODO aggiornata, inclusi i confini con i servizi esterni, è in `TODO_IMPLEMENTAZIONE.md`.
+Notifiche realtime push e integrazioni esterne restano moduli successivi. La TODO aggiornata, inclusi i confini con i servizi esterni, è in `TODO_IMPLEMENTAZIONE.md`.
+
+## Preparazione della produzione
+
+Gli account seed sono esclusivamente locali: in produzione ogni beta tester si registra e crea il proprio appartamento dall'onboarding. Non eseguire `db:seed` sul database di produzione.
+
+Configura su Vercel, con scope `Production`:
+
+```text
+DATABASE_URL
+DATABASE_URL_UNPOOLED
+BETTER_AUTH_SECRET
+BETTER_AUTH_URL
+NEXT_PUBLIC_APP_URL
+RESEND_API_KEY
+AUTH_EMAIL_FROM
+```
+
+`BETTER_AUTH_URL` e `NEXT_PUBLIC_APP_URL` devono coincidere con il dominio pubblico HTTPS. `AUTH_EMAIL_FROM` deve usare un mittente appartenente a un dominio verificato su Resend. In un deployment Vercel Production la verifica email è obbligatoria e la build fallisce intenzionalmente se la configurazione Resend manca.
+
+Il percorso beta previsto è:
+
+1. proprietario: registrazione → verifica email → creazione appartamento → dashboard;
+2. inquilino: link invito → registrazione/accesso → verifica email → accettazione → dashboard;
+3. account con più appartamenti: selezione esplicita da `/appartamenti`, riconvalidata dal server a ogni richiesta.
 
 ## Storage privato degli allegati
 

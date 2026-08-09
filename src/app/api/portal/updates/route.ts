@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { auth } from "@/server/auth/auth";
+import { resolveActiveMembership } from "@/server/auth/active-apartment";
 import { db } from "@/server/db";
 
 export const dynamic = "force-dynamic";
@@ -9,11 +10,7 @@ export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) return new NextResponse("Non autenticato", { status: 401 });
 
-  const membership = await db.apartmentMembership.findFirst({
-    where: { userId: session.user.id, status: "ACTIVE" },
-    orderBy: { createdAt: "asc" },
-    select: { apartmentId: true },
-  });
+  const { membership } = await resolveActiveMembership(session.user.id);
   if (!membership) return new NextResponse("Accesso negato", { status: 403 });
 
   const [latestAudit, latestNotification, unreadNotifications] = await Promise.all([

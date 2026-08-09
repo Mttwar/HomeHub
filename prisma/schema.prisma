@@ -140,8 +140,16 @@ model Verification {
   @@index([identifier])
 }
 
+model RateLimit {
+  id          String @id
+  key         String @unique
+  count       Int
+  lastRequest BigInt
+}
+
 model Apartment {
   id          String   @id @default(cuid())
+  creationKey String?  @unique
   name        String
   addressLine String
   city        String
@@ -190,12 +198,16 @@ model Invitation {
   status      InvitationStatus @default(PENDING)
   tokenHash   String           @unique
   expiresAt   DateTime
+  acceptedAt  DateTime?
   invitedById String
   createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
   apartment   Apartment        @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
   invitedBy   User             @relation("InvitationSender", fields: [invitedById], references: [id], onDelete: Cascade)
 
   @@index([apartmentId, email])
+  @@index([apartmentId, status])
+  @@index([email, status, expiresAt])
 }
 
 model Bill {

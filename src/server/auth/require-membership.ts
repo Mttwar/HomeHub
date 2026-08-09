@@ -1,26 +1,20 @@
 import "server-only";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { MembershipRole } from "@/generated/prisma/enums";
-import { auth } from "@/server/auth/auth";
-import { db } from "@/server/db";
+import { resolveActiveMembership } from "@/server/auth/active-apartment";
+import { requireSession } from "@/server/auth/require-session";
 
 export async function requireMembership(expectedRole?: MembershipRole) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await requireSession();
+  const { membership, memberships } = await resolveActiveMembership(session.user.id);
 
-  if (!session?.user) {
-    redirect("/login");
+  if (!memberships.length) {
+    redirect("/onboarding");
   }
 
-  const membership = await db.apartmentMembership.findFirst({
-    where: { userId: session.user.id, status: "ACTIVE" },
-    include: { apartment: true },
-    orderBy: { createdAt: "asc" },
-  });
-
   if (!membership) {
-    redirect("/accesso-negato");
+    redirect("/appartamenti");
   }
 
   if (expectedRole && membership.role !== expectedRole) {

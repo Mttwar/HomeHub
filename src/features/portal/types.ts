@@ -100,6 +100,7 @@ export type DashboardData = {
 export type ProfileData = {
   apartment: { name: string; address: string; city: string };
   members: Array<{ id: string; name: string; role: "Proprietario" | "Inquilino"; status: string; initial: string }>;
+  invitations: Array<{ id: string; email: string; expiresAt: string }>;
   auditEvents: Array<{ id: string; action: string; entityType: string; actor: string; date: string }>;
 };
 export type PortalShellData = {

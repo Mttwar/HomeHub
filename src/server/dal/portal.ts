@@ -208,8 +208,9 @@ export async function getDashboard(expectedRole: MembershipRole): Promise<Dashbo
 
 export async function getProfile(expectedRole: MembershipRole): Promise<{ session: Context["session"]; role: MembershipRole; data: ProfileData }> {
   const context = await requireMembership(expectedRole);
-  const [members, auditEvents] = await Promise.all([
+  const [members, invitations, auditEvents] = await Promise.all([
     db.apartmentMembership.findMany({ where: { apartmentId: context.membership.apartmentId, status: { in: ["ACTIVE", "SUSPENDED"] } }, include: { user: { select: { name: true } } }, orderBy: { createdAt: "asc" } }),
+    context.membership.role === "OWNER" ? db.invitation.findMany({ where: { apartmentId: context.membership.apartmentId, status: "PENDING", expiresAt: { gt: new Date() } }, orderBy: { createdAt: "desc" }, take: 20 }) : Promise.resolve([]),
     context.membership.role === "OWNER" ? db.auditEvent.findMany({ where: { apartmentId: context.membership.apartmentId }, include: { actor: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 30 }) : Promise.resolve([]),
   ]);
   return {
@@ -218,6 +219,7 @@ export async function getProfile(expectedRole: MembershipRole): Promise<{ sessio
     data: {
       apartment: { name: context.membership.apartment.name, address: context.membership.apartment.addressLine, city: context.membership.apartment.city },
       members: members.map((member) => ({ id: member.id, name: member.user.name, role: member.role === "OWNER" ? "Proprietario" : "Inquilino", status: member.status, initial: member.user.name.slice(0, 1).toUpperCase() })),
+      invitations: invitations.map((invitation) => ({ id: invitation.id, email: invitation.email, expiresAt: dateFormatter.format(invitation.expiresAt) })),
       auditEvents: auditEvents.map((event) => ({ id: event.id, action: event.action, entityType: event.entityType, actor: event.actor.name, date: messageTimeFormatter.format(event.createdAt) })),
     },
   };

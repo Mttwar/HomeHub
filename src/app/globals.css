@@ -150,6 +150,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transition-duration: 90ms;
 }
 
+.apartment-flow-enter {
+  animation: apartment-flow-fade 420ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.apartment-flow-header {
+  animation: apartment-flow-header 520ms 40ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.apartment-flow-panel {
+  animation: apartment-flow-panel 620ms 90ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.loading-modal-backdrop { animation: backdrop-enter 180ms ease-out both; }
+.loading-modal-surface { animation: loading-modal-enter 340ms cubic-bezier(.22, 1, .36, 1) both; }
+.loading-modal-progress { animation: loading-modal-progress 1.15s cubic-bezier(.65, 0, .35, 1) infinite; }
+
 .ui-card {
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -224,6 +240,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes apartment-flow-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes apartment-flow-header {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes apartment-flow-panel {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes loading-modal-enter {
+  from { opacity: 0; transform: translateY(14px) scale(.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes loading-modal-progress {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(310%); }
+}
+
 @keyframes toast-lifecycle {
   0% { opacity: 0; transform: translate(-50%, 12px) scale(.96); }
   10%, 84% { opacity: 1; transform: translate(-50%, 0) scale(1); }
@@ -252,6 +293,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .portal-page-transition > * > *,
   .modal-backdrop-enter,
   .modal-surface-enter,
+  .apartment-flow-enter,
+  .apartment-flow-header,
+  .apartment-flow-panel,
+  .loading-modal-backdrop,
+  .loading-modal-surface,
+  .loading-modal-progress,
   .portal-toast,
   .portal-toast-icon {
     animation: none !important;

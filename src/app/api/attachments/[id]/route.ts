@@ -2,16 +2,14 @@ import { get } from "@vercel/blob";
 import { headers } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 import { auth } from "@/server/auth/auth";
+import { resolveActiveMembership } from "@/server/auth/active-apartment";
 import { db } from "@/server/db";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) return new NextResponse("Non autenticato", { status: 401 });
 
-  const membership = await db.apartmentMembership.findFirst({
-    where: { userId: session.user.id, status: "ACTIVE" },
-    orderBy: { createdAt: "asc" },
-  });
+  const { membership } = await resolveActiveMembership(session.user.id);
   if (!membership) return new NextResponse("Accesso negato", { status: 403 });
 
   const { id } = await params;

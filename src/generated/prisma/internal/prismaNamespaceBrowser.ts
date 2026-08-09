@@ -55,6 +55,7 @@ export const ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
+  RateLimit: 'RateLimit',
   Apartment: 'Apartment',
   ApartmentMembership: 'ApartmentMembership',
   Invitation: 'Invitation',
@@ -151,8 +152,19 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const RateLimitScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  count: 'count',
+  lastRequest: 'lastRequest'
+} as const
+
+export type RateLimitScalarFieldEnum = (typeof RateLimitScalarFieldEnum)[keyof typeof RateLimitScalarFieldEnum]
+
+
 export const ApartmentScalarFieldEnum = {
   id: 'id',
+  creationKey: 'creationKey',
   name: 'name',
   addressLine: 'addressLine',
   city: 'city',
@@ -188,8 +200,10 @@ export const InvitationScalarFieldEnum = {
   status: 'status',
   tokenHash: 'tokenHash',
   expiresAt: 'expiresAt',
+  acceptedAt: 'acceptedAt',
   invitedById: 'invitedById',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]

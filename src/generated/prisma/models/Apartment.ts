@@ -26,6 +26,7 @@ export type AggregateApartment = {
 
 export type ApartmentMinAggregateOutputType = {
   id: string | null
+  creationKey: string | null
   name: string | null
   addressLine: string | null
   city: string | null
@@ -39,6 +40,7 @@ export type ApartmentMinAggregateOutputType = {
 
 export type ApartmentMaxAggregateOutputType = {
   id: string | null
+  creationKey: string | null
   name: string | null
   addressLine: string | null
   city: string | null
@@ -52,6 +54,7 @@ export type ApartmentMaxAggregateOutputType = {
 
 export type ApartmentCountAggregateOutputType = {
   id: number
+  creationKey: number
   name: number
   addressLine: number
   city: number
@@ -67,6 +70,7 @@ export type ApartmentCountAggregateOutputType = {
 
 export type ApartmentMinAggregateInputType = {
   id?: true
+  creationKey?: true
   name?: true
   addressLine?: true
   city?: true
@@ -80,6 +84,7 @@ export type ApartmentMinAggregateInputType = {
 
 export type ApartmentMaxAggregateInputType = {
   id?: true
+  creationKey?: true
   name?: true
   addressLine?: true
   city?: true
@@ -93,6 +98,7 @@ export type ApartmentMaxAggregateInputType = {
 
 export type ApartmentCountAggregateInputType = {
   id?: true
+  creationKey?: true
   name?: true
   addressLine?: true
   city?: true
@@ -179,6 +185,7 @@ export type ApartmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type ApartmentGroupByOutputType = {
   id: string
+  creationKey: string | null
   name: string
   addressLine: string
   city: string
@@ -213,6 +220,7 @@ export type ApartmentWhereInput = {
   OR?: Prisma.ApartmentWhereInput[]
   NOT?: Prisma.ApartmentWhereInput | Prisma.ApartmentWhereInput[]
   id?: Prisma.StringFilter<"Apartment"> | string
+  creationKey?: Prisma.StringNullableFilter<"Apartment"> | string | null
   name?: Prisma.StringFilter<"Apartment"> | string
   addressLine?: Prisma.StringFilter<"Apartment"> | string
   city?: Prisma.StringFilter<"Apartment"> | string
@@ -239,6 +247,7 @@ export type ApartmentWhereInput = {
 
 export type ApartmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  creationKey?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   addressLine?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -265,6 +274,7 @@ export type ApartmentOrderByWithRelationInput = {
 
 export type ApartmentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  creationKey?: string
   AND?: Prisma.ApartmentWhereInput | Prisma.ApartmentWhereInput[]
   OR?: Prisma.ApartmentWhereInput[]
   NOT?: Prisma.ApartmentWhereInput | Prisma.ApartmentWhereInput[]
@@ -290,10 +300,11 @@ export type ApartmentWhereUniqueInput = Prisma.AtLeast<{
   utilityConnections?: Prisma.UtilityConnectionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
-}, "id">
+}, "id" | "creationKey">
 
 export type ApartmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  creationKey?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   addressLine?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -313,6 +324,7 @@ export type ApartmentScalarWhereWithAggregatesInput = {
   OR?: Prisma.ApartmentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ApartmentScalarWhereWithAggregatesInput | Prisma.ApartmentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Apartment"> | string
+  creationKey?: Prisma.StringNullableWithAggregatesFilter<"Apartment"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Apartment"> | string
   addressLine?: Prisma.StringWithAggregatesFilter<"Apartment"> | string
   city?: Prisma.StringWithAggregatesFilter<"Apartment"> | string
@@ -326,6 +338,7 @@ export type ApartmentScalarWhereWithAggregatesInput = {
 
 export type ApartmentCreateInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -352,6 +365,7 @@ export type ApartmentCreateInput = {
 
 export type ApartmentUncheckedCreateInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -378,6 +392,7 @@ export type ApartmentUncheckedCreateInput = {
 
 export type ApartmentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -404,6 +419,7 @@ export type ApartmentUpdateInput = {
 
 export type ApartmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -430,6 +446,7 @@ export type ApartmentUncheckedUpdateInput = {
 
 export type ApartmentCreateManyInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -443,6 +460,7 @@ export type ApartmentCreateManyInput = {
 
 export type ApartmentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -456,6 +474,7 @@ export type ApartmentUpdateManyMutationInput = {
 
 export type ApartmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -469,6 +488,7 @@ export type ApartmentUncheckedUpdateManyInput = {
 
 export type ApartmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  creationKey?: Prisma.SortOrder
   name?: Prisma.SortOrder
   addressLine?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -482,6 +502,7 @@ export type ApartmentCountOrderByAggregateInput = {
 
 export type ApartmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  creationKey?: Prisma.SortOrder
   name?: Prisma.SortOrder
   addressLine?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -495,6 +516,7 @@ export type ApartmentMaxOrderByAggregateInput = {
 
 export type ApartmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  creationKey?: Prisma.SortOrder
   name?: Prisma.SortOrder
   addressLine?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -695,6 +717,7 @@ export type ApartmentUpdateOneRequiredWithoutAuditEventsNestedInput = {
 
 export type ApartmentCreateWithoutMembershipsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -720,6 +743,7 @@ export type ApartmentCreateWithoutMembershipsInput = {
 
 export type ApartmentUncheckedCreateWithoutMembershipsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -761,6 +785,7 @@ export type ApartmentUpdateToOneWithWhereWithoutMembershipsInput = {
 
 export type ApartmentUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -786,6 +811,7 @@ export type ApartmentUpdateWithoutMembershipsInput = {
 
 export type ApartmentUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -811,6 +837,7 @@ export type ApartmentUncheckedUpdateWithoutMembershipsInput = {
 
 export type ApartmentCreateWithoutInvitationsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -836,6 +863,7 @@ export type ApartmentCreateWithoutInvitationsInput = {
 
 export type ApartmentUncheckedCreateWithoutInvitationsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -877,6 +905,7 @@ export type ApartmentUpdateToOneWithWhereWithoutInvitationsInput = {
 
 export type ApartmentUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -902,6 +931,7 @@ export type ApartmentUpdateWithoutInvitationsInput = {
 
 export type ApartmentUncheckedUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -927,6 +957,7 @@ export type ApartmentUncheckedUpdateWithoutInvitationsInput = {
 
 export type ApartmentCreateWithoutBillsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -952,6 +983,7 @@ export type ApartmentCreateWithoutBillsInput = {
 
 export type ApartmentUncheckedCreateWithoutBillsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -993,6 +1025,7 @@ export type ApartmentUpdateToOneWithWhereWithoutBillsInput = {
 
 export type ApartmentUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1018,6 +1051,7 @@ export type ApartmentUpdateWithoutBillsInput = {
 
 export type ApartmentUncheckedUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1043,6 +1077,7 @@ export type ApartmentUncheckedUpdateWithoutBillsInput = {
 
 export type ApartmentCreateWithoutExpensesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1068,6 +1103,7 @@ export type ApartmentCreateWithoutExpensesInput = {
 
 export type ApartmentUncheckedCreateWithoutExpensesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1109,6 +1145,7 @@ export type ApartmentUpdateToOneWithWhereWithoutExpensesInput = {
 
 export type ApartmentUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1134,6 +1171,7 @@ export type ApartmentUpdateWithoutExpensesInput = {
 
 export type ApartmentUncheckedUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1159,6 +1197,7 @@ export type ApartmentUncheckedUpdateWithoutExpensesInput = {
 
 export type ApartmentCreateWithoutRentSchedulesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1184,6 +1223,7 @@ export type ApartmentCreateWithoutRentSchedulesInput = {
 
 export type ApartmentUncheckedCreateWithoutRentSchedulesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1225,6 +1265,7 @@ export type ApartmentUpdateToOneWithWhereWithoutRentSchedulesInput = {
 
 export type ApartmentUpdateWithoutRentSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1250,6 +1291,7 @@ export type ApartmentUpdateWithoutRentSchedulesInput = {
 
 export type ApartmentUncheckedUpdateWithoutRentSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1275,6 +1317,7 @@ export type ApartmentUncheckedUpdateWithoutRentSchedulesInput = {
 
 export type ApartmentCreateWithoutIssuesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1300,6 +1343,7 @@ export type ApartmentCreateWithoutIssuesInput = {
 
 export type ApartmentUncheckedCreateWithoutIssuesInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1341,6 +1385,7 @@ export type ApartmentUpdateToOneWithWhereWithoutIssuesInput = {
 
 export type ApartmentUpdateWithoutIssuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1366,6 +1411,7 @@ export type ApartmentUpdateWithoutIssuesInput = {
 
 export type ApartmentUncheckedUpdateWithoutIssuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1391,6 +1437,7 @@ export type ApartmentUncheckedUpdateWithoutIssuesInput = {
 
 export type ApartmentCreateWithoutMessageThreadsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1416,6 +1463,7 @@ export type ApartmentCreateWithoutMessageThreadsInput = {
 
 export type ApartmentUncheckedCreateWithoutMessageThreadsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1457,6 +1505,7 @@ export type ApartmentUpdateToOneWithWhereWithoutMessageThreadsInput = {
 
 export type ApartmentUpdateWithoutMessageThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1482,6 +1531,7 @@ export type ApartmentUpdateWithoutMessageThreadsInput = {
 
 export type ApartmentUncheckedUpdateWithoutMessageThreadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1507,6 +1557,7 @@ export type ApartmentUncheckedUpdateWithoutMessageThreadsInput = {
 
 export type ApartmentCreateWithoutCalendarEventsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1532,6 +1583,7 @@ export type ApartmentCreateWithoutCalendarEventsInput = {
 
 export type ApartmentUncheckedCreateWithoutCalendarEventsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1573,6 +1625,7 @@ export type ApartmentUpdateToOneWithWhereWithoutCalendarEventsInput = {
 
 export type ApartmentUpdateWithoutCalendarEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1598,6 +1651,7 @@ export type ApartmentUpdateWithoutCalendarEventsInput = {
 
 export type ApartmentUncheckedUpdateWithoutCalendarEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1623,6 +1677,7 @@ export type ApartmentUncheckedUpdateWithoutCalendarEventsInput = {
 
 export type ApartmentCreateWithoutDocumentsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1648,6 +1703,7 @@ export type ApartmentCreateWithoutDocumentsInput = {
 
 export type ApartmentUncheckedCreateWithoutDocumentsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1689,6 +1745,7 @@ export type ApartmentUpdateToOneWithWhereWithoutDocumentsInput = {
 
 export type ApartmentUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1714,6 +1771,7 @@ export type ApartmentUpdateWithoutDocumentsInput = {
 
 export type ApartmentUncheckedUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1739,6 +1797,7 @@ export type ApartmentUncheckedUpdateWithoutDocumentsInput = {
 
 export type ApartmentCreateWithoutAttachmentsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1764,6 +1823,7 @@ export type ApartmentCreateWithoutAttachmentsInput = {
 
 export type ApartmentUncheckedCreateWithoutAttachmentsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1805,6 +1865,7 @@ export type ApartmentUpdateToOneWithWhereWithoutAttachmentsInput = {
 
 export type ApartmentUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1830,6 +1891,7 @@ export type ApartmentUpdateWithoutAttachmentsInput = {
 
 export type ApartmentUncheckedUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1855,6 +1917,7 @@ export type ApartmentUncheckedUpdateWithoutAttachmentsInput = {
 
 export type ApartmentCreateWithoutUtilityConnectionsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1880,6 +1943,7 @@ export type ApartmentCreateWithoutUtilityConnectionsInput = {
 
 export type ApartmentUncheckedCreateWithoutUtilityConnectionsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1921,6 +1985,7 @@ export type ApartmentUpdateToOneWithWhereWithoutUtilityConnectionsInput = {
 
 export type ApartmentUpdateWithoutUtilityConnectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1946,6 +2011,7 @@ export type ApartmentUpdateWithoutUtilityConnectionsInput = {
 
 export type ApartmentUncheckedUpdateWithoutUtilityConnectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1971,6 +2037,7 @@ export type ApartmentUncheckedUpdateWithoutUtilityConnectionsInput = {
 
 export type ApartmentCreateWithoutNotificationsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -1996,6 +2063,7 @@ export type ApartmentCreateWithoutNotificationsInput = {
 
 export type ApartmentUncheckedCreateWithoutNotificationsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -2037,6 +2105,7 @@ export type ApartmentUpdateToOneWithWhereWithoutNotificationsInput = {
 
 export type ApartmentUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2062,6 +2131,7 @@ export type ApartmentUpdateWithoutNotificationsInput = {
 
 export type ApartmentUncheckedUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2087,6 +2157,7 @@ export type ApartmentUncheckedUpdateWithoutNotificationsInput = {
 
 export type ApartmentCreateWithoutAuditEventsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -2112,6 +2183,7 @@ export type ApartmentCreateWithoutAuditEventsInput = {
 
 export type ApartmentUncheckedCreateWithoutAuditEventsInput = {
   id?: string
+  creationKey?: string | null
   name: string
   addressLine: string
   city: string
@@ -2153,6 +2225,7 @@ export type ApartmentUpdateToOneWithWhereWithoutAuditEventsInput = {
 
 export type ApartmentUpdateWithoutAuditEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2178,6 +2251,7 @@ export type ApartmentUpdateWithoutAuditEventsInput = {
 
 export type ApartmentUncheckedUpdateWithoutAuditEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2342,6 +2416,7 @@ export type ApartmentCountOutputTypeCountAuditEventsArgs<ExtArgs extends runtime
 
 export type ApartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  creationKey?: boolean
   name?: boolean
   addressLine?: boolean
   city?: boolean
@@ -2369,6 +2444,7 @@ export type ApartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type ApartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  creationKey?: boolean
   name?: boolean
   addressLine?: boolean
   city?: boolean
@@ -2382,6 +2458,7 @@ export type ApartmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type ApartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  creationKey?: boolean
   name?: boolean
   addressLine?: boolean
   city?: boolean
@@ -2395,6 +2472,7 @@ export type ApartmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type ApartmentSelectScalar = {
   id?: boolean
+  creationKey?: boolean
   name?: boolean
   addressLine?: boolean
   city?: boolean
@@ -2406,7 +2484,7 @@ export type ApartmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ApartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "addressLine" | "city" | "postalCode" | "countryCode" | "timezone" | "currency" | "createdAt" | "updatedAt", ExtArgs["result"]["apartment"]>
+export type ApartmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creationKey" | "name" | "addressLine" | "city" | "postalCode" | "countryCode" | "timezone" | "currency" | "createdAt" | "updatedAt", ExtArgs["result"]["apartment"]>
 export type ApartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.Apartment$membershipsArgs<ExtArgs>
   invitations?: boolean | Prisma.Apartment$invitationsArgs<ExtArgs>
@@ -2445,6 +2523,7 @@ export type $ApartmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    creationKey: string | null
     name: string
     addressLine: string
     city: string
@@ -2891,6 +2970,7 @@ export interface Prisma__ApartmentClient<T, Null = never, ExtArgs extends runtim
  */
 export interface ApartmentFieldRefs {
   readonly id: Prisma.FieldRef<"Apartment", 'String'>
+  readonly creationKey: Prisma.FieldRef<"Apartment", 'String'>
   readonly name: Prisma.FieldRef<"Apartment", 'String'>
   readonly addressLine: Prisma.FieldRef<"Apartment", 'String'>
   readonly city: Prisma.FieldRef<"Apartment", 'String'>

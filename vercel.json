@@ -3,6 +3,6 @@
   "buildCommand": "pnpm db:deploy && pnpm build",
   "regions": ["fra1"],
   "crons": [
-    { "path": "/api/cron/google-integrations", "schedule": "*/5 * * * *" }
+    { "path": "/api/cron/google-integrations", "schedule": "*/6 * * * *" }
   ]
 }

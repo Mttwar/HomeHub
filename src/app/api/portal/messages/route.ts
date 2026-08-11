@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   if (!membership) return new NextResponse("Accesso negato", { status: 403 });
 
   const rawCounterpartId = request.nextUrl.searchParams.get("counterpartId");
-  const parsedCounterpartId = rawCounterpartId ? z.string().cuid().safeParse(rawCounterpartId) : null;
+  const parsedCounterpartId = rawCounterpartId ? z.string().trim().min(1).max(128).safeParse(rawCounterpartId) : null;
   if (parsedCounterpartId && !parsedCounterpartId.success) {
     return new NextResponse("Conversazione non valida", { status: 400 });
   }

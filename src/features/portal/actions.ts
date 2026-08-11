@@ -12,6 +12,7 @@ import type { View } from "@/types";
 import { enqueueCalendarEventJobs, processPendingIntegrationJobs } from "@/server/google/outbox";
 
 const idSchema = z.string().cuid();
+const userIdSchema = z.string().trim().min(1).max(128);
 const billStatusSchema = z.enum(["DRAFT", "DUE", "SCHEDULED", "PAID", "OVERDUE", "DISPUTED"]);
 const expenseStatusSchema = z.enum(["EXPECTED", "PARTIALLY_PAID", "PAID", "OVERDUE"]);
 const issueStatusSchema = z.enum(["OPEN", "IN_PROGRESS", "SCHEDULED", "RESOLVED", "CLOSED"]);
@@ -154,7 +155,7 @@ export async function sendMessage(_previous: PortalMutationState, formData: Form
   const parsed = z.object({
     body: z.string().trim().min(1, "Scrivi un messaggio").max(4000),
     threadId: z.union([idSchema, z.literal("")]),
-    counterpartId: idSchema,
+    counterpartId: userIdSchema,
   }).safeParse({ body: formData.get("body"), threadId: formData.get("threadId") ?? "", counterpartId: formData.get("counterpartId") });
   if (!parsed.success) return { status: "error", message: parsed.error.issues[0]?.message ?? "Messaggio non valido" };
   const { session, membership } = await requireMembership();

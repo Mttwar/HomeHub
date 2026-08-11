@@ -1,8 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm db:deploy && pnpm build",
-  "regions": ["fra1"],
-  "crons": [
-    { "path": "/api/cron/google-integrations", "schedule": "*/70 * * * *" }
-  ]
+  "regions": ["fra1"]
+  
 }

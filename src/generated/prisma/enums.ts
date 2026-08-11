@@ -104,3 +104,40 @@ export const ParticipantStatus = {
 } as const
 
 export type ParticipantStatus = (typeof ParticipantStatus)[keyof typeof ParticipantStatus]
+
+
+export const CalendarEventStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CalendarEventStatus = (typeof CalendarEventStatus)[keyof typeof CalendarEventStatus]
+
+
+export const IntegrationJobType = {
+  CALENDAR_UPSERT: 'CALENDAR_UPSERT',
+  CALENDAR_DELETE: 'CALENDAR_DELETE',
+  GMAIL_SEND: 'GMAIL_SEND'
+} as const
+
+export type IntegrationJobType = (typeof IntegrationJobType)[keyof typeof IntegrationJobType]
+
+
+export const IntegrationJobStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type IntegrationJobStatus = (typeof IntegrationJobStatus)[keyof typeof IntegrationJobStatus]
+
+
+export const EmailDeliveryStatus = {
+  PENDING: 'PENDING',
+  SENDING: 'SENDING',
+  SENT: 'SENT',
+  FAILED: 'FAILED'
+} as const
+
+export type EmailDeliveryStatus = (typeof EmailDeliveryStatus)[keyof typeof EmailDeliveryStatus]

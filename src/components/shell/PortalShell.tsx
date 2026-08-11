@@ -1,10 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PageTransition, RouteProgress } from "@/components/motion/PageTransition";
-import { NotificationPanel } from "@/components/overlays/NotificationPanel";
 import { usePollingQuery } from "@/hooks/usePollingQuery";
 import { authClient } from "@/lib/auth-client";
 import type { Session, View } from "@/types";
@@ -15,6 +15,11 @@ import { notificationTypesForView, viewForNotificationType } from "@/features/po
 import { MobileNav } from "./MobileNav";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
+
+const NotificationPanel = dynamic(
+  () => import("@/components/overlays/NotificationPanel").then((module) => module.NotificationPanel),
+  { ssr: false },
+);
 
 const viewPaths: Record<View, string> = {
   dashboard: "dashboard",
@@ -39,11 +44,14 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   const searchParams = useSearchParams();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notificationsMounted, setNotificationsMounted] = useState(false);
+  const [pendingView, setPendingView] = useState<View | null>(null);
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
-  const [isNavigating, startNavigation] = useTransition();
+  const [isNavigating, setIsNavigating] = useState(false);
   const previousPathname = useRef(pathname);
   const updateVersion = useRef<string | null>(null);
   const activeView = resolveActiveView(pathname);
+  const displayedActiveView = pendingView ?? activeView;
   const activeNotificationTypes = notificationTypesForView(activeView);
   const visibleNotifications = data.notifications.filter((notification) => !activeNotificationTypes.includes(notification.type));
   const visibleUnreadNotifications = Math.max(0, data.unreadNotifications - (data.notifications.length - visibleNotifications.length));
@@ -51,7 +59,7 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
 
   usePollingQuery<{ version: string }>({
     url: "/api/portal/updates",
-    intervalMs: 2000,
+    intervalMs: 15000,
     onData: ({ version }) => {
       if (updateVersion.current === null) {
         updateVersion.current = version;
@@ -65,20 +73,38 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   });
 
   useEffect(() => {
-    Object.values(viewPaths).forEach((path) => router.prefetch(`/${session.role}/${path}`));
-  }, [router, session.role]);
+    if (!activeNotificationTypes.length) return;
+    void markNotificationsForViewRead(activeView);
+  }, [activeView, activeNotificationTypes.length, router]);
 
   useEffect(() => {
-    if (!activeNotificationTypes.length) return;
+    const paths = Object.values(viewPaths).map((path) => `/${session.role}/${path}`);
+    let index = 0;
+    let timer: number | undefined;
+    let cancelled = false;
 
-    void markNotificationsForViewRead(activeView).then(({ updated }) => {
-      if (updated > 0) router.refresh();
-    });
-  }, [activeView, activeNotificationTypes.length, router]);
+    const warmNextRoute = () => {
+      if (cancelled || index >= paths.length) return;
+      const nextPath = paths[index];
+      if (!nextPath) return;
+      router.prefetch(nextPath);
+      index += 1;
+      timer = window.setTimeout(warmNextRoute, 300);
+    };
+
+    timer = window.setTimeout(warmNextRoute, 450);
+
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [router, session.role]);
 
   useEffect(() => {
     if (previousPathname.current === pathname) return;
     previousPathname.current = pathname;
+    setPendingView(null);
+    setIsNavigating(false);
     setQuery(searchParams.get("q") ?? "");
     setNotificationsOpen(false);
   }, [pathname, searchParams]);
@@ -93,9 +119,7 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
       else params.delete("q");
       const targetPath = query.trim() ? `/${session.role}/ricerca` : pathname;
 
-      startNavigation(() => {
-        router.replace(`${targetPath}${params.size ? `?${params.toString()}` : ""}`, { scroll: false });
-      });
+      router.replace(`${targetPath}${params.size ? `?${params.toString()}` : ""}`, { scroll: false });
     }, 280);
 
     return () => window.clearTimeout(timer);
@@ -107,8 +131,19 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
     setNotificationsOpen(false);
     if (target === pathname) return;
 
+    setPendingView(view);
+    setIsNavigating(true);
     setQuery("");
-    startNavigation(() => router.push(target));
+    router.push(target);
+  };
+
+  const prefetch = (view: View) => {
+    router.prefetch(`/${session.role}/${viewPaths[view]}`);
+  };
+
+  const toggleNotifications = () => {
+    setNotificationsMounted(true);
+    setNotificationsOpen((open) => !open);
   };
 
   const search = (value: string) => setQuery(value);
@@ -127,17 +162,17 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   return (
     <>
       <RouteProgress active={isNavigating} />
-      <div className="min-h-screen bg-[#f5f6fa] lg:flex">
-        <Sidebar active={activeView} session={session} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
+      <div className="app-shell min-h-screen lg:flex">
+        <Sidebar active={displayedActiveView} session={session} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onPrefetch={prefetch} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
         <div className="min-w-0 flex-1">
-          <TopBar query={query} apartmentLabel={data.apartmentLabel} unreadNotifications={visibleUnreadNotifications} onSearch={search} onOpenMenu={() => setMobileMenuOpen(true)} onToggleNotifications={() => setNotificationsOpen((open) => !open)} />
+          <TopBar query={query} apartmentLabel={data.apartmentLabel} unreadNotifications={visibleUnreadNotifications} onSearch={search} onOpenMenu={() => setMobileMenuOpen(true)} onToggleNotifications={toggleNotifications} />
           <main className="mx-auto max-w-[1480px] px-4 pb-28 pt-5 sm:px-6 lg:px-8 lg:pb-12 lg:pt-3">
             <PageTransition>{children}</PageTransition>
           </main>
         </div>
-        <MobileNav active={activeView} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} onNavigate={navigate} />
+        <MobileNav active={displayedActiveView} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} onNavigate={navigate} onPrefetch={prefetch} />
       </div>
-      <NotificationPanel open={notificationsOpen} notifications={visibleNotifications} unread={visibleUnreadNotifications} onClose={() => setNotificationsOpen(false)} onOpenNotification={openNotification} />
+      {notificationsMounted ? <NotificationPanel open={notificationsOpen} notifications={visibleNotifications} unread={visibleUnreadNotifications} onClose={() => setNotificationsOpen(false)} onOpenNotification={openNotification} /> : null}
     </>
   );
 }

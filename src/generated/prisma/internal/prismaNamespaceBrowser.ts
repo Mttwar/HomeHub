@@ -70,6 +70,11 @@ export const ModelName = {
   Message: 'Message',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
+  GoogleIntegration: 'GoogleIntegration',
+  GoogleCalendarTarget: 'GoogleCalendarTarget',
+  GoogleEventLink: 'GoogleEventLink',
+  EmailDelivery: 'EmailDelivery',
+  IntegrationJob: 'IntegrationJob',
   Document: 'Document',
   Attachment: 'Attachment',
   UtilityConnection: 'UtilityConnection',
@@ -346,6 +351,7 @@ export const CalendarEventScalarFieldEnum = {
   endsAt: 'endsAt',
   createdById: 'createdById',
   issueId: 'issueId',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -361,6 +367,88 @@ export const EventParticipantScalarFieldEnum = {
 } as const
 
 export type EventParticipantScalarFieldEnum = (typeof EventParticipantScalarFieldEnum)[keyof typeof EventParticipantScalarFieldEnum]
+
+
+export const GoogleIntegrationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  calendarEnabled: 'calendarEnabled',
+  gmailEnabled: 'gmailEnabled',
+  lastErrorCode: 'lastErrorCode',
+  calendarEnabledAt: 'calendarEnabledAt',
+  gmailEnabledAt: 'gmailEnabledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleIntegrationScalarFieldEnum = (typeof GoogleIntegrationScalarFieldEnum)[keyof typeof GoogleIntegrationScalarFieldEnum]
+
+
+export const GoogleCalendarTargetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  apartmentId: 'apartmentId',
+  calendarId: 'calendarId',
+  calendarName: 'calendarName',
+  enabled: 'enabled',
+  lastSyncedAt: 'lastSyncedAt',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleCalendarTargetScalarFieldEnum = (typeof GoogleCalendarTargetScalarFieldEnum)[keyof typeof GoogleCalendarTargetScalarFieldEnum]
+
+
+export const GoogleEventLinkScalarFieldEnum = {
+  id: 'id',
+  targetId: 'targetId',
+  eventId: 'eventId',
+  googleEventId: 'googleEventId',
+  etag: 'etag',
+  lastSyncedAt: 'lastSyncedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleEventLinkScalarFieldEnum = (typeof GoogleEventLinkScalarFieldEnum)[keyof typeof GoogleEventLinkScalarFieldEnum]
+
+
+export const EmailDeliveryScalarFieldEnum = {
+  id: 'id',
+  apartmentId: 'apartmentId',
+  senderUserId: 'senderUserId',
+  toEncrypted: 'toEncrypted',
+  subjectEncrypted: 'subjectEncrypted',
+  bodyEncrypted: 'bodyEncrypted',
+  providerMessageId: 'providerMessageId',
+  status: 'status',
+  attempts: 'attempts',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  sentAt: 'sentAt'
+} as const
+
+export type EmailDeliveryScalarFieldEnum = (typeof EmailDeliveryScalarFieldEnum)[keyof typeof EmailDeliveryScalarFieldEnum]
+
+
+export const IntegrationJobScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  apartmentId: 'apartmentId',
+  type: 'type',
+  entityId: 'entityId',
+  dedupeKey: 'dedupeKey',
+  status: 'status',
+  attempts: 'attempts',
+  availableAt: 'availableAt',
+  lockedAt: 'lockedAt',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationJobScalarFieldEnum = (typeof IntegrationJobScalarFieldEnum)[keyof typeof IntegrationJobScalarFieldEnum]
 
 
 export const DocumentScalarFieldEnum = {

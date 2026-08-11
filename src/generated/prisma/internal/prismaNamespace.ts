@@ -416,6 +416,11 @@ export const ModelName = {
   Message: 'Message',
   CalendarEvent: 'CalendarEvent',
   EventParticipant: 'EventParticipant',
+  GoogleIntegration: 'GoogleIntegration',
+  GoogleCalendarTarget: 'GoogleCalendarTarget',
+  GoogleEventLink: 'GoogleEventLink',
+  EmailDelivery: 'EmailDelivery',
+  IntegrationJob: 'IntegrationJob',
   Document: 'Document',
   Attachment: 'Attachment',
   UtilityConnection: 'UtilityConnection',
@@ -437,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "rateLimit" | "apartment" | "apartmentMembership" | "invitation" | "bill" | "expense" | "rentSchedule" | "paymentRecord" | "issue" | "issueComment" | "messageThread" | "threadParticipant" | "message" | "calendarEvent" | "eventParticipant" | "document" | "attachment" | "utilityConnection" | "consumptionReading" | "notification" | "auditEvent"
+    modelProps: "user" | "session" | "account" | "verification" | "rateLimit" | "apartment" | "apartmentMembership" | "invitation" | "bill" | "expense" | "rentSchedule" | "paymentRecord" | "issue" | "issueComment" | "messageThread" | "threadParticipant" | "message" | "calendarEvent" | "eventParticipant" | "googleIntegration" | "googleCalendarTarget" | "googleEventLink" | "emailDelivery" | "integrationJob" | "document" | "attachment" | "utilityConnection" | "consumptionReading" | "notification" | "auditEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1847,6 +1852,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GoogleIntegration: {
+      payload: Prisma.$GoogleIntegrationPayload<ExtArgs>
+      fields: Prisma.GoogleIntegrationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoogleIntegrationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoogleIntegrationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        findFirst: {
+          args: Prisma.GoogleIntegrationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoogleIntegrationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        findMany: {
+          args: Prisma.GoogleIntegrationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>[]
+        }
+        create: {
+          args: Prisma.GoogleIntegrationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        createMany: {
+          args: Prisma.GoogleIntegrationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoogleIntegrationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>[]
+        }
+        delete: {
+          args: Prisma.GoogleIntegrationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        update: {
+          args: Prisma.GoogleIntegrationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoogleIntegrationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoogleIntegrationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoogleIntegrationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoogleIntegrationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleIntegrationPayload>
+        }
+        aggregate: {
+          args: Prisma.GoogleIntegrationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoogleIntegration>
+        }
+        groupBy: {
+          args: Prisma.GoogleIntegrationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleIntegrationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoogleIntegrationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleIntegrationCountAggregateOutputType> | number
+        }
+      }
+    }
+    GoogleCalendarTarget: {
+      payload: Prisma.$GoogleCalendarTargetPayload<ExtArgs>
+      fields: Prisma.GoogleCalendarTargetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoogleCalendarTargetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoogleCalendarTargetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        findFirst: {
+          args: Prisma.GoogleCalendarTargetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoogleCalendarTargetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        findMany: {
+          args: Prisma.GoogleCalendarTargetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>[]
+        }
+        create: {
+          args: Prisma.GoogleCalendarTargetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        createMany: {
+          args: Prisma.GoogleCalendarTargetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoogleCalendarTargetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>[]
+        }
+        delete: {
+          args: Prisma.GoogleCalendarTargetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        update: {
+          args: Prisma.GoogleCalendarTargetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoogleCalendarTargetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoogleCalendarTargetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoogleCalendarTargetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoogleCalendarTargetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleCalendarTargetPayload>
+        }
+        aggregate: {
+          args: Prisma.GoogleCalendarTargetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoogleCalendarTarget>
+        }
+        groupBy: {
+          args: Prisma.GoogleCalendarTargetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleCalendarTargetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoogleCalendarTargetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleCalendarTargetCountAggregateOutputType> | number
+        }
+      }
+    }
+    GoogleEventLink: {
+      payload: Prisma.$GoogleEventLinkPayload<ExtArgs>
+      fields: Prisma.GoogleEventLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoogleEventLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoogleEventLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.GoogleEventLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoogleEventLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        findMany: {
+          args: Prisma.GoogleEventLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>[]
+        }
+        create: {
+          args: Prisma.GoogleEventLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        createMany: {
+          args: Prisma.GoogleEventLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoogleEventLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.GoogleEventLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        update: {
+          args: Prisma.GoogleEventLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoogleEventLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoogleEventLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoogleEventLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoogleEventLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleEventLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.GoogleEventLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoogleEventLink>
+        }
+        groupBy: {
+          args: Prisma.GoogleEventLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleEventLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoogleEventLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleEventLinkCountAggregateOutputType> | number
+        }
+      }
+    }
+    EmailDelivery: {
+      payload: Prisma.$EmailDeliveryPayload<ExtArgs>
+      fields: Prisma.EmailDeliveryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EmailDeliveryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EmailDeliveryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        findFirst: {
+          args: Prisma.EmailDeliveryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EmailDeliveryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        findMany: {
+          args: Prisma.EmailDeliveryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>[]
+        }
+        create: {
+          args: Prisma.EmailDeliveryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        createMany: {
+          args: Prisma.EmailDeliveryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EmailDeliveryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>[]
+        }
+        delete: {
+          args: Prisma.EmailDeliveryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        update: {
+          args: Prisma.EmailDeliveryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        deleteMany: {
+          args: Prisma.EmailDeliveryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EmailDeliveryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EmailDeliveryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>[]
+        }
+        upsert: {
+          args: Prisma.EmailDeliveryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EmailDeliveryPayload>
+        }
+        aggregate: {
+          args: Prisma.EmailDeliveryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmailDelivery>
+        }
+        groupBy: {
+          args: Prisma.EmailDeliveryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailDeliveryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EmailDeliveryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EmailDeliveryCountAggregateOutputType> | number
+        }
+      }
+    }
+    IntegrationJob: {
+      payload: Prisma.$IntegrationJobPayload<ExtArgs>
+      fields: Prisma.IntegrationJobFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.IntegrationJobFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.IntegrationJobFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        findFirst: {
+          args: Prisma.IntegrationJobFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.IntegrationJobFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        findMany: {
+          args: Prisma.IntegrationJobFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>[]
+        }
+        create: {
+          args: Prisma.IntegrationJobCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        createMany: {
+          args: Prisma.IntegrationJobCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.IntegrationJobCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>[]
+        }
+        delete: {
+          args: Prisma.IntegrationJobDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        update: {
+          args: Prisma.IntegrationJobUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        deleteMany: {
+          args: Prisma.IntegrationJobDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.IntegrationJobUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.IntegrationJobUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>[]
+        }
+        upsert: {
+          args: Prisma.IntegrationJobUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IntegrationJobPayload>
+        }
+        aggregate: {
+          args: Prisma.IntegrationJobAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIntegrationJob>
+        }
+        groupBy: {
+          args: Prisma.IntegrationJobGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegrationJobGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.IntegrationJobCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IntegrationJobCountAggregateOutputType> | number
+        }
+      }
+    }
     Document: {
       payload: Prisma.$DocumentPayload<ExtArgs>
       fields: Prisma.DocumentFieldRefs
@@ -2582,6 +2957,7 @@ export const CalendarEventScalarFieldEnum = {
   endsAt: 'endsAt',
   createdById: 'createdById',
   issueId: 'issueId',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2597,6 +2973,88 @@ export const EventParticipantScalarFieldEnum = {
 } as const
 
 export type EventParticipantScalarFieldEnum = (typeof EventParticipantScalarFieldEnum)[keyof typeof EventParticipantScalarFieldEnum]
+
+
+export const GoogleIntegrationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  calendarEnabled: 'calendarEnabled',
+  gmailEnabled: 'gmailEnabled',
+  lastErrorCode: 'lastErrorCode',
+  calendarEnabledAt: 'calendarEnabledAt',
+  gmailEnabledAt: 'gmailEnabledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleIntegrationScalarFieldEnum = (typeof GoogleIntegrationScalarFieldEnum)[keyof typeof GoogleIntegrationScalarFieldEnum]
+
+
+export const GoogleCalendarTargetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  apartmentId: 'apartmentId',
+  calendarId: 'calendarId',
+  calendarName: 'calendarName',
+  enabled: 'enabled',
+  lastSyncedAt: 'lastSyncedAt',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleCalendarTargetScalarFieldEnum = (typeof GoogleCalendarTargetScalarFieldEnum)[keyof typeof GoogleCalendarTargetScalarFieldEnum]
+
+
+export const GoogleEventLinkScalarFieldEnum = {
+  id: 'id',
+  targetId: 'targetId',
+  eventId: 'eventId',
+  googleEventId: 'googleEventId',
+  etag: 'etag',
+  lastSyncedAt: 'lastSyncedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GoogleEventLinkScalarFieldEnum = (typeof GoogleEventLinkScalarFieldEnum)[keyof typeof GoogleEventLinkScalarFieldEnum]
+
+
+export const EmailDeliveryScalarFieldEnum = {
+  id: 'id',
+  apartmentId: 'apartmentId',
+  senderUserId: 'senderUserId',
+  toEncrypted: 'toEncrypted',
+  subjectEncrypted: 'subjectEncrypted',
+  bodyEncrypted: 'bodyEncrypted',
+  providerMessageId: 'providerMessageId',
+  status: 'status',
+  attempts: 'attempts',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  sentAt: 'sentAt'
+} as const
+
+export type EmailDeliveryScalarFieldEnum = (typeof EmailDeliveryScalarFieldEnum)[keyof typeof EmailDeliveryScalarFieldEnum]
+
+
+export const IntegrationJobScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  apartmentId: 'apartmentId',
+  type: 'type',
+  entityId: 'entityId',
+  dedupeKey: 'dedupeKey',
+  status: 'status',
+  attempts: 'attempts',
+  availableAt: 'availableAt',
+  lockedAt: 'lockedAt',
+  lastErrorCode: 'lastErrorCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IntegrationJobScalarFieldEnum = (typeof IntegrationJobScalarFieldEnum)[keyof typeof IntegrationJobScalarFieldEnum]
 
 
 export const DocumentScalarFieldEnum = {
@@ -2772,28 +3230,28 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-
+    
 
 
 /**
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-
+    
 
 
 /**
  * Reference to a field of type 'BigInt'
  */
 export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-
+    
 
 
 /**
  * Reference to a field of type 'BigInt[]'
  */
 export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-
+    
 
 
 /**
@@ -2909,6 +3367,20 @@ export type ListEnumIssueStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'CalendarEventStatus'
+ */
+export type EnumCalendarEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalendarEventStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CalendarEventStatus[]'
+ */
+export type ListEnumCalendarEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CalendarEventStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ParticipantStatus'
  */
 export type EnumParticipantStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ParticipantStatus'>
@@ -2919,6 +3391,48 @@ export type EnumParticipantStatusFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'ParticipantStatus[]'
  */
 export type ListEnumParticipantStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ParticipantStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EmailDeliveryStatus'
+ */
+export type EnumEmailDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmailDeliveryStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'EmailDeliveryStatus[]'
+ */
+export type ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmailDeliveryStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'IntegrationJobType'
+ */
+export type EnumIntegrationJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationJobType'>
+    
+
+
+/**
+ * Reference to a field of type 'IntegrationJobType[]'
+ */
+export type ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationJobType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'IntegrationJobStatus'
+ */
+export type EnumIntegrationJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationJobStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'IntegrationJobStatus[]'
+ */
+export type ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationJobStatus[]'>
     
 
 
@@ -3147,6 +3661,11 @@ export type GlobalOmitConfig = {
   message?: Prisma.MessageOmit
   calendarEvent?: Prisma.CalendarEventOmit
   eventParticipant?: Prisma.EventParticipantOmit
+  googleIntegration?: Prisma.GoogleIntegrationOmit
+  googleCalendarTarget?: Prisma.GoogleCalendarTargetOmit
+  googleEventLink?: Prisma.GoogleEventLinkOmit
+  emailDelivery?: Prisma.EmailDeliveryOmit
+  integrationJob?: Prisma.IntegrationJobOmit
   document?: Prisma.DocumentOmit
   attachment?: Prisma.AttachmentOmit
   utilityConnection?: Prisma.UtilityConnectionOmit
@@ -3215,3 +3734,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

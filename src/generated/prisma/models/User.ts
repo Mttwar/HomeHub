@@ -208,6 +208,10 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
+  googleIntegration?: Prisma.XOR<Prisma.GoogleIntegrationNullableScalarRelationFilter, Prisma.GoogleIntegrationWhereInput> | null
+  googleCalendars?: Prisma.GoogleCalendarTargetListRelationFilter
+  emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
+  integrationJobs?: Prisma.IntegrationJobListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -228,6 +232,10 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   auditEvents?: Prisma.AuditEventOrderByRelationAggregateInput
   eventParticipants?: Prisma.EventParticipantOrderByRelationAggregateInput
+  googleIntegration?: Prisma.GoogleIntegrationOrderByWithRelationInput
+  googleCalendars?: Prisma.GoogleCalendarTargetOrderByRelationAggregateInput
+  emailDeliveries?: Prisma.EmailDeliveryOrderByRelationAggregateInput
+  integrationJobs?: Prisma.IntegrationJobOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -251,6 +259,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
   eventParticipants?: Prisma.EventParticipantListRelationFilter
+  googleIntegration?: Prisma.XOR<Prisma.GoogleIntegrationNullableScalarRelationFilter, Prisma.GoogleIntegrationWhereInput> | null
+  googleCalendars?: Prisma.GoogleCalendarTargetListRelationFilter
+  emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
+  integrationJobs?: Prisma.IntegrationJobListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -297,6 +309,10 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -317,6 +333,10 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -337,6 +357,10 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -357,6 +381,10 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -538,6 +566,62 @@ export type UserUpdateOneRequiredWithoutEventParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEventParticipantsInput, Prisma.UserUpdateWithoutEventParticipantsInput>, Prisma.UserUncheckedUpdateWithoutEventParticipantsInput>
 }
 
+export type UserCreateNestedOneWithoutGoogleIntegrationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleIntegrationInput, Prisma.UserUncheckedCreateWithoutGoogleIntegrationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleIntegrationInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGoogleIntegrationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleIntegrationInput, Prisma.UserUncheckedCreateWithoutGoogleIntegrationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleIntegrationInput
+  upsert?: Prisma.UserUpsertWithoutGoogleIntegrationInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGoogleIntegrationInput, Prisma.UserUpdateWithoutGoogleIntegrationInput>, Prisma.UserUncheckedUpdateWithoutGoogleIntegrationInput>
+}
+
+export type UserCreateNestedOneWithoutGoogleCalendarsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleCalendarsInput, Prisma.UserUncheckedCreateWithoutGoogleCalendarsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleCalendarsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGoogleCalendarsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleCalendarsInput, Prisma.UserUncheckedCreateWithoutGoogleCalendarsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleCalendarsInput
+  upsert?: Prisma.UserUpsertWithoutGoogleCalendarsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGoogleCalendarsInput, Prisma.UserUpdateWithoutGoogleCalendarsInput>, Prisma.UserUncheckedUpdateWithoutGoogleCalendarsInput>
+}
+
+export type UserCreateNestedOneWithoutEmailDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailDeliveriesInput, Prisma.UserUncheckedCreateWithoutEmailDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailDeliveriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEmailDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailDeliveriesInput, Prisma.UserUncheckedCreateWithoutEmailDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailDeliveriesInput
+  upsert?: Prisma.UserUpsertWithoutEmailDeliveriesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailDeliveriesInput, Prisma.UserUpdateWithoutEmailDeliveriesInput>, Prisma.UserUncheckedUpdateWithoutEmailDeliveriesInput>
+}
+
+export type UserCreateNestedOneWithoutIntegrationJobsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIntegrationJobsInput, Prisma.UserUncheckedCreateWithoutIntegrationJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIntegrationJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutIntegrationJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIntegrationJobsInput, Prisma.UserUncheckedCreateWithoutIntegrationJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIntegrationJobsInput
+  upsert?: Prisma.UserUpsertWithoutIntegrationJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIntegrationJobsInput, Prisma.UserUpdateWithoutIntegrationJobsInput>, Prisma.UserUncheckedUpdateWithoutIntegrationJobsInput>
+}
+
 export type UserCreateNestedOneWithoutUploadedFilesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedFilesInput, Prisma.UserUncheckedCreateWithoutUploadedFilesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedFilesInput
@@ -597,6 +681,10 @@ export type UserCreateWithoutSessionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -616,6 +704,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -651,6 +743,10 @@ export type UserUpdateWithoutSessionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -670,6 +766,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -689,6 +789,10 @@ export type UserCreateWithoutAccountsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -708,6 +812,10 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -743,6 +851,10 @@ export type UserUpdateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -762,6 +874,10 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -781,6 +897,10 @@ export type UserCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -800,6 +920,10 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -835,6 +959,10 @@ export type UserUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -854,6 +982,10 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentInvitationsInput = {
@@ -873,6 +1005,10 @@ export type UserCreateWithoutSentInvitationsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentInvitationsInput = {
@@ -892,6 +1028,10 @@ export type UserUncheckedCreateWithoutSentInvitationsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentInvitationsInput = {
@@ -927,6 +1067,10 @@ export type UserUpdateWithoutSentInvitationsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentInvitationsInput = {
@@ -946,6 +1090,10 @@ export type UserUncheckedUpdateWithoutSentInvitationsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIssueCommentsInput = {
@@ -965,6 +1113,10 @@ export type UserCreateWithoutIssueCommentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIssueCommentsInput = {
@@ -984,6 +1136,10 @@ export type UserUncheckedCreateWithoutIssueCommentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIssueCommentsInput = {
@@ -1019,6 +1175,10 @@ export type UserUpdateWithoutIssueCommentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssueCommentsInput = {
@@ -1038,6 +1198,10 @@ export type UserUncheckedUpdateWithoutIssueCommentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -1057,6 +1221,10 @@ export type UserCreateWithoutMessagesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -1076,6 +1244,10 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -1111,6 +1283,10 @@ export type UserUpdateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -1130,6 +1306,10 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventParticipantsInput = {
@@ -1149,6 +1329,10 @@ export type UserCreateWithoutEventParticipantsInput = {
   uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventParticipantsInput = {
@@ -1168,6 +1352,10 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventParticipantsInput = {
@@ -1203,6 +1391,10 @@ export type UserUpdateWithoutEventParticipantsInput = {
   uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventParticipantsInput = {
@@ -1222,6 +1414,442 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGoogleIntegrationInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGoogleIntegrationInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentUncheckedCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGoogleIntegrationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleIntegrationInput, Prisma.UserUncheckedCreateWithoutGoogleIntegrationInput>
+}
+
+export type UserUpsertWithoutGoogleIntegrationInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGoogleIntegrationInput, Prisma.UserUncheckedUpdateWithoutGoogleIntegrationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleIntegrationInput, Prisma.UserUncheckedCreateWithoutGoogleIntegrationInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGoogleIntegrationInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGoogleIntegrationInput, Prisma.UserUncheckedUpdateWithoutGoogleIntegrationInput>
+}
+
+export type UserUpdateWithoutGoogleIntegrationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGoogleIntegrationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGoogleCalendarsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGoogleCalendarsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentUncheckedCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGoogleCalendarsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleCalendarsInput, Prisma.UserUncheckedCreateWithoutGoogleCalendarsInput>
+}
+
+export type UserUpsertWithoutGoogleCalendarsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGoogleCalendarsInput, Prisma.UserUncheckedUpdateWithoutGoogleCalendarsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleCalendarsInput, Prisma.UserUncheckedCreateWithoutGoogleCalendarsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGoogleCalendarsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGoogleCalendarsInput, Prisma.UserUncheckedUpdateWithoutGoogleCalendarsInput>
+}
+
+export type UserUpdateWithoutGoogleCalendarsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGoogleCalendarsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEmailDeliveriesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentUncheckedCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutEmailDeliveriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailDeliveriesInput, Prisma.UserUncheckedCreateWithoutEmailDeliveriesInput>
+}
+
+export type UserUpsertWithoutEmailDeliveriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEmailDeliveriesInput, Prisma.UserUncheckedUpdateWithoutEmailDeliveriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailDeliveriesInput, Prisma.UserUncheckedCreateWithoutEmailDeliveriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEmailDeliveriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEmailDeliveriesInput, Prisma.UserUncheckedUpdateWithoutEmailDeliveriesInput>
+}
+
+export type UserUpdateWithoutEmailDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutIntegrationJobsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutIntegrationJobsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutUserInput
+  sentInvitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  issueComments?: Prisma.IssueCommentUncheckedCreateNestedManyWithoutAuthorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutIntegrationJobsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutIntegrationJobsInput, Prisma.UserUncheckedCreateWithoutIntegrationJobsInput>
+}
+
+export type UserUpsertWithoutIntegrationJobsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutIntegrationJobsInput, Prisma.UserUncheckedUpdateWithoutIntegrationJobsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutIntegrationJobsInput, Prisma.UserUncheckedCreateWithoutIntegrationJobsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutIntegrationJobsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutIntegrationJobsInput, Prisma.UserUncheckedUpdateWithoutIntegrationJobsInput>
+}
+
+export type UserUpdateWithoutIntegrationJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutIntegrationJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutUserNestedInput
+  sentInvitations?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  issueComments?: Prisma.IssueCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateWithoutUploadedFilesInput = {
@@ -1241,6 +1869,10 @@ export type UserCreateWithoutUploadedFilesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedFilesInput = {
@@ -1260,6 +1892,10 @@ export type UserUncheckedCreateWithoutUploadedFilesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedFilesInput = {
@@ -1295,6 +1931,10 @@ export type UserUpdateWithoutUploadedFilesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedFilesInput = {
@@ -1314,6 +1954,10 @@ export type UserUncheckedUpdateWithoutUploadedFilesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1333,6 +1977,10 @@ export type UserCreateWithoutNotificationsInput = {
   uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1352,6 +2000,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutActorInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1387,6 +2039,10 @@ export type UserUpdateWithoutNotificationsInput = {
   uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1406,6 +2062,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutActorNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditEventsInput = {
@@ -1425,6 +2085,10 @@ export type UserCreateWithoutAuditEventsInput = {
   uploadedFiles?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditEventsInput = {
@@ -1444,6 +2108,10 @@ export type UserUncheckedCreateWithoutAuditEventsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedCreateNestedOneWithoutUserInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutUserInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutSenderInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditEventsInput = {
@@ -1479,6 +2147,10 @@ export type UserUpdateWithoutAuditEventsInput = {
   uploadedFiles?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditEventsInput = {
@@ -1498,6 +2170,10 @@ export type UserUncheckedUpdateWithoutAuditEventsInput = {
   uploadedFiles?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  googleIntegration?: Prisma.GoogleIntegrationUncheckedUpdateOneWithoutUserNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutUserNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutSenderNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1516,6 +2192,9 @@ export type UserCountOutputType = {
   notifications: number
   auditEvents: number
   eventParticipants: number
+  googleCalendars: number
+  emailDeliveries: number
+  integrationJobs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1529,6 +2208,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   auditEvents?: boolean | UserCountOutputTypeCountAuditEventsArgs
   eventParticipants?: boolean | UserCountOutputTypeCountEventParticipantsArgs
+  googleCalendars?: boolean | UserCountOutputTypeCountGoogleCalendarsArgs
+  emailDeliveries?: boolean | UserCountOutputTypeCountEmailDeliveriesArgs
+  integrationJobs?: boolean | UserCountOutputTypeCountIntegrationJobsArgs
 }
 
 /**
@@ -1611,6 +2293,27 @@ export type UserCountOutputTypeCountEventParticipantsArgs<ExtArgs extends runtim
   where?: Prisma.EventParticipantWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGoogleCalendarsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GoogleCalendarTargetWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEmailDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailDeliveryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountIntegrationJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IntegrationJobWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1630,6 +2333,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.User$auditEventsArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.User$eventParticipantsArgs<ExtArgs>
+  googleIntegration?: boolean | Prisma.User$googleIntegrationArgs<ExtArgs>
+  googleCalendars?: boolean | Prisma.User$googleCalendarsArgs<ExtArgs>
+  emailDeliveries?: boolean | Prisma.User$emailDeliveriesArgs<ExtArgs>
+  integrationJobs?: boolean | Prisma.User$integrationJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1675,6 +2382,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.User$auditEventsArgs<ExtArgs>
   eventParticipants?: boolean | Prisma.User$eventParticipantsArgs<ExtArgs>
+  googleIntegration?: boolean | Prisma.User$googleIntegrationArgs<ExtArgs>
+  googleCalendars?: boolean | Prisma.User$googleCalendarsArgs<ExtArgs>
+  emailDeliveries?: boolean | Prisma.User$emailDeliveriesArgs<ExtArgs>
+  integrationJobs?: boolean | Prisma.User$integrationJobsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1693,6 +2404,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     auditEvents: Prisma.$AuditEventPayload<ExtArgs>[]
     eventParticipants: Prisma.$EventParticipantPayload<ExtArgs>[]
+    googleIntegration: Prisma.$GoogleIntegrationPayload<ExtArgs> | null
+    googleCalendars: Prisma.$GoogleCalendarTargetPayload<ExtArgs>[]
+    emailDeliveries: Prisma.$EmailDeliveryPayload<ExtArgs>[]
+    integrationJobs: Prisma.$IntegrationJobPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2106,6 +2821,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditEvents<T extends Prisma.User$auditEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   eventParticipants<T extends Prisma.User$eventParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  googleIntegration<T extends Prisma.User$googleIntegrationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$googleIntegrationArgs<ExtArgs>>): Prisma.Prisma__GoogleIntegrationClient<runtime.Types.Result.GetResult<Prisma.$GoogleIntegrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  googleCalendars<T extends Prisma.User$googleCalendarsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$googleCalendarsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoogleCalendarTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailDeliveries<T extends Prisma.User$emailDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  integrationJobs<T extends Prisma.User$integrationJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$integrationJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntegrationJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2772,6 +3491,97 @@ export type User$eventParticipantsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.EventParticipantScalarFieldEnum | Prisma.EventParticipantScalarFieldEnum[]
+}
+
+/**
+ * User.googleIntegration
+ */
+export type User$googleIntegrationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleIntegration
+   */
+  select?: Prisma.GoogleIntegrationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleIntegration
+   */
+  omit?: Prisma.GoogleIntegrationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleIntegrationInclude<ExtArgs> | null
+  where?: Prisma.GoogleIntegrationWhereInput
+}
+
+/**
+ * User.googleCalendars
+ */
+export type User$googleCalendarsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleCalendarTarget
+   */
+  select?: Prisma.GoogleCalendarTargetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleCalendarTarget
+   */
+  omit?: Prisma.GoogleCalendarTargetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleCalendarTargetInclude<ExtArgs> | null
+  where?: Prisma.GoogleCalendarTargetWhereInput
+  orderBy?: Prisma.GoogleCalendarTargetOrderByWithRelationInput | Prisma.GoogleCalendarTargetOrderByWithRelationInput[]
+  cursor?: Prisma.GoogleCalendarTargetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GoogleCalendarTargetScalarFieldEnum | Prisma.GoogleCalendarTargetScalarFieldEnum[]
+}
+
+/**
+ * User.emailDeliveries
+ */
+export type User$emailDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailDelivery
+   */
+  select?: Prisma.EmailDeliverySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailDelivery
+   */
+  omit?: Prisma.EmailDeliveryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailDeliveryInclude<ExtArgs> | null
+  where?: Prisma.EmailDeliveryWhereInput
+  orderBy?: Prisma.EmailDeliveryOrderByWithRelationInput | Prisma.EmailDeliveryOrderByWithRelationInput[]
+  cursor?: Prisma.EmailDeliveryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailDeliveryScalarFieldEnum | Prisma.EmailDeliveryScalarFieldEnum[]
+}
+
+/**
+ * User.integrationJobs
+ */
+export type User$integrationJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IntegrationJob
+   */
+  select?: Prisma.IntegrationJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IntegrationJob
+   */
+  omit?: Prisma.IntegrationJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntegrationJobInclude<ExtArgs> | null
+  where?: Prisma.IntegrationJobWhereInput
+  orderBy?: Prisma.IntegrationJobOrderByWithRelationInput | Prisma.IntegrationJobOrderByWithRelationInput[]
+  cursor?: Prisma.IntegrationJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IntegrationJobScalarFieldEnum | Prisma.IntegrationJobScalarFieldEnum[]
 }
 
 /**

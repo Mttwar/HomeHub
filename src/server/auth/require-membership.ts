@@ -1,13 +1,20 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
+import { cache } from "react";
 import type { MembershipRole } from "@/generated/prisma/enums";
 import { resolveActiveMembership } from "@/server/auth/active-apartment";
 import { requireSession } from "@/server/auth/require-session";
 
-export async function requireMembership(expectedRole?: MembershipRole) {
+const getMembershipContext = cache(async () => {
   const session = await requireSession();
   const { membership, memberships } = await resolveActiveMembership(session.user.id);
+
+  return { session, membership, memberships };
+});
+
+export async function requireMembership(expectedRole?: MembershipRole) {
+  const { session, membership, memberships } = await getMembershipContext();
 
   if (!memberships.length) {
     redirect("/onboarding");

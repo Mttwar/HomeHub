@@ -6,7 +6,7 @@
 /*
  * This file should be your main import to use Prisma-related types and utilities in a browser. 
  * Use it to get access to models, enums, and input types.
- *
+ * 
  * This file does not contain a `PrismaClient` class, nor several other helpers that are intended as server-side only.
  * See `client.ts` for the standard, server-side entry point.
  *
@@ -39,7 +39,7 @@ export type Account = Prisma.AccountModel
 export type Verification = Prisma.VerificationModel
 /**
  * Model RateLimit
- *
+ * 
  */
 export type RateLimit = Prisma.RateLimitModel
 /**
@@ -112,6 +112,31 @@ export type CalendarEvent = Prisma.CalendarEventModel
  * 
  */
 export type EventParticipant = Prisma.EventParticipantModel
+/**
+ * Model GoogleIntegration
+ * 
+ */
+export type GoogleIntegration = Prisma.GoogleIntegrationModel
+/**
+ * Model GoogleCalendarTarget
+ * 
+ */
+export type GoogleCalendarTarget = Prisma.GoogleCalendarTargetModel
+/**
+ * Model GoogleEventLink
+ * 
+ */
+export type GoogleEventLink = Prisma.GoogleEventLinkModel
+/**
+ * Model EmailDelivery
+ * 
+ */
+export type EmailDelivery = Prisma.EmailDeliveryModel
+/**
+ * Model IntegrationJob
+ * 
+ */
+export type IntegrationJob = Prisma.IntegrationJobModel
 /**
  * Model Document
  * 

@@ -348,6 +348,23 @@ export type EnumIssueStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumIssueStatusFilter<$PrismaModel>
 }
 
+export type EnumCalendarEventStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CalendarEventStatus | Prisma.EnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel> | $Enums.CalendarEventStatus
+}
+
+export type EnumCalendarEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CalendarEventStatus | Prisma.EnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCalendarEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.CalendarEventStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel>
+}
+
 export type EnumParticipantStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ParticipantStatus | Prisma.EnumParticipantStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ParticipantStatus[] | Prisma.ListEnumParticipantStatusFieldRefInput<$PrismaModel>
@@ -363,6 +380,57 @@ export type EnumParticipantStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumParticipantStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumParticipantStatusFilter<$PrismaModel>
+}
+
+export type EnumEmailDeliveryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmailDeliveryStatus | Prisma.EnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel> | $Enums.EmailDeliveryStatus
+}
+
+export type EnumEmailDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmailDeliveryStatus | Prisma.EnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmailDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmailDeliveryStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
+}
+
+export type EnumIntegrationJobTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobType | Prisma.EnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel> | $Enums.IntegrationJobType
+}
+
+export type EnumIntegrationJobStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobStatus | Prisma.EnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel> | $Enums.IntegrationJobStatus
+}
+
+export type EnumIntegrationJobTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobType | Prisma.EnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobTypeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationJobType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel>
+}
+
+export type EnumIntegrationJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobStatus | Prisma.EnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationJobStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel>
 }
 
 export type EnumVisibilityFilter<$PrismaModel = never> = {
@@ -797,6 +865,23 @@ export type NestedEnumIssueStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumIssueStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumCalendarEventStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CalendarEventStatus | Prisma.EnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel> | $Enums.CalendarEventStatus
+}
+
+export type NestedEnumCalendarEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CalendarEventStatus | Prisma.EnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CalendarEventStatus[] | Prisma.ListEnumCalendarEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCalendarEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.CalendarEventStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCalendarEventStatusFilter<$PrismaModel>
+}
+
 export type NestedEnumParticipantStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ParticipantStatus | Prisma.EnumParticipantStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ParticipantStatus[] | Prisma.ListEnumParticipantStatusFieldRefInput<$PrismaModel>
@@ -812,6 +897,57 @@ export type NestedEnumParticipantStatusWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumParticipantStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumParticipantStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumEmailDeliveryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmailDeliveryStatus | Prisma.EnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel> | $Enums.EmailDeliveryStatus
+}
+
+export type NestedEnumEmailDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmailDeliveryStatus | Prisma.EnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EmailDeliveryStatus[] | Prisma.ListEnumEmailDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEmailDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.EmailDeliveryStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmailDeliveryStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumIntegrationJobTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobType | Prisma.EnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel> | $Enums.IntegrationJobType
+}
+
+export type NestedEnumIntegrationJobStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobStatus | Prisma.EnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel> | $Enums.IntegrationJobStatus
+}
+
+export type NestedEnumIntegrationJobTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobType | Prisma.EnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobType[] | Prisma.ListEnumIntegrationJobTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobTypeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationJobType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntegrationJobTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumIntegrationJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.IntegrationJobStatus | Prisma.EnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.IntegrationJobStatus[] | Prisma.ListEnumIntegrationJobStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumIntegrationJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationJobStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumIntegrationJobStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumVisibilityFilter<$PrismaModel = never> = {

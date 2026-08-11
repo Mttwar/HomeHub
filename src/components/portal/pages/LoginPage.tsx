@@ -12,12 +12,13 @@ const features: Array<{ icon: LucideIcon; label: string }> = [
   { icon: MessageCircle, label: "Messaggi" },
 ];
 
-export function LoginPage({ onLogin }: { onLogin: (email: string, password: string) => Promise<string | void> }) {
+export function LoginPage({ googleConfigured = false, onLogin, onGoogleLogin }: { googleConfigured?: boolean; onLogin: (email: string, password: string) => Promise<string | void>; onGoogleLogin?: (() => Promise<string | void>) | undefined }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [googlePending, setGooglePending] = useState(false);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -26,6 +27,17 @@ export function LoginPage({ onLogin }: { onLogin: (email: string, password: stri
     const message = await onLogin(email, password);
     if (message) setError(message);
     setPending(false);
+  };
+
+  const googleLogin = async () => {
+    if (!onGoogleLogin) return;
+    setError("");
+    setGooglePending(true);
+    const message = await onGoogleLogin();
+    if (message) {
+      setError(message);
+      setGooglePending(false);
+    }
   };
 
   return (
@@ -50,7 +62,10 @@ export function LoginPage({ onLogin }: { onLogin: (email: string, password: stri
           <p className="text-[11px] font-extrabold uppercase tracking-[.18em] text-violet">Accesso sicuro</p>
           <h2 className="mt-3 text-4xl font-bold tracking-[-.055em] text-ink">Bentornato in CasaHub.</h2>
           <p className="mt-3 text-sm leading-6 text-slate-500">Accedi con il tuo account. Profilo e permessi vengono verificati dal server.</p>
-          <form onSubmit={submit} className="mt-8 space-y-4">
+          <button type="button" onClick={googleLogin} disabled={!googleConfigured || googlePending || pending} aria-describedby={!googleConfigured ? "google-login-configuration" : undefined} className="motion-control mt-8 flex h-12 w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white text-sm font-bold text-ink shadow-sm transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"><span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-white text-base font-black text-[#4285f4] shadow-sm">G</span>{googlePending ? "Collegamento a Google…" : "Continua con Google"}</button>
+          {!googleConfigured && <p id="google-login-configuration" className="mt-2 text-center text-[10px] font-semibold text-amber-700">Google OAuth non è ancora configurato sul server.</p>}
+          <div className="my-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-slate-400"><span className="h-px flex-1 bg-slate-200" />oppure<span className="h-px flex-1 bg-slate-200" /></div>
+          <form onSubmit={submit} className="space-y-4">
             <Field htmlFor="login-email" label="Email">
               <Input id="login-email" type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} startAdornment={<Mail className="size-[18px]" />} placeholder="nome@email.it" />
             </Field>

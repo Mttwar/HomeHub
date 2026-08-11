@@ -9,6 +9,8 @@ export const createRecordSchema = z.object({
   title: z.string().trim().min(2, "Inserisci almeno 2 caratteri").max(120),
   category: z.string().trim().min(2, "Scegli una categoria").max(80),
   date: optionalDate,
+  endDate: optionalDate.default(""),
+  location: z.string().trim().max(240).default(""),
   notes: z.string().trim().max(4000).default(""),
   amount: z.union([z.string(), z.number()]).transform((value) => Number(value || 0)),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]).default("MEDIUM"),
@@ -19,6 +21,12 @@ export const createRecordSchema = z.object({
   }
   if (["bill", "event", "rent"].includes(value.kind) && !value.date) {
     context.addIssue({ code: "custom", path: ["date"], message: "La data è obbligatoria" });
+  }
+  if (value.kind === "event") {
+    if (!value.endDate) context.addIssue({ code: "custom", path: ["endDate"], message: "L’orario di fine è obbligatorio" });
+    if (value.date && value.endDate && new Date(value.endDate) <= new Date(value.date)) {
+      context.addIssue({ code: "custom", path: ["endDate"], message: "La fine deve essere successiva all’inizio" });
+    }
   }
 });
 

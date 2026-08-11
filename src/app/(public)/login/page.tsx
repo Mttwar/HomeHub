@@ -6,5 +6,6 @@ export const metadata: Metadata = { title: "Accedi" };
 
 export default async function LoginRoute({ searchParams }: { searchParams: Promise<{ callbackURL?: string }> }) {
   const { callbackURL } = await searchParams;
-  return <LoginForm callbackURL={safeRedirectPath(callbackURL)} />;
+  const googleConfigured = Boolean(process.env.GOOGLE_CLIENT_ID?.trim() && process.env.GOOGLE_CLIENT_SECRET?.trim());
+  return <LoginForm callbackURL={safeRedirectPath(callbackURL)} googleConfigured={googleConfigured} />;
 }

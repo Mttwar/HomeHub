@@ -243,6 +243,9 @@ export type ApartmentWhereInput = {
   utilityConnections?: Prisma.UtilityConnectionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
+  googleCalendars?: Prisma.GoogleCalendarTargetListRelationFilter
+  emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
+  integrationJobs?: Prisma.IntegrationJobListRelationFilter
 }
 
 export type ApartmentOrderByWithRelationInput = {
@@ -270,6 +273,9 @@ export type ApartmentOrderByWithRelationInput = {
   utilityConnections?: Prisma.UtilityConnectionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   auditEvents?: Prisma.AuditEventOrderByRelationAggregateInput
+  googleCalendars?: Prisma.GoogleCalendarTargetOrderByRelationAggregateInput
+  emailDeliveries?: Prisma.EmailDeliveryOrderByRelationAggregateInput
+  integrationJobs?: Prisma.IntegrationJobOrderByRelationAggregateInput
 }
 
 export type ApartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -300,6 +306,9 @@ export type ApartmentWhereUniqueInput = Prisma.AtLeast<{
   utilityConnections?: Prisma.UtilityConnectionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   auditEvents?: Prisma.AuditEventListRelationFilter
+  googleCalendars?: Prisma.GoogleCalendarTargetListRelationFilter
+  emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
+  integrationJobs?: Prisma.IntegrationJobListRelationFilter
 }, "id" | "creationKey">
 
 export type ApartmentOrderByWithAggregationInput = {
@@ -361,6 +370,9 @@ export type ApartmentCreateInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateInput = {
@@ -388,6 +400,9 @@ export type ApartmentUncheckedCreateInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUpdateInput = {
@@ -415,6 +430,9 @@ export type ApartmentUpdateInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateInput = {
@@ -442,6 +460,9 @@ export type ApartmentUncheckedUpdateInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateManyInput = {
@@ -531,6 +552,11 @@ export type ApartmentMinOrderByAggregateInput = {
 export type ApartmentScalarRelationFilter = {
   is?: Prisma.ApartmentWhereInput
   isNot?: Prisma.ApartmentWhereInput
+}
+
+export type ApartmentNullableScalarRelationFilter = {
+  is?: Prisma.ApartmentWhereInput | null
+  isNot?: Prisma.ApartmentWhereInput | null
 }
 
 export type ApartmentCreateNestedOneWithoutMembershipsInput = {
@@ -645,6 +671,50 @@ export type ApartmentUpdateOneRequiredWithoutCalendarEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ApartmentUpdateToOneWithWhereWithoutCalendarEventsInput, Prisma.ApartmentUpdateWithoutCalendarEventsInput>, Prisma.ApartmentUncheckedUpdateWithoutCalendarEventsInput>
 }
 
+export type ApartmentCreateNestedOneWithoutGoogleCalendarsInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedCreateWithoutGoogleCalendarsInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutGoogleCalendarsInput
+  connect?: Prisma.ApartmentWhereUniqueInput
+}
+
+export type ApartmentUpdateOneRequiredWithoutGoogleCalendarsNestedInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedCreateWithoutGoogleCalendarsInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutGoogleCalendarsInput
+  upsert?: Prisma.ApartmentUpsertWithoutGoogleCalendarsInput
+  connect?: Prisma.ApartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApartmentUpdateToOneWithWhereWithoutGoogleCalendarsInput, Prisma.ApartmentUpdateWithoutGoogleCalendarsInput>, Prisma.ApartmentUncheckedUpdateWithoutGoogleCalendarsInput>
+}
+
+export type ApartmentCreateNestedOneWithoutEmailDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedCreateWithoutEmailDeliveriesInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutEmailDeliveriesInput
+  connect?: Prisma.ApartmentWhereUniqueInput
+}
+
+export type ApartmentUpdateOneRequiredWithoutEmailDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedCreateWithoutEmailDeliveriesInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutEmailDeliveriesInput
+  upsert?: Prisma.ApartmentUpsertWithoutEmailDeliveriesInput
+  connect?: Prisma.ApartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApartmentUpdateToOneWithWhereWithoutEmailDeliveriesInput, Prisma.ApartmentUpdateWithoutEmailDeliveriesInput>, Prisma.ApartmentUncheckedUpdateWithoutEmailDeliveriesInput>
+}
+
+export type ApartmentCreateNestedOneWithoutIntegrationJobsInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedCreateWithoutIntegrationJobsInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutIntegrationJobsInput
+  connect?: Prisma.ApartmentWhereUniqueInput
+}
+
+export type ApartmentUpdateOneWithoutIntegrationJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.ApartmentCreateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedCreateWithoutIntegrationJobsInput>
+  connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutIntegrationJobsInput
+  upsert?: Prisma.ApartmentUpsertWithoutIntegrationJobsInput
+  disconnect?: Prisma.ApartmentWhereInput | boolean
+  delete?: Prisma.ApartmentWhereInput | boolean
+  connect?: Prisma.ApartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApartmentUpdateToOneWithWhereWithoutIntegrationJobsInput, Prisma.ApartmentUpdateWithoutIntegrationJobsInput>, Prisma.ApartmentUncheckedUpdateWithoutIntegrationJobsInput>
+}
+
 export type ApartmentCreateNestedOneWithoutDocumentsInput = {
   create?: Prisma.XOR<Prisma.ApartmentCreateWithoutDocumentsInput, Prisma.ApartmentUncheckedCreateWithoutDocumentsInput>
   connectOrCreate?: Prisma.ApartmentCreateOrConnectWithoutDocumentsInput
@@ -739,6 +809,9 @@ export type ApartmentCreateWithoutMembershipsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutMembershipsInput = {
@@ -765,6 +838,9 @@ export type ApartmentUncheckedCreateWithoutMembershipsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutMembershipsInput = {
@@ -807,6 +883,9 @@ export type ApartmentUpdateWithoutMembershipsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutMembershipsInput = {
@@ -833,6 +912,9 @@ export type ApartmentUncheckedUpdateWithoutMembershipsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutInvitationsInput = {
@@ -859,6 +941,9 @@ export type ApartmentCreateWithoutInvitationsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutInvitationsInput = {
@@ -885,6 +970,9 @@ export type ApartmentUncheckedCreateWithoutInvitationsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutInvitationsInput = {
@@ -927,6 +1015,9 @@ export type ApartmentUpdateWithoutInvitationsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutInvitationsInput = {
@@ -953,6 +1044,9 @@ export type ApartmentUncheckedUpdateWithoutInvitationsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutBillsInput = {
@@ -979,6 +1073,9 @@ export type ApartmentCreateWithoutBillsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutBillsInput = {
@@ -1005,6 +1102,9 @@ export type ApartmentUncheckedCreateWithoutBillsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutBillsInput = {
@@ -1047,6 +1147,9 @@ export type ApartmentUpdateWithoutBillsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutBillsInput = {
@@ -1073,6 +1176,9 @@ export type ApartmentUncheckedUpdateWithoutBillsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutExpensesInput = {
@@ -1099,6 +1205,9 @@ export type ApartmentCreateWithoutExpensesInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutExpensesInput = {
@@ -1125,6 +1234,9 @@ export type ApartmentUncheckedCreateWithoutExpensesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutExpensesInput = {
@@ -1167,6 +1279,9 @@ export type ApartmentUpdateWithoutExpensesInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutExpensesInput = {
@@ -1193,6 +1308,9 @@ export type ApartmentUncheckedUpdateWithoutExpensesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutRentSchedulesInput = {
@@ -1219,6 +1337,9 @@ export type ApartmentCreateWithoutRentSchedulesInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutRentSchedulesInput = {
@@ -1245,6 +1366,9 @@ export type ApartmentUncheckedCreateWithoutRentSchedulesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutRentSchedulesInput = {
@@ -1287,6 +1411,9 @@ export type ApartmentUpdateWithoutRentSchedulesInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutRentSchedulesInput = {
@@ -1313,6 +1440,9 @@ export type ApartmentUncheckedUpdateWithoutRentSchedulesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutIssuesInput = {
@@ -1339,6 +1469,9 @@ export type ApartmentCreateWithoutIssuesInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutIssuesInput = {
@@ -1365,6 +1498,9 @@ export type ApartmentUncheckedCreateWithoutIssuesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutIssuesInput = {
@@ -1407,6 +1543,9 @@ export type ApartmentUpdateWithoutIssuesInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutIssuesInput = {
@@ -1433,6 +1572,9 @@ export type ApartmentUncheckedUpdateWithoutIssuesInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutMessageThreadsInput = {
@@ -1459,6 +1601,9 @@ export type ApartmentCreateWithoutMessageThreadsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutMessageThreadsInput = {
@@ -1485,6 +1630,9 @@ export type ApartmentUncheckedCreateWithoutMessageThreadsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutMessageThreadsInput = {
@@ -1527,6 +1675,9 @@ export type ApartmentUpdateWithoutMessageThreadsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutMessageThreadsInput = {
@@ -1553,6 +1704,9 @@ export type ApartmentUncheckedUpdateWithoutMessageThreadsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutCalendarEventsInput = {
@@ -1579,6 +1733,9 @@ export type ApartmentCreateWithoutCalendarEventsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutCalendarEventsInput = {
@@ -1605,6 +1762,9 @@ export type ApartmentUncheckedCreateWithoutCalendarEventsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutCalendarEventsInput = {
@@ -1647,6 +1807,9 @@ export type ApartmentUpdateWithoutCalendarEventsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutCalendarEventsInput = {
@@ -1673,6 +1836,405 @@ export type ApartmentUncheckedUpdateWithoutCalendarEventsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentCreateWithoutGoogleCalendarsInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentUncheckedCreateWithoutGoogleCalendarsInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentCreateOrConnectWithoutGoogleCalendarsInput = {
+  where: Prisma.ApartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedCreateWithoutGoogleCalendarsInput>
+}
+
+export type ApartmentUpsertWithoutGoogleCalendarsInput = {
+  update: Prisma.XOR<Prisma.ApartmentUpdateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedUpdateWithoutGoogleCalendarsInput>
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedCreateWithoutGoogleCalendarsInput>
+  where?: Prisma.ApartmentWhereInput
+}
+
+export type ApartmentUpdateToOneWithWhereWithoutGoogleCalendarsInput = {
+  where?: Prisma.ApartmentWhereInput
+  data: Prisma.XOR<Prisma.ApartmentUpdateWithoutGoogleCalendarsInput, Prisma.ApartmentUncheckedUpdateWithoutGoogleCalendarsInput>
+}
+
+export type ApartmentUpdateWithoutGoogleCalendarsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentUncheckedUpdateWithoutGoogleCalendarsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentCreateWithoutEmailDeliveriesInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentUncheckedCreateWithoutEmailDeliveriesInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentCreateOrConnectWithoutEmailDeliveriesInput = {
+  where: Prisma.ApartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedCreateWithoutEmailDeliveriesInput>
+}
+
+export type ApartmentUpsertWithoutEmailDeliveriesInput = {
+  update: Prisma.XOR<Prisma.ApartmentUpdateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedUpdateWithoutEmailDeliveriesInput>
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedCreateWithoutEmailDeliveriesInput>
+  where?: Prisma.ApartmentWhereInput
+}
+
+export type ApartmentUpdateToOneWithWhereWithoutEmailDeliveriesInput = {
+  where?: Prisma.ApartmentWhereInput
+  data: Prisma.XOR<Prisma.ApartmentUpdateWithoutEmailDeliveriesInput, Prisma.ApartmentUncheckedUpdateWithoutEmailDeliveriesInput>
+}
+
+export type ApartmentUpdateWithoutEmailDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentUncheckedUpdateWithoutEmailDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentCreateWithoutIntegrationJobsInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentUncheckedCreateWithoutIntegrationJobsInput = {
+  id?: string
+  creationKey?: string | null
+  name: string
+  addressLine: string
+  city: string
+  postalCode?: string | null
+  countryCode?: string
+  timezone?: string
+  currency?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedCreateNestedManyWithoutApartmentInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutApartmentInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutApartmentInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutApartmentInput
+  rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutApartmentInput
+  issues?: Prisma.IssueUncheckedCreateNestedManyWithoutApartmentInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutApartmentInput
+  calendarEvents?: Prisma.CalendarEventUncheckedCreateNestedManyWithoutApartmentInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutApartmentInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
+  auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+}
+
+export type ApartmentCreateOrConnectWithoutIntegrationJobsInput = {
+  where: Prisma.ApartmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedCreateWithoutIntegrationJobsInput>
+}
+
+export type ApartmentUpsertWithoutIntegrationJobsInput = {
+  update: Prisma.XOR<Prisma.ApartmentUpdateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedUpdateWithoutIntegrationJobsInput>
+  create: Prisma.XOR<Prisma.ApartmentCreateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedCreateWithoutIntegrationJobsInput>
+  where?: Prisma.ApartmentWhereInput
+}
+
+export type ApartmentUpdateToOneWithWhereWithoutIntegrationJobsInput = {
+  where?: Prisma.ApartmentWhereInput
+  data: Prisma.XOR<Prisma.ApartmentUpdateWithoutIntegrationJobsInput, Prisma.ApartmentUncheckedUpdateWithoutIntegrationJobsInput>
+}
+
+export type ApartmentUpdateWithoutIntegrationJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+}
+
+export type ApartmentUncheckedUpdateWithoutIntegrationJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creationKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.ApartmentMembershipUncheckedUpdateManyWithoutApartmentNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutApartmentNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutApartmentNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutApartmentNestedInput
+  rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutApartmentNestedInput
+  issues?: Prisma.IssueUncheckedUpdateManyWithoutApartmentNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutApartmentNestedInput
+  calendarEvents?: Prisma.CalendarEventUncheckedUpdateManyWithoutApartmentNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutApartmentNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
+  utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
+  auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutDocumentsInput = {
@@ -1699,6 +2261,9 @@ export type ApartmentCreateWithoutDocumentsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutDocumentsInput = {
@@ -1725,6 +2290,9 @@ export type ApartmentUncheckedCreateWithoutDocumentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutDocumentsInput = {
@@ -1767,6 +2335,9 @@ export type ApartmentUpdateWithoutDocumentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutDocumentsInput = {
@@ -1793,6 +2364,9 @@ export type ApartmentUncheckedUpdateWithoutDocumentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutAttachmentsInput = {
@@ -1819,6 +2393,9 @@ export type ApartmentCreateWithoutAttachmentsInput = {
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutAttachmentsInput = {
@@ -1845,6 +2422,9 @@ export type ApartmentUncheckedCreateWithoutAttachmentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutAttachmentsInput = {
@@ -1887,6 +2467,9 @@ export type ApartmentUpdateWithoutAttachmentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutAttachmentsInput = {
@@ -1913,6 +2496,9 @@ export type ApartmentUncheckedUpdateWithoutAttachmentsInput = {
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutUtilityConnectionsInput = {
@@ -1939,6 +2525,9 @@ export type ApartmentCreateWithoutUtilityConnectionsInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutUtilityConnectionsInput = {
@@ -1965,6 +2554,9 @@ export type ApartmentUncheckedCreateWithoutUtilityConnectionsInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutUtilityConnectionsInput = {
@@ -2007,6 +2599,9 @@ export type ApartmentUpdateWithoutUtilityConnectionsInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutUtilityConnectionsInput = {
@@ -2033,6 +2628,9 @@ export type ApartmentUncheckedUpdateWithoutUtilityConnectionsInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutNotificationsInput = {
@@ -2059,6 +2657,9 @@ export type ApartmentCreateWithoutNotificationsInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutNotificationsInput = {
@@ -2085,6 +2686,9 @@ export type ApartmentUncheckedCreateWithoutNotificationsInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   auditEvents?: Prisma.AuditEventUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutNotificationsInput = {
@@ -2127,6 +2731,9 @@ export type ApartmentUpdateWithoutNotificationsInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutNotificationsInput = {
@@ -2153,6 +2760,9 @@ export type ApartmentUncheckedUpdateWithoutNotificationsInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   auditEvents?: Prisma.AuditEventUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentCreateWithoutAuditEventsInput = {
@@ -2179,6 +2789,9 @@ export type ApartmentCreateWithoutAuditEventsInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutApartmentInput
   utilityConnections?: Prisma.UtilityConnectionCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentUncheckedCreateWithoutAuditEventsInput = {
@@ -2205,6 +2818,9 @@ export type ApartmentUncheckedCreateWithoutAuditEventsInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutApartmentInput
   utilityConnections?: Prisma.UtilityConnectionUncheckedCreateNestedManyWithoutApartmentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutApartmentInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedCreateNestedManyWithoutApartmentInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutApartmentInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedCreateNestedManyWithoutApartmentInput
 }
 
 export type ApartmentCreateOrConnectWithoutAuditEventsInput = {
@@ -2247,6 +2863,9 @@ export type ApartmentUpdateWithoutAuditEventsInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutApartmentNestedInput
   utilityConnections?: Prisma.UtilityConnectionUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUpdateManyWithoutApartmentNestedInput
 }
 
 export type ApartmentUncheckedUpdateWithoutAuditEventsInput = {
@@ -2273,6 +2892,9 @@ export type ApartmentUncheckedUpdateWithoutAuditEventsInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutApartmentNestedInput
   utilityConnections?: Prisma.UtilityConnectionUncheckedUpdateManyWithoutApartmentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutApartmentNestedInput
+  googleCalendars?: Prisma.GoogleCalendarTargetUncheckedUpdateManyWithoutApartmentNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutApartmentNestedInput
+  integrationJobs?: Prisma.IntegrationJobUncheckedUpdateManyWithoutApartmentNestedInput
 }
 
 
@@ -2294,6 +2916,9 @@ export type ApartmentCountOutputType = {
   utilityConnections: number
   notifications: number
   auditEvents: number
+  googleCalendars: number
+  emailDeliveries: number
+  integrationJobs: number
 }
 
 export type ApartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2310,6 +2935,9 @@ export type ApartmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensi
   utilityConnections?: boolean | ApartmentCountOutputTypeCountUtilityConnectionsArgs
   notifications?: boolean | ApartmentCountOutputTypeCountNotificationsArgs
   auditEvents?: boolean | ApartmentCountOutputTypeCountAuditEventsArgs
+  googleCalendars?: boolean | ApartmentCountOutputTypeCountGoogleCalendarsArgs
+  emailDeliveries?: boolean | ApartmentCountOutputTypeCountEmailDeliveriesArgs
+  integrationJobs?: boolean | ApartmentCountOutputTypeCountIntegrationJobsArgs
 }
 
 /**
@@ -2413,6 +3041,27 @@ export type ApartmentCountOutputTypeCountAuditEventsArgs<ExtArgs extends runtime
   where?: Prisma.AuditEventWhereInput
 }
 
+/**
+ * ApartmentCountOutputType without action
+ */
+export type ApartmentCountOutputTypeCountGoogleCalendarsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GoogleCalendarTargetWhereInput
+}
+
+/**
+ * ApartmentCountOutputType without action
+ */
+export type ApartmentCountOutputTypeCountEmailDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailDeliveryWhereInput
+}
+
+/**
+ * ApartmentCountOutputType without action
+ */
+export type ApartmentCountOutputTypeCountIntegrationJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IntegrationJobWhereInput
+}
+
 
 export type ApartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2439,6 +3088,9 @@ export type ApartmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   utilityConnections?: boolean | Prisma.Apartment$utilityConnectionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Apartment$notificationsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Apartment$auditEventsArgs<ExtArgs>
+  googleCalendars?: boolean | Prisma.Apartment$googleCalendarsArgs<ExtArgs>
+  emailDeliveries?: boolean | Prisma.Apartment$emailDeliveriesArgs<ExtArgs>
+  integrationJobs?: boolean | Prisma.Apartment$integrationJobsArgs<ExtArgs>
   _count?: boolean | Prisma.ApartmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["apartment"]>
 
@@ -2499,6 +3151,9 @@ export type ApartmentInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   utilityConnections?: boolean | Prisma.Apartment$utilityConnectionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Apartment$notificationsArgs<ExtArgs>
   auditEvents?: boolean | Prisma.Apartment$auditEventsArgs<ExtArgs>
+  googleCalendars?: boolean | Prisma.Apartment$googleCalendarsArgs<ExtArgs>
+  emailDeliveries?: boolean | Prisma.Apartment$emailDeliveriesArgs<ExtArgs>
+  integrationJobs?: boolean | Prisma.Apartment$integrationJobsArgs<ExtArgs>
   _count?: boolean | Prisma.ApartmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ApartmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2520,6 +3175,9 @@ export type $ApartmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     utilityConnections: Prisma.$UtilityConnectionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     auditEvents: Prisma.$AuditEventPayload<ExtArgs>[]
+    googleCalendars: Prisma.$GoogleCalendarTargetPayload<ExtArgs>[]
+    emailDeliveries: Prisma.$EmailDeliveryPayload<ExtArgs>[]
+    integrationJobs: Prisma.$IntegrationJobPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2940,6 +3598,9 @@ export interface Prisma__ApartmentClient<T, Null = never, ExtArgs extends runtim
   utilityConnections<T extends Prisma.Apartment$utilityConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$utilityConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UtilityConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Apartment$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditEvents<T extends Prisma.Apartment$auditEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$auditEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  googleCalendars<T extends Prisma.Apartment$googleCalendarsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$googleCalendarsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoogleCalendarTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailDeliveries<T extends Prisma.Apartment$emailDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$emailDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  integrationJobs<T extends Prisma.Apartment$integrationJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Apartment$integrationJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntegrationJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3682,6 +4343,78 @@ export type Apartment$auditEventsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.AuditEventScalarFieldEnum | Prisma.AuditEventScalarFieldEnum[]
+}
+
+/**
+ * Apartment.googleCalendars
+ */
+export type Apartment$googleCalendarsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleCalendarTarget
+   */
+  select?: Prisma.GoogleCalendarTargetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleCalendarTarget
+   */
+  omit?: Prisma.GoogleCalendarTargetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleCalendarTargetInclude<ExtArgs> | null
+  where?: Prisma.GoogleCalendarTargetWhereInput
+  orderBy?: Prisma.GoogleCalendarTargetOrderByWithRelationInput | Prisma.GoogleCalendarTargetOrderByWithRelationInput[]
+  cursor?: Prisma.GoogleCalendarTargetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GoogleCalendarTargetScalarFieldEnum | Prisma.GoogleCalendarTargetScalarFieldEnum[]
+}
+
+/**
+ * Apartment.emailDeliveries
+ */
+export type Apartment$emailDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailDelivery
+   */
+  select?: Prisma.EmailDeliverySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailDelivery
+   */
+  omit?: Prisma.EmailDeliveryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailDeliveryInclude<ExtArgs> | null
+  where?: Prisma.EmailDeliveryWhereInput
+  orderBy?: Prisma.EmailDeliveryOrderByWithRelationInput | Prisma.EmailDeliveryOrderByWithRelationInput[]
+  cursor?: Prisma.EmailDeliveryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailDeliveryScalarFieldEnum | Prisma.EmailDeliveryScalarFieldEnum[]
+}
+
+/**
+ * Apartment.integrationJobs
+ */
+export type Apartment$integrationJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IntegrationJob
+   */
+  select?: Prisma.IntegrationJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IntegrationJob
+   */
+  omit?: Prisma.IntegrationJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IntegrationJobInclude<ExtArgs> | null
+  where?: Prisma.IntegrationJobWhereInput
+  orderBy?: Prisma.IntegrationJobOrderByWithRelationInput | Prisma.IntegrationJobOrderByWithRelationInput[]
+  cursor?: Prisma.IntegrationJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IntegrationJobScalarFieldEnum | Prisma.IntegrationJobScalarFieldEnum[]
 }
 
 /**

@@ -17,12 +17,16 @@ import type {
 } from "@/features/portal/types";
 import { requireMembership } from "@/server/auth/require-membership";
 import { db } from "@/server/db";
+import { GOOGLE_CALENDAR_SCOPE, GOOGLE_GMAIL_SEND_SCOPE, isGoogleOAuthConfigured, parseGoogleScopes } from "@/server/google/constants";
+import { isDataEncryptionConfigured } from "@/server/security/encryption";
 
 const dateFormatter = new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "short", year: "numeric", timeZone: "Europe/Rome" });
 const dayFormatter = new Intl.DateTimeFormat("it-IT", { day: "2-digit", timeZone: "Europe/Rome" });
 const monthFormatter = new Intl.DateTimeFormat("it-IT", { month: "short", timeZone: "Europe/Rome" });
 const timeFormatter = new Intl.DateTimeFormat("it-IT", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" });
 const messageTimeFormatter = new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" });
+const expenseMonthFormatter = new Intl.DateTimeFormat("it-IT", { month: "short", timeZone: "Europe/Rome" });
+const yearMonthFormatter = new Intl.DateTimeFormat("en", { year: "numeric", month: "2-digit", timeZone: "Europe/Rome" });
 
 const billStatus = { DRAFT: "Bozza", DUE: "Da pagare", SCHEDULED: "Programmato", PAID: "Pagata", OVERDUE: "Scaduta", DISPUTED: "Contestata" } as const;
 const expenseStatus = { EXPECTED: "Prevista", PARTIALLY_PAID: "Parzialmente pagata", PAID: "Pagata", OVERDUE: "Scaduta" } as const;
@@ -30,6 +34,27 @@ const issueStatus = { OPEN: "Aperta", IN_PROGRESS: "Presa in carico", SCHEDULED:
 const priority = { LOW: "Bassa", MEDIUM: "Media", HIGH: "Alta", URGENT: "Urgente" } as const;
 
 type Context = Awaited<ReturnType<typeof requireMembership>>;
+
+function yearMonthKey(date: Date) {
+  const parts = yearMonthFormatter.formatToParts(date);
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  return `${year}-${month}`;
+}
+
+function recentExpenseMonths(referenceDate: Date) {
+  const [year, month] = yearMonthKey(referenceDate).split("-").map(Number);
+  return Array.from({ length: 6 }, (_, index) => {
+    const date = new Date(Date.UTC(year!, month! - 6 + index, 15, 12));
+    return {
+      key: yearMonthKey(date),
+      label: expenseMonthFormatter.format(date).replace(".", "").toUpperCase(),
+      amount: 0,
+      year: date.getUTCFullYear(),
+      monthIndex: date.getUTCMonth(),
+    };
+  });
+}
 
 function mapBill(bill: {
   id: string; supplier: string; category: string; amount: { toNumber(): number }; dueAt: Date; issuedAt: Date | null;
@@ -49,7 +74,7 @@ function mapBill(bill: {
 }
 
 function mapEvent(event: {
-  id: string; title: string; description: string | null; startsAt: Date; endsAt: Date;
+  id: string; title: string; description: string | null; location: string | null; startsAt: Date; endsAt: Date;
   participants?: Array<{ status: "PENDING" | "ACCEPTED" | "DECLINED" }>;
 }, index: number): EventListItem {
   return {
@@ -58,6 +83,7 @@ function mapEvent(event: {
     month: monthFormatter.format(event.startsAt),
     title: event.title,
     description: event.description,
+    location: event.location,
     time: `${timeFormatter.format(event.startsAt)} – ${timeFormatter.format(event.endsAt)}`,
     startsAt: event.startsAt.toISOString(),
     endsAt: event.endsAt.toISOString(),
@@ -108,7 +134,7 @@ async function issuesFor(context: Context, take = 100) {
 
 async function eventsFor(context: Context, take = 100) {
   return db.calendarEvent.findMany({
-    where: { apartmentId: context.membership.apartmentId },
+    where: { apartmentId: context.membership.apartmentId, status: "ACTIVE" },
     include: { participants: { where: { userId: context.session.user.id }, select: { status: true } } },
     orderBy: { startsAt: "asc" }, take,
   });
@@ -168,23 +194,28 @@ export async function getMessages(expectedRole: MembershipRole): Promise<Message
 
 export async function getDashboard(expectedRole: MembershipRole): Promise<DashboardData> {
   const context = await requireMembership(expectedRole);
-  const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const expenseTrend = recentExpenseMonths(now);
+  const firstTrendMonth = expenseTrend[0]!;
+  const startOfTrend = new Date(Date.UTC(firstTrendMonth.year, firstTrendMonth.monthIndex, 1));
+  const expenseQueryStart = startOfTrend < startOfYear ? startOfTrend : startOfYear;
   const [bills, issues, events, expenses, messages] = await Promise.all([
     billsFor(context, 6),
     issuesFor(context, 20),
     eventsFor(context, 30),
-    db.expense.findMany({ where: { apartmentId: context.membership.apartmentId, createdAt: { gte: startOfYear }, ...(context.membership.role === "TENANT" ? { shared: true } : {}) }, orderBy: { createdAt: "asc" } }),
+    db.expense.findMany({ where: { apartmentId: context.membership.apartmentId, createdAt: { gte: expenseQueryStart }, ...(context.membership.role === "TENANT" ? { shared: true } : {}) }, orderBy: { createdAt: "asc" } }),
     db.message.findMany({ where: { thread: { apartmentId: context.membership.apartmentId, participants: { some: { userId: context.session.user.id } } } }, include: { author: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 4 }),
   ]);
   const mappedBills = bills.map(mapBill);
   const mappedIssues = issues.map((issue) => mapIssue(issue, context));
   const mappedEvents = events.map(mapEvent);
-  const now = new Date();
   const futureEvents = mappedEvents.filter((event) => new Date(event.endsAt) >= now);
-  const monthlyExpenses = Array.from({ length: 12 }, () => 0);
+  const yearExpenses = expenses.filter((expense) => expense.createdAt >= startOfYear);
+  const expenseTrendByKey = new Map(expenseTrend.map((month) => [month.key, month]));
   expenses.forEach((expense) => {
-    const monthIndex = expense.createdAt.getMonth();
-    monthlyExpenses[monthIndex] = (monthlyExpenses[monthIndex] ?? 0) + expense.amount.toNumber();
+    const month = expenseTrendByKey.get(yearMonthKey(expense.createdAt));
+    if (month) month.amount += expense.amount.toNumber();
   });
   const openStatuses = new Set(["OPEN", "IN_PROGRESS", "SCHEDULED"]);
   return {
@@ -192,12 +223,11 @@ export async function getDashboard(expectedRole: MembershipRole): Promise<Dashbo
     apartmentName: context.membership.apartment.name,
     address: `${context.membership.apartment.addressLine}, ${context.membership.apartment.city}`,
     outstandingAmount: mappedBills.filter((bill) => !["PAID", "DRAFT"].includes(bill.statusCode)).reduce((sum, bill) => sum + bill.amount, 0),
-    paidExpenses: expenses.filter((expense) => expense.status === "PAID").length,
-    totalExpenses: expenses.length,
+    paidExpenses: yearExpenses.filter((expense) => expense.status === "PAID").length,
+    totalExpenses: yearExpenses.length,
     openIssues: issues.filter((issue) => openStatuses.has(issue.status)).length,
     urgentIssues: issues.filter((issue) => openStatuses.has(issue.status) && issue.priority === "URGENT").length,
-    annualExpenses: expenses.reduce((sum, expense) => sum + expense.amount.toNumber(), 0),
-    monthlyExpenses,
+    expenseTrend: expenseTrend.map(({ key, label, amount }) => ({ key, label, amount })),
     nextEvent: futureEvents[0] ?? null,
     urgentIssue: mappedIssues.find((issue) => issue.priority === "Urgente" && issue.statusCode !== "CLOSED" && issue.statusCode !== "RESOLVED") ?? mappedIssues.find((issue) => issue.statusCode === "OPEN") ?? null,
     bills: mappedBills,
@@ -208,11 +238,17 @@ export async function getDashboard(expectedRole: MembershipRole): Promise<Dashbo
 
 export async function getProfile(expectedRole: MembershipRole): Promise<{ session: Context["session"]; role: MembershipRole; data: ProfileData }> {
   const context = await requireMembership(expectedRole);
-  const [members, invitations, auditEvents] = await Promise.all([
+  const [members, invitations, auditEvents, accounts, googleIntegration, googleCalendar, recentEmails] = await Promise.all([
     db.apartmentMembership.findMany({ where: { apartmentId: context.membership.apartmentId, status: { in: ["ACTIVE", "SUSPENDED"] } }, include: { user: { select: { name: true } } }, orderBy: { createdAt: "asc" } }),
     context.membership.role === "OWNER" ? db.invitation.findMany({ where: { apartmentId: context.membership.apartmentId, status: "PENDING", expiresAt: { gt: new Date() } }, orderBy: { createdAt: "desc" }, take: 20 }) : Promise.resolve([]),
     context.membership.role === "OWNER" ? db.auditEvent.findMany({ where: { apartmentId: context.membership.apartmentId }, include: { actor: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 30 }) : Promise.resolve([]),
+    db.account.findMany({ where: { userId: context.session.user.id }, select: { providerId: true, password: true, scope: true } }),
+    db.googleIntegration.findUnique({ where: { userId: context.session.user.id } }),
+    db.googleCalendarTarget.findUnique({ where: { userId_apartmentId: { userId: context.session.user.id, apartmentId: context.membership.apartmentId } } }),
+    db.emailDelivery.findMany({ where: { senderUserId: context.session.user.id, apartmentId: context.membership.apartmentId }, orderBy: { createdAt: "desc" }, take: 5, select: { id: true, status: true, createdAt: true } }),
   ]);
+  const googleAccount = accounts.find((account) => account.providerId === "google");
+  const googleScopes = parseGoogleScopes(googleAccount?.scope);
   return {
     session: context.session,
     role: context.membership.role,
@@ -221,17 +257,32 @@ export async function getProfile(expectedRole: MembershipRole): Promise<{ sessio
       members: members.map((member) => ({ id: member.id, name: member.user.name, role: member.role === "OWNER" ? "Proprietario" : "Inquilino", status: member.status, initial: member.user.name.slice(0, 1).toUpperCase() })),
       invitations: invitations.map((invitation) => ({ id: invitation.id, email: invitation.email, expiresAt: dateFormatter.format(invitation.expiresAt) })),
       auditEvents: auditEvents.map((event) => ({ id: event.id, action: event.action, entityType: event.entityType, actor: event.actor.name, date: messageTimeFormatter.format(event.createdAt) })),
+      google: {
+        configured: isGoogleOAuthConfigured(),
+        encryptionConfigured: isDataEncryptionConfigured(),
+        accountLinked: Boolean(googleAccount),
+        credentialLinked: accounts.some((account) => Boolean(account.password)),
+        calendarGranted: googleScopes.has(GOOGLE_CALENDAR_SCOPE),
+        gmailGranted: googleScopes.has(GOOGLE_GMAIL_SEND_SCOPE),
+        calendarEnabled: Boolean(googleIntegration?.calendarEnabled && googleCalendar?.enabled),
+        gmailEnabled: Boolean(googleIntegration?.gmailEnabled),
+        calendarName: googleCalendar?.calendarName ?? null,
+        lastSyncedAt: googleCalendar?.lastSyncedAt ? messageTimeFormatter.format(googleCalendar.lastSyncedAt) : null,
+        lastErrorCode: googleCalendar?.lastErrorCode ?? googleIntegration?.lastErrorCode ?? null,
+        recentEmails: recentEmails.map((email) => ({ id: email.id, status: email.status, createdAt: messageTimeFormatter.format(email.createdAt) })),
+      },
     },
   };
 }
 
 export async function getPortalShellData(context: Context): Promise<PortalShellData> {
-  const [notifications, unreadNotifications, openIssues, unreadMessages] = await Promise.all([
+  const [notifications, unreadByType, openIssues] = await Promise.all([
     db.notification.findMany({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null }, orderBy: { createdAt: "desc" }, take: 20 }),
-    db.notification.count({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null } }),
+    db.notification.groupBy({ by: ["type"], where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null }, _count: { _all: true } }),
     db.issue.count({ where: { apartmentId: context.membership.apartmentId, status: { in: ["OPEN", "IN_PROGRESS", "SCHEDULED"] } } }),
-    db.notification.count({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, type: "message", readAt: null } }),
   ]);
+  const unreadNotifications = unreadByType.reduce((total, row) => total + row._count._all, 0);
+  const unreadMessages = unreadByType.find((row) => row.type === "message")?._count._all ?? 0;
   return {
     notifications: notifications.map((notification) => ({ id: notification.id, type: notification.type, title: notification.title, body: notification.body, createdAt: messageTimeFormatter.format(notification.createdAt), read: Boolean(notification.readAt) })),
     unreadNotifications,

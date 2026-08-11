@@ -44,6 +44,7 @@ export type EventListItem = {
   month: string;
   title: string;
   description: string | null;
+  location: string | null;
   time: string;
   startsAt: string;
   endsAt: string;
@@ -89,8 +90,7 @@ export type DashboardData = {
   totalExpenses: number;
   openIssues: number;
   urgentIssues: number;
-  annualExpenses: number;
-  monthlyExpenses: number[];
+  expenseTrend: Array<{ key: string; label: string; amount: number }>;
   nextEvent: EventListItem | null;
   urgentIssue: IssueListItem | null;
   bills: BillListItem[];
@@ -102,6 +102,20 @@ export type ProfileData = {
   members: Array<{ id: string; name: string; role: "Proprietario" | "Inquilino"; status: string; initial: string }>;
   invitations: Array<{ id: string; email: string; expiresAt: string }>;
   auditEvents: Array<{ id: string; action: string; entityType: string; actor: string; date: string }>;
+  google: {
+    configured: boolean;
+    encryptionConfigured: boolean;
+    accountLinked: boolean;
+    credentialLinked: boolean;
+    calendarGranted: boolean;
+    gmailGranted: boolean;
+    calendarEnabled: boolean;
+    gmailEnabled: boolean;
+    calendarName: string | null;
+    lastSyncedAt: string | null;
+    lastErrorCode: string | null;
+    recentEmails: Array<{ id: string; status: "PENDING" | "SENDING" | "SENT" | "FAILED"; createdAt: string }>;
+  };
 };
 export type PortalShellData = {
   notifications: NotificationListItem[];

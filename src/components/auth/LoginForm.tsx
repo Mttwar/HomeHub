@@ -1,22 +1,24 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { LoginPage } from "@/components/portal/pages/LoginPage";
 import { authClient } from "@/lib/auth-client";
 
-export function LoginForm({ callbackURL = "/" }: { callbackURL?: string }) {
-  const router = useRouter();
-
+export function LoginForm({ callbackURL = "/", googleConfigured = false }: { callbackURL?: string; googleConfigured?: boolean }) {
   const login = async (email: string, password: string) => {
     const result = await authClient.signIn.email({ email, password });
     if (result.error) {
-      if (result.error.status === 403) return "Verifica il tuo indirizzo email prima di accedere.";
+      if (result.error.code === "EMAIL_NOT_VERIFIED") return "Verifica il tuo indirizzo email prima di accedere.";
+      if (result.error.code === "INVALID_ORIGIN") return "Origine dell’app non autorizzata. Controlla la configurazione locale.";
       if (result.error.code === "INVALID_EMAIL_OR_PASSWORD") return "Email o password non corretti.";
       return result.error.message ?? "Accesso non riuscito";
     }
-    router.replace(callbackURL);
-    router.refresh();
+    window.location.assign(callbackURL);
   };
 
-  return <LoginPage onLogin={login} />;
+  const loginWithGoogle = async () => {
+    const result = await authClient.signIn.social({ provider: "google", callbackURL });
+    return result.error?.message ?? undefined;
+  };
+
+  return <LoginPage googleConfigured={googleConfigured} onLogin={login} onGoogleLogin={googleConfigured ? loginWithGoogle : undefined} />;
 }

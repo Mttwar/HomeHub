@@ -69,9 +69,12 @@ npm run dev
 - commenti e avanzamento delle segnalazioni, conferma presenza agli eventi e aggiornamento degli stati economici;
 - gestione locale dell'appartamento e sospensione/riattivazione delle membership da parte del proprietario;
 - audit attività consultabile dal profilo proprietario;
+- accesso e collegamento account Google con consenso incrementale e token OAuth cifrati;
+- calendario Google dedicato per appartamento, con creazione, modifica e annullamento idempotente degli eventi CasaHub;
+- invio email tramite Gmail con contenuto cifrato AES-256-GCM mentre è in coda, limiti di frequenza e retry asincroni;
 - layout responsive desktop/mobile, ricerca e pannello notifiche.
 
-Notifiche realtime push e integrazioni esterne restano moduli successivi. La TODO aggiornata, inclusi i confini con i servizi esterni, è in `TODO_IMPLEMENTAZIONE.md`.
+Notifiche realtime push, import degli eventi creati direttamente in Google e le altre integrazioni esterne restano moduli successivi. La TODO aggiornata è in `TODO_IMPLEMENTAZIONE.md`.
 
 ## Preparazione della produzione
 
@@ -85,9 +88,31 @@ DATABASE_URL_UNPOOLED
 BETTER_AUTH_SECRET
 BETTER_AUTH_URL
 NEXT_PUBLIC_APP_URL
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+DATA_ENCRYPTION_KEY
+CRON_SECRET
 ```
 
 `BETTER_AUTH_URL` e `NEXT_PUBLIC_APP_URL` devono coincidere con il dominio pubblico HTTPS. `RESEND_API_KEY` e `AUTH_EMAIL_FROM` sono opzionali e servono solo per il recupero password e l'invio automatico degli inviti; senza di essi gli inviti possono essere condivisi copiando il link generato dall'app.
+
+`DATA_ENCRYPTION_KEY` deve contenere esattamente 32 byte casuali codificati Base64. Generane una distinta per ogni ambiente, per esempio con `openssl rand -base64 32`, e conservala esclusivamente nel secret manager. `CRON_SECRET` protegge il worker `/api/cron/google-integrations`; deve essere lungo, casuale e diverso dalle altre chiavi.
+
+### Configurazione Google
+
+1. Nel progetto Google Cloud abilita **Google Calendar API** e **Gmail API**.
+2. Configura la schermata consenso OAuth e crea un client di tipo **Web application**.
+3. Aggiungi come redirect autorizzato `{BETTER_AUTH_URL}/api/auth/callback/google`, usando HTTPS in produzione.
+4. Inserisci client ID e client secret nelle variabili server `GOOGLE_CLIENT_ID` e `GOOGLE_CLIENT_SECRET`.
+5. Applica la migrazione prima di aprire il pannello Profilo:
+
+```bash
+npm run db:deploy
+```
+
+CasaHub richiede prima i soli dati di identità; gli scope minimali `calendar.app.created` e `gmail.send` vengono richiesti separatamente quando l'utente attiva il relativo servizio. In sviluppo sono accettate soltanto origini HTTP su `localhost`/`127.0.0.1`, anche se Next sceglie una porta diversa; in produzione l'origine rimane vincolata al dominio HTTPS configurato.
+
+I token OAuth sono cifrati dal layer di autenticazione. Destinatario, oggetto e corpo delle email in coda sono cifrati con AES-256-GCM e contesto autenticato; vengono decifrati soltanto in memoria durante l'invio. Le chiamate Google usano HTTPS. Per la protezione completa a riposo e in transito, il PostgreSQL di produzione deve avere cifratura storage/backup e TLS obbligatorio.
 
 Il percorso beta previsto è:
 

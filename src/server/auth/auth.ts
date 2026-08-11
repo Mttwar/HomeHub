@@ -9,8 +9,13 @@ import { db } from "@/server/db";
 import { emailIdempotencyKey, sendTransactionalEmail } from "@/server/email/resend";
 import { passwordResetEmail } from "@/server/email/templates";
 
+const googleClientId = process.env.GOOGLE_CLIENT_ID?.trim();
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
+
 export const auth = betterAuth({
-  baseURL: getAppUrl(),
+  baseURL: process.env.NODE_ENV === "production"
+    ? getAppUrl()
+    : { allowedHosts: ["localhost:*", "127.0.0.1:*"], protocol: "http", fallback: getAppUrl() },
   database: prismaAdapter(db, { provider: "postgresql" }),
   emailAndPassword: {
     enabled: true,
@@ -34,6 +39,23 @@ export const auth = betterAuth({
       "/request-password-reset": { window: 300, max: 3 },
     },
   },
+  account: {
+    encryptOAuthTokens: true,
+    accountLinking: {
+      enabled: true,
+      disableImplicitLinking: true,
+      allowDifferentEmails: false,
+      allowUnlinkingAll: false,
+    },
+  },
+  socialProviders: googleClientId && googleClientSecret ? {
+    google: {
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
+      accessType: "offline",
+      prompt: "select_account",
+    },
+  } : {},
   trustedOrigins: getTrustedOrigins(),
   plugins: [nextCookies()],
 });

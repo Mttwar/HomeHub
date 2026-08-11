@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 import { requireMembership } from "@/server/auth/require-membership";
 import { db } from "@/server/db";
@@ -8,6 +9,7 @@ import { assertCan } from "@/server/permissions";
 import type { PortalMutationState } from "@/features/portal/state";
 import { notificationTypesForView } from "@/features/portal/notifications";
 import type { View } from "@/types";
+import { enqueueCalendarEventJobs, processPendingIntegrationJobs } from "@/server/google/outbox";
 
 const idSchema = z.string().cuid();
 const billStatusSchema = z.enum(["DRAFT", "DUE", "SCHEDULED", "PAID", "OVERDUE", "DISPUTED"]);
@@ -101,6 +103,49 @@ export async function respondToEvent(formData: FormData) {
   if (!event) return;
   await db.eventParticipant.upsert({ where: { eventId_userId: { eventId: event.id, userId: session.user.id } }, create: { eventId: event.id, userId: session.user.id, status: parsed.data.status }, update: { status: parsed.data.status } });
   await notifyApartmentMembers({ apartmentId: membership.apartmentId, actorId: session.user.id, type: "event", title: "Risposta a un evento", body: `${event.title}: ${parsed.data.status}` });
+  revalidatePath("/owner/calendario");
+  revalidatePath("/tenant/calendario");
+}
+
+const eventUpdateSchema = z.object({
+  id: idSchema,
+  title: z.string().trim().min(2).max(120),
+  description: z.string().trim().max(4000),
+  location: z.string().trim().max(240),
+  startsAt: z.string().refine((value) => !Number.isNaN(Date.parse(value)), "Data iniziale non valida"),
+  endsAt: z.string().refine((value) => !Number.isNaN(Date.parse(value)), "Data finale non valida"),
+}).refine((value) => new Date(value.endsAt) > new Date(value.startsAt), { path: ["endsAt"], message: "La fine deve essere successiva all’inizio" });
+
+export async function updateCalendarEvent(formData: FormData) {
+  const parsed = eventUpdateSchema.safeParse({
+    id: formData.get("id"), title: formData.get("title"), description: formData.get("description") ?? "",
+    location: formData.get("location") ?? "", startsAt: formData.get("startsAt"), endsAt: formData.get("endsAt"),
+  });
+  if (!parsed.success) return;
+  const { session, membership } = await requireMembership("OWNER");
+  assertCan(membership.role, "event:create");
+  const updated = await db.calendarEvent.updateMany({
+    where: { id: parsed.data.id, apartmentId: membership.apartmentId, status: "ACTIVE" },
+    data: { title: parsed.data.title, description: parsed.data.description || null, location: parsed.data.location || null, startsAt: new Date(parsed.data.startsAt), endsAt: new Date(parsed.data.endsAt) },
+  });
+  if (!updated.count) return;
+  await db.auditEvent.create({ data: { apartmentId: membership.apartmentId, actorId: session.user.id, action: "event.update", entityType: "event", entityId: parsed.data.id } });
+  await enqueueCalendarEventJobs({ apartmentId: membership.apartmentId, eventId: parsed.data.id, type: "CALENDAR_UPSERT" });
+  after(() => processPendingIntegrationJobs({ limit: 20 }));
+  revalidatePath("/owner/calendario");
+  revalidatePath("/tenant/calendario");
+}
+
+export async function cancelCalendarEvent(formData: FormData) {
+  const parsed = z.object({ id: idSchema }).safeParse({ id: formData.get("id") });
+  if (!parsed.success) return;
+  const { session, membership } = await requireMembership("OWNER");
+  assertCan(membership.role, "event:create");
+  const updated = await db.calendarEvent.updateMany({ where: { id: parsed.data.id, apartmentId: membership.apartmentId, status: "ACTIVE" }, data: { status: "CANCELLED" } });
+  if (!updated.count) return;
+  await db.auditEvent.create({ data: { apartmentId: membership.apartmentId, actorId: session.user.id, action: "event.cancel", entityType: "event", entityId: parsed.data.id } });
+  await enqueueCalendarEventJobs({ apartmentId: membership.apartmentId, eventId: parsed.data.id, type: "CALENDAR_DELETE" });
+  after(() => processPendingIntegrationJobs({ limit: 20 }));
   revalidatePath("/owner/calendario");
   revalidatePath("/tenant/calendario");
 }

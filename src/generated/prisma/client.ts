@@ -24,7 +24,7 @@ export * as $Enums from './enums'
 export * from "./enums"
 /**
  * ## Prisma Client
- *
+ * 
  * Type-safe database client for TypeScript
  * @example
  * ```
@@ -63,7 +63,7 @@ export type Account = Prisma.AccountModel
 export type Verification = Prisma.VerificationModel
 /**
  * Model RateLimit
- *
+ * 
  */
 export type RateLimit = Prisma.RateLimitModel
 /**
@@ -136,6 +136,31 @@ export type CalendarEvent = Prisma.CalendarEventModel
  * 
  */
 export type EventParticipant = Prisma.EventParticipantModel
+/**
+ * Model GoogleIntegration
+ * 
+ */
+export type GoogleIntegration = Prisma.GoogleIntegrationModel
+/**
+ * Model GoogleCalendarTarget
+ * 
+ */
+export type GoogleCalendarTarget = Prisma.GoogleCalendarTargetModel
+/**
+ * Model GoogleEventLink
+ * 
+ */
+export type GoogleEventLink = Prisma.GoogleEventLinkModel
+/**
+ * Model EmailDelivery
+ * 
+ */
+export type EmailDelivery = Prisma.EmailDeliveryModel
+/**
+ * Model IntegrationJob
+ * 
+ */
+export type IntegrationJob = Prisma.IntegrationJobModel
 /**
  * Model Document
  * 

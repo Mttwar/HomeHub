@@ -13,11 +13,12 @@ type SidebarProps = {
   apartmentCity: string;
   open: boolean;
   onNavigate: (view: View) => void;
+  onPrefetch: (view: View) => void;
   onClose: () => void;
   onSignOut: () => void;
 };
 
-export function Sidebar({ active, session, openIssues, unreadMessages, apartmentLabel, apartmentCity, open, onNavigate, onClose, onSignOut }: SidebarProps) {
+export function Sidebar({ active, session, openIssues, unreadMessages, apartmentLabel, apartmentCity, open, onNavigate, onPrefetch, onClose, onSignOut }: SidebarProps) {
   return (
     <>
       <button
@@ -39,10 +40,10 @@ export function Sidebar({ active, session, openIssues, unreadMessages, apartment
             const selected = active === item.id;
             const badge = item.id === "issues" ? openIssues : item.id === "messages" ? unreadMessages : 0;
             return (
-              <button key={item.id} onClick={() => { onNavigate(item.id); onClose(); }} aria-current={selected ? "page" : undefined} className={cx("motion-control group flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition-all duration-300", selected ? "bg-lime text-ink shadow-[0_12px_30px_rgba(182,243,107,.13)]" : "text-slate-400 hover:bg-white/[0.07] hover:text-white")}>
-                <Icon className={cx("size-[19px] transition-transform duration-300", selected ? "scale-110" : "group-hover:translate-x-0.5")} strokeWidth={selected ? 2.4 : 2} aria-hidden="true" />
+              <button key={item.id} onClick={() => { onNavigate(item.id); onClose(); }} onPointerEnter={() => onPrefetch(item.id)} onFocus={() => onPrefetch(item.id)} aria-current={selected ? "page" : undefined} className={cx("sidebar-nav-item motion-control group flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition-all duration-300", selected ? "sidebar-nav-item--selected bg-lime text-ink shadow-[0_12px_30px_rgba(63,99,85,.16)]" : "text-slate-400 hover:bg-white/[0.07] hover:text-white")}>
+                <Icon className={cx("sidebar-nav-icon size-[19px] transition-transform duration-300", selected ? "scale-110" : "group-hover:translate-x-0.5")} strokeWidth={selected ? 2.4 : 2} aria-hidden="true" />
                 <span>{item.label}</span>
-                {badge > 0 && <span className={cx("ml-auto grid min-w-5 place-items-center rounded-full px-1.5 py-0.5 text-[10px]", selected ? "bg-ink text-white" : "bg-white/10 text-slate-300")}>{badge}</span>}
+                {badge > 0 && <span className={cx("sidebar-notification-badge ml-auto grid min-w-5 place-items-center rounded-full px-1.5 py-0.5 text-[10px]", selected ? "bg-ink text-white" : "bg-white/10 text-slate-300")}>{badge}</span>}
               </button>
             );
           })}
@@ -53,7 +54,7 @@ export function Sidebar({ active, session, openIssues, unreadMessages, apartment
             <p className="mt-2 text-sm font-semibold text-white">{apartmentLabel}</p>
             <p className="mt-0.5 text-xs text-slate-500">{apartmentCity}</p>
           </div>
-          <button onClick={() => onNavigate("settings")} className="flex w-full items-center gap-3 rounded-2xl p-2 text-left hover:bg-white/[0.06]">
+          <button onClick={() => onNavigate("settings")} onPointerEnter={() => onPrefetch("settings")} onFocus={() => onPrefetch("settings")} className="flex w-full items-center gap-3 rounded-2xl p-2 text-left hover:bg-white/[0.06]">
             <span className="grid size-10 place-items-center rounded-full bg-violet text-sm font-bold text-white">{session.initials}</span>
             <span className="min-w-0 flex-1"><span className="block truncate text-sm font-semibold">{session.name}</span><span className="block text-xs capitalize text-slate-500">{session.role === "owner" ? "Proprietario" : "Inquilino"}</span></span>
             <Settings className="size-4 text-slate-500" />

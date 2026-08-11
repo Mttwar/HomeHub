@@ -77,6 +77,8 @@ export function ActionModal({ kind, onClose, onSaved }: { kind: ModalKind; onClo
   const titleError = state.fieldErrors?.title?.[0];
   const categoryError = state.fieldErrors?.category?.[0];
   const dateError = state.fieldErrors?.date?.[0];
+  const endDateError = state.fieldErrors?.endDate?.[0];
+  const locationError = state.fieldErrors?.location?.[0];
   const amountError = state.fieldErrors?.amount?.[0];
   const attachmentError = state.fieldErrors?.attachment?.[0];
   const priorityError = state.fieldErrors?.priority?.[0];
@@ -87,13 +89,13 @@ export function ActionModal({ kind, onClose, onSaved }: { kind: ModalKind; onClo
       <form action={formAction} className="action-modal-form modal-surface-enter relative max-h-[calc(100dvh-2rem)] w-full max-w-[620px] overflow-y-auto rounded-[30px] border border-white/80 bg-white shadow-[0_32px_100px_rgba(15,23,42,.28)]">
         <input type="hidden" name="kind" value={kind} />
         <header className="action-modal-header flex items-start gap-4 border-b border-slate-100 bg-gradient-to-br from-white to-slate-50/80 p-5 sm:p-7">
-          <span className="grid size-12 shrink-0 place-items-center rounded-[18px] bg-violet/10 text-violet shadow-[inset_0_0_0_1px_rgba(118,87,255,.08)]"><Icon className="size-5" /></span>
+          <span className="action-modal-icon grid size-12 shrink-0 place-items-center rounded-[18px] bg-violet/10 text-violet shadow-[inset_0_0_0_1px_rgba(217,142,63,.10)]"><Icon className="size-5" /></span>
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-extrabold uppercase tracking-[.16em] text-violet">{copy.eyebrow}</p>
             <h2 id="modal-title" className="mt-1 text-xl font-bold tracking-[-.04em] text-ink sm:text-2xl">{copy.title}</h2>
             <p className="mt-1.5 text-sm leading-5 text-slate-500">{copy.description}</p>
           </div>
-          <button type="button" onClick={onClose} className="motion-control grid size-10 shrink-0 place-items-center rounded-[14px] border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-slate-300 hover:text-ink" aria-label="Chiudi"><X className="size-[18px]" /></button>
+          <button type="button" onClick={onClose} className="action-modal-close motion-control grid size-10 shrink-0 place-items-center rounded-[14px] border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-slate-300 hover:text-ink" aria-label="Chiudi"><X className="size-[18px]" /></button>
         </header>
 
         <div className="action-modal-body grid gap-5 p-5 sm:grid-cols-6 sm:p-7">
@@ -110,6 +112,15 @@ export function ActionModal({ kind, onClose, onSaved }: { kind: ModalKind; onClo
               <DateTimePicker id="record-date" name="date" required={kind === "bill" || kind === "event" || kind === "rent"} withTime={kind === "event"} ariaInvalid={Boolean(dateError)} />
             </Field>
           )}
+
+          {kind === "event" && <>
+            <Field htmlFor="record-end-date" label="Data e ora di fine" error={endDateError} className="sm:col-span-3">
+              <DateTimePicker id="record-end-date" name="endDate" required withTime ariaInvalid={Boolean(endDateError)} />
+            </Field>
+            <Field htmlFor="record-location" label="Luogo" optional error={locationError} className="sm:col-span-3">
+              <Input id="record-location" name="location" maxLength={240} aria-invalid={Boolean(locationError)} placeholder="Es. Appartamento o indirizzo" />
+            </Field>
+          </>}
 
           {needsAmount && (
             <Field htmlFor="record-amount" label="Importo" error={amountError} className="sm:col-span-2">
@@ -143,8 +154,8 @@ export function ActionModal({ kind, onClose, onSaved }: { kind: ModalKind; onClo
         </div>
 
         <footer className="action-modal-footer sticky bottom-0 flex items-center justify-end gap-2 border-t border-slate-100 bg-white/95 px-5 py-4 backdrop-blur-xl sm:px-7">
-          <button type="button" onClick={onClose} className="motion-control h-11 rounded-2xl px-4 text-sm font-bold text-slate-500 transition hover:bg-slate-100 hover:text-ink">Annulla</button>
-          <button disabled={pending} className="motion-control inline-flex h-11 min-w-36 items-center justify-center gap-2 rounded-2xl bg-ink px-5 text-sm font-bold text-white shadow-[0_10px_28px_rgba(15,23,42,.2)] transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-wait disabled:opacity-60">{pending && <LoaderCircle className="size-4 animate-spin" />}{pending ? "Salvataggio…" : copy.label}</button>
+          <button type="button" onClick={onClose} className="action-modal-cancel motion-control h-11 rounded-2xl px-4 text-sm font-bold text-slate-500 transition hover:bg-slate-100 hover:text-ink">Annulla</button>
+          <button disabled={pending} className="action-modal-submit motion-control inline-flex h-11 min-w-36 items-center justify-center gap-2 rounded-2xl bg-ink px-5 text-sm font-bold text-white shadow-[0_10px_28px_rgba(15,23,42,.2)] transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-wait disabled:opacity-60">{pending && <LoaderCircle className="size-4 animate-spin" />}{pending ? "Salvataggio…" : copy.label}</button>
         </footer>
       </form>
     </div>

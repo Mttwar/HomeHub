@@ -1,12 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { createRecordSchema } from "@/features/records/schema";
 import type { CreateRecordState } from "@/features/records/state";
 import { requireMembership } from "@/server/auth/require-membership";
 import { db } from "@/server/db";
 import { assertCan, type PortalAction } from "@/server/permissions";
 import { AttachmentUploadError, removePrivateAttachment, storePrivateBillAttachment, type StoredAttachment } from "@/server/storage/private-attachments";
+import { enqueueCalendarEventJobs, processPendingIntegrationJobs } from "@/server/google/outbox";
 
 const actions: Record<string, PortalAction> = {
   bill: "bill:create",
@@ -25,6 +27,8 @@ export async function createPortalRecord(_previous: CreateRecordState, formData:
     title: formData.get("title"),
     category: formData.get("category"),
     date: formData.get("date") ?? "",
+    endDate: formData.get("endDate") ?? "",
+    location: formData.get("location") ?? "",
     notes: formData.get("notes") ?? "",
     amount: formData.get("amount") ?? "0",
     priority: formData.get("priority") ?? "MEDIUM",
@@ -42,7 +46,7 @@ export async function createPortalRecord(_previous: CreateRecordState, formData:
 
   try {
     assertCan(membership.role, action);
-    const { kind, title, category, date, notes, amount, priority, visibility } = parsed.data;
+    const { kind, title, category, date, endDate, location, notes, amount, priority, visibility } = parsed.data;
     const actorId = session.user.id;
     const apartmentId = membership.apartmentId;
     if (kind === "bill" && attachment) {
@@ -63,7 +67,7 @@ export async function createPortalRecord(_previous: CreateRecordState, formData:
       } else if (kind === "event") {
         const startsAt = new Date(date);
         const members = await transaction.apartmentMembership.findMany({ where: { apartmentId, status: "ACTIVE" }, select: { userId: true } });
-        entity = await transaction.calendarEvent.create({ data: { apartmentId, title, description: notes || null, startsAt, endsAt: new Date(startsAt.getTime() + 60 * 60 * 1000), createdById: actorId, participants: { create: members.map(({ userId }) => ({ userId, status: userId === actorId ? "ACCEPTED" : "PENDING" })) } } });
+        entity = await transaction.calendarEvent.create({ data: { apartmentId, title, description: notes || null, location: location || null, startsAt, endsAt: new Date(endDate), createdById: actorId, participants: { create: members.map(({ userId }) => ({ userId, status: userId === actorId ? "ACCEPTED" : "PENDING" })) } } });
       } else {
         entity = await transaction.document.create({ data: { apartmentId, title, category, visibility } });
       }
@@ -96,6 +100,10 @@ export async function createPortalRecord(_previous: CreateRecordState, formData:
     });
 
     const area = membership.role === "OWNER" ? "owner" : "tenant";
+    if (parsed.data.kind === "event") {
+      await enqueueCalendarEventJobs({ apartmentId: membership.apartmentId, eventId: created.id, type: "CALENDAR_UPSERT" });
+      after(() => processPendingIntegrationJobs({ limit: 20 }));
+    }
     revalidatePath(`/${area}`);
     return { status: "success", message: uploadedAttachment ? `Bolletta e allegato salvati (${created.id.slice(-6)})` : `Elemento salvato (${created.id.slice(-6)})` };
   } catch (error) {

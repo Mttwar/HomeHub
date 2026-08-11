@@ -14,9 +14,9 @@ type PollingOptions<T> = {
   onAccessDenied?: () => void;
 };
 
-async function requestJson<T>(url: string): Promise<PollingResult<T>> {
+async function requestJson<T>(url: string, signal: AbortSignal): Promise<PollingResult<T>> {
   try {
-    const response = await fetch(url, { cache: "no-store" });
+    const response = await fetch(url, { cache: "no-store", signal });
     if (response.status === 401 || response.status === 403) return { status: "access-denied" };
     if (!response.ok) return { status: "error" };
     return { status: "success", data: await response.json() as T };
@@ -35,11 +35,14 @@ export function usePollingQuery<T>({ url, intervalMs, onData, onAccessDenied }: 
   useEffect(() => {
     let active = true;
     let polling = false;
+    let controller: AbortController | null = null;
 
     const poll = async () => {
       if (!active || polling || document.visibilityState !== "visible") return;
       polling = true;
-      const result = await requestJson<T>(url);
+      controller = new AbortController();
+      const result = await requestJson<T>(url, controller.signal);
+      controller = null;
       polling = false;
 
       if (!active) return;
@@ -54,6 +57,7 @@ export function usePollingQuery<T>({ url, intervalMs, onData, onAccessDenied }: 
 
     return () => {
       active = false;
+      controller?.abort();
       window.clearInterval(timer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };

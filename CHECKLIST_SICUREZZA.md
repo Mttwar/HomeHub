@@ -35,6 +35,19 @@ Questa checklist deve essere completata prima di ogni rilascio in produzione. No
 - [ ] Dipendenze e immagini di build sottoposte a scansione.
 - [ ] Audit log per azioni privilegiate.
 
+## Integrazione Google
+
+- [x] Scope OAuth minimali e consenso separato per login, Calendar e Gmail.
+- [x] Access token e refresh token cifrati nel database dal layer di autenticazione.
+- [x] Destinatario, oggetto e corpo Gmail cifrati AES-256-GCM mentre sono in coda.
+- [x] Chiave dati separata dai secret OAuth e mai esposta tramite variabili `NEXT_PUBLIC_*`.
+- [x] Revoca Google bloccata se eliminerebbe l'unico metodo di accesso dell'utente.
+- [x] Errori Google sanitizzati e privi di token o contenuto delle email.
+- [x] Worker protetto da secret, job idempotenti e retry limitati.
+- [x] Origini localhost dinamiche abilitate esclusivamente fuori produzione.
+- [ ] Cifratura storage, backup e TLS del PostgreSQL verificati nell'ambiente di produzione.
+- [ ] Rotazione provata di OAuth client secret, `DATA_ENCRYPTION_KEY` e `CRON_SECRET`.
+
 ## Privacy
 
 - [ ] Finalità e base giuridica definite per ogni categoria di dati.
@@ -67,4 +80,3 @@ Questa checklist deve essere completata prima di ogni rilascio in produzione. No
 - [ ] Test accessibilità WCAG 2.2 AA.
 - [ ] Nessuna PII nei dati di test o Preview.
 - [ ] Security review finale completata da una persona diversa dall'autore della feature.
-

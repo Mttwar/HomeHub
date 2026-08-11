@@ -18,9 +18,9 @@ export function ApartmentSelectButton({ address, apartmentName, roleLabel }: Apa
       <button
         type="submit"
         disabled={pending}
-        className="group motion-control flex min-h-[78px] w-full items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 text-left shadow-[0_8px_24px_rgba(15,23,42,.04)] transition duration-300 hover:-translate-y-0.5 hover:border-violet/30 hover:shadow-[0_12px_30px_rgba(118,87,255,.09)] disabled:cursor-wait disabled:opacity-70"
+        className="apartment-select-card group motion-control flex min-h-[78px] w-full items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 text-left shadow-[0_8px_24px_rgba(42,38,32,.04)] transition duration-300 hover:-translate-y-0.5 hover:border-violet/30 hover:shadow-[0_12px_30px_rgba(217,142,63,.11)] disabled:cursor-wait disabled:opacity-70"
       >
-        <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#eef2ec] text-slate-700 transition duration-300 group-hover:bg-violet/10 group-hover:text-violet"><Home className="size-5" aria-hidden="true" /></span>
+        <span className="apartment-select-icon grid size-12 shrink-0 place-items-center rounded-2xl bg-[#eef2ec] text-slate-700 transition duration-300 group-hover:bg-violet/10 group-hover:text-violet"><Home className="size-5" aria-hidden="true" /></span>
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-center gap-2">
             <b className="truncate text-sm text-ink">{apartmentName}</b>
@@ -28,7 +28,7 @@ export function ApartmentSelectButton({ address, apartmentName, roleLabel }: Apa
           </span>
           <span className="mt-1.5 block truncate text-xs text-slate-400">{address}</span>
         </span>
-        <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-slate-50 text-slate-300 transition duration-300 group-hover:bg-violet group-hover:text-white"><ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" /></span>
+        <span className="apartment-select-arrow grid size-9 shrink-0 place-items-center rounded-xl bg-slate-50 text-slate-300 transition duration-300 group-hover:bg-violet group-hover:text-white"><ChevronRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" /></span>
       </button>
 
       {pending ? <PendingOverlay title={`Apro ${apartmentName}`} description="Stiamo preparando la dashboard e verificando il tuo accesso." /> : null}

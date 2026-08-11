@@ -28,6 +28,7 @@ export function getTrustedOrigins() {
         getAppUrl(),
         normalizeUrl(process.env.VERCEL_URL),
         normalizeUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL),
+        ...(process.env.NODE_ENV === "production" ? [] : ["http://localhost:*", "http://127.0.0.1:*"]),
       ].filter((origin): origin is string => Boolean(origin)),
     ),
   );

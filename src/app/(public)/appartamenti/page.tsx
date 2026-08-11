@@ -20,7 +20,7 @@ export default async function ApartmentsPage() {
       <div className="mx-auto max-w-6xl">
         <ApartmentFlowHeader backHref={backHref} backLabel={backLabel} />
 
-        <section className="apartment-flow-panel mt-6 grid overflow-hidden rounded-[32px] border border-white/80 bg-[#f8faf6] shadow-[0_24px_70px_rgba(17,24,39,.10)] lg:min-h-[570px] lg:grid-cols-[.78fr_1.22fr]">
+        <section className="apartment-flow-panel apartment-flow-surface mt-6 grid overflow-hidden rounded-[32px] border border-white/80 bg-[#f8faf6] shadow-[0_24px_70px_rgba(17,24,39,.10)] lg:min-h-[570px] lg:grid-cols-[.78fr_1.22fr]">
           <aside className="flex flex-col bg-ink p-7 text-white sm:p-10 lg:p-12">
             <span className="grid size-12 place-items-center rounded-2xl bg-lime text-ink"><Building2 className="size-5" aria-hidden="true" /></span>
             <p className="mt-8 text-[11px] font-extrabold uppercase tracking-[.18em] text-lime">I tuoi spazi</p>

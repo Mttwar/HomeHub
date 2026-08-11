@@ -2,19 +2,32 @@
 
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ActionModal } from "@/components/overlays/ActionModal";
-import { BillsPage } from "@/components/portal/pages/BillsPage";
-import { CalendarPage } from "@/components/portal/pages/CalendarPage";
-import { DashboardPage } from "@/components/portal/pages/DashboardPage";
-import { DocumentsPage } from "@/components/portal/pages/DocumentsPage";
-import { ExpensesPage } from "@/components/portal/pages/ExpensesPage";
-import { IssuesPage } from "@/components/portal/pages/IssuesPage";
-import { MessagesPage } from "@/components/portal/pages/MessagesPage";
-import { SettingsPage } from "@/components/portal/pages/SettingsPage";
-import { SearchResultsPage } from "@/components/portal/pages/SearchResultsPage";
-import type { ModalKind, Role, Session, View } from "@/types";
+import type { ModalKind, Role, View } from "@/types";
 import type { BillListItem, DashboardData, DocumentListItem, EventListItem, ExpenseListItem, ExpenseSummary, GlobalSearchResult, IssueListItem, MessagesViewData, RentScheduleListItem } from "@/features/portal/types";
+
+const loadBillsPage = () => import("@/components/portal/pages/BillsPage").then((module) => module.BillsPage);
+const loadCalendarPage = () => import("@/components/portal/pages/CalendarPage").then((module) => module.CalendarPage);
+const loadDashboardPage = () => import("@/components/portal/pages/DashboardPage").then((module) => module.DashboardPage);
+const loadDocumentsPage = () => import("@/components/portal/pages/DocumentsPage").then((module) => module.DocumentsPage);
+const loadExpensesPage = () => import("@/components/portal/pages/ExpensesPage").then((module) => module.ExpensesPage);
+const loadIssuesPage = () => import("@/components/portal/pages/IssuesPage").then((module) => module.IssuesPage);
+const loadMessagesPage = () => import("@/components/portal/pages/MessagesPage").then((module) => module.MessagesPage);
+const loadSearchResultsPage = () => import("@/components/portal/pages/SearchResultsPage").then((module) => module.SearchResultsPage);
+
+const BillsPage = dynamic(loadBillsPage);
+const CalendarPage = dynamic(loadCalendarPage);
+const DashboardPage = dynamic(loadDashboardPage);
+const DocumentsPage = dynamic(loadDocumentsPage);
+const ExpensesPage = dynamic(loadExpensesPage);
+const IssuesPage = dynamic(loadIssuesPage);
+const MessagesPage = dynamic(loadMessagesPage);
+const SearchResultsPage = dynamic(loadSearchResultsPage);
+const ActionModal = dynamic(
+  () => import("@/components/overlays/ActionModal").then((module) => module.ActionModal),
+  { ssr: false },
+);
 
 const viewPaths: Record<View, string> = {
   dashboard: "dashboard",
@@ -31,7 +44,6 @@ const viewPaths: Record<View, string> = {
 type PortalPageClientProps = {
   view: View;
   role: Role;
-  session?: Session | undefined;
   bills?: BillListItem[] | undefined;
   expenses?: { records: ExpenseListItem[]; summary: ExpenseSummary; rentSchedules: RentScheduleListItem[] } | undefined;
   issues?: IssueListItem[] | undefined;
@@ -43,7 +55,7 @@ type PortalPageClientProps = {
   searchQuery?: string | undefined;
 };
 
-export function PortalPageClient({ view, role, session, bills, expenses, issues, events, documents, messages, dashboard, searchResults, searchQuery = "" }: PortalPageClientProps) {
+export function PortalPageClient({ view, role, bills, expenses, issues, events, documents, messages, dashboard, searchResults, searchQuery = "" }: PortalPageClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [modal, setModal] = useState<ModalKind>(null);
@@ -52,9 +64,28 @@ export function PortalPageClient({ view, role, session, bills, expenses, issues,
   const query = searchParams.get("q") ?? "";
 
   useEffect(() => {
+    const preloadPages = () => {
+      void Promise.all([
+        loadBillsPage(),
+        loadCalendarPage(),
+        loadDashboardPage(),
+        loadDocumentsPage(),
+        loadExpensesPage(),
+        loadIssuesPage(),
+        loadMessagesPage(),
+        loadSearchResultsPage(),
+      ]);
+    };
+
+    const timer = window.setTimeout(preloadPages, 250);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (view !== "dashboard") return;
     const timer = window.setInterval(() => setLivePower((value) => Math.max(0.78, Math.min(2.12, value + (Math.random() - 0.5) * 0.16))), 3200);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [view]);
 
   useEffect(() => {
     if (!toast) return;
@@ -72,7 +103,7 @@ export function PortalPageClient({ view, role, session, bills, expenses, issues,
     case "messages": page = <MessagesPage data={messages} query={query} />; break;
     case "calendar": page = <CalendarPage role={role} query={query} records={events} onOpenModal={setModal} />; break;
     case "documents": page = <DocumentsPage role={role} query={query} records={documents} onOpenModal={setModal} />; break;
-    case "settings": page = session ? <SettingsPage session={session} /> : null; break;
+    case "settings": page = null; break;
     case "search": page = <SearchResultsPage query={searchQuery} results={searchResults ?? []} />; break;
     default: page = <DashboardPage role={role} livePower={livePower} data={dashboard} onNavigate={navigate} onOpenModal={setModal} />;
   }
@@ -80,7 +111,7 @@ export function PortalPageClient({ view, role, session, bills, expenses, issues,
   return (
     <>
       {page}
-      <ActionModal key={modal ?? "closed"} kind={modal} onClose={() => setModal(null)} onSaved={setToast} />
+      {modal ? <ActionModal key={modal} kind={modal} onClose={() => setModal(null)} onSaved={setToast} /> : null}
       {toast && <div className="portal-toast fixed bottom-24 left-1/2 z-[90] flex -translate-x-1/2 items-center gap-2 rounded-2xl bg-ink px-4 py-3 text-sm font-semibold text-white shadow-2xl lg:bottom-6"><span className="portal-toast-icon grid size-5 place-items-center rounded-full bg-lime text-ink"><Check className="size-3" /></span>{toast}</div>}
     </>
   );

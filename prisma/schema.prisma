@@ -74,6 +74,31 @@ enum ParticipantStatus {
   DECLINED
 }
 
+enum CalendarEventStatus {
+  ACTIVE
+  CANCELLED
+}
+
+enum IntegrationJobType {
+  CALENDAR_UPSERT
+  CALENDAR_DELETE
+  GMAIL_SEND
+}
+
+enum IntegrationJobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum EmailDeliveryStatus {
+  PENDING
+  SENDING
+  SENT
+  FAILED
+}
+
 model User {
   id            String   @id
   name          String
@@ -86,13 +111,17 @@ model User {
   sessions          Session[]
   accounts          Account[]
   memberships       ApartmentMembership[]
-  sentInvitations   Invitation[]          @relation("InvitationSender")
+  sentInvitations   Invitation[]           @relation("InvitationSender")
   issueComments     IssueComment[]
   messages          Message[]
   uploadedFiles     Attachment[]
   notifications     Notification[]
   auditEvents       AuditEvent[]
   eventParticipants EventParticipant[]
+  googleIntegration GoogleIntegration?
+  googleCalendars   GoogleCalendarTarget[]
+  emailDeliveries   EmailDelivery[]
+  integrationJobs   IntegrationJob[]
 }
 
 model Session {
@@ -173,6 +202,9 @@ model Apartment {
   utilityConnections UtilityConnection[]
   notifications      Notification[]
   auditEvents        AuditEvent[]
+  googleCalendars    GoogleCalendarTarget[]
+  emailDeliveries    EmailDelivery[]
+  integrationJobs    IntegrationJob[]
 }
 
 model ApartmentMembership {
@@ -348,7 +380,7 @@ model Message {
 }
 
 model CalendarEvent {
-  id           String             @id @default(cuid())
+  id           String              @id @default(cuid())
   apartmentId  String
   title        String
   description  String?
@@ -357,10 +389,12 @@ model CalendarEvent {
   endsAt       DateTime
   createdById  String
   issueId      String?
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
-  apartment    Apartment          @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  status       CalendarEventStatus @default(ACTIVE)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  apartment    Apartment           @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
   participants EventParticipant[]
+  googleLinks  GoogleEventLink[]
 
   @@index([apartmentId, startsAt])
 }
@@ -374,6 +408,97 @@ model EventParticipant {
   user    User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, userId])
+}
+
+model GoogleIntegration {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  calendarEnabled   Boolean   @default(false)
+  gmailEnabled      Boolean   @default(false)
+  lastErrorCode     String?
+  calendarEnabledAt DateTime?
+  gmailEnabledAt    DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GoogleCalendarTarget {
+  id            String            @id @default(cuid())
+  userId        String
+  apartmentId   String
+  calendarId    String
+  calendarName  String
+  enabled       Boolean           @default(true)
+  lastSyncedAt  DateTime?
+  lastErrorCode String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apartment     Apartment         @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  eventLinks    GoogleEventLink[]
+
+  @@unique([userId, apartmentId])
+  @@unique([userId, calendarId])
+  @@index([apartmentId, enabled])
+}
+
+model GoogleEventLink {
+  id            String               @id @default(cuid())
+  targetId      String
+  eventId       String
+  googleEventId String
+  etag          String?
+  lastSyncedAt  DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  target        GoogleCalendarTarget @relation(fields: [targetId], references: [id], onDelete: Cascade)
+  event         CalendarEvent        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([targetId, eventId])
+  @@unique([targetId, googleEventId])
+  @@index([eventId])
+}
+
+model EmailDelivery {
+  id                String              @id @default(cuid())
+  apartmentId       String
+  senderUserId      String
+  toEncrypted       String
+  subjectEncrypted  String
+  bodyEncrypted     String
+  providerMessageId String?
+  status            EmailDeliveryStatus @default(PENDING)
+  attempts          Int                 @default(0)
+  lastErrorCode     String?
+  createdAt         DateTime            @default(now())
+  sentAt            DateTime?
+  apartment         Apartment           @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  sender            User                @relation(fields: [senderUserId], references: [id], onDelete: Cascade)
+
+  @@index([senderUserId, createdAt])
+  @@index([status, createdAt])
+}
+
+model IntegrationJob {
+  id            String               @id @default(cuid())
+  userId        String
+  apartmentId   String?
+  type          IntegrationJobType
+  entityId      String
+  dedupeKey     String               @unique
+  status        IntegrationJobStatus @default(PENDING)
+  attempts      Int                  @default(0)
+  availableAt   DateTime             @default(now())
+  lockedAt      DateTime?
+  lastErrorCode String?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apartment     Apartment?           @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+
+  @@index([status, availableAt])
+  @@index([userId, type])
 }
 
 model Document {

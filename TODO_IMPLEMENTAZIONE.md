@@ -21,14 +21,17 @@ Audit eseguito l'8 agosto 2026 confrontando codice, schema Prisma, `ANALISI.md`,
 - [x] Rimuovere o sostituire i controlli UI che promettevano azioni locali inesistenti.
 - [x] Estendere la matrice permessi e i test di validazione per le nuove operazioni.
 
-## Fuori ambito richiesto: API e servizi esterni
+## API e servizi esterni
 
 - [ ] Upload/scansione/cancellazione di allegati per documenti e segnalazioni: richiede storage privato e servizio antimalware. L'upload bollette esistente resta opzionale tramite Vercel Blob.
-- [ ] Inviti e verifica email, recupero password e notifiche email: richiedono un provider email.
-- [ ] Google Calendar OAuth e sincronizzazione bidirezionale.
+- [x] Inviti, verifica email e recupero password tramite provider transazionale configurabile.
+- [x] Login/collegamento Google con consenso incrementale e revoca sicura.
+- [x] Sincronizzazione CasaHub → Google Calendar per creazione, modifica e annullamento degli eventi.
+- [x] Invio Gmail con outbox cifrata, idempotenza operativa, rate limit e retry.
+- [ ] Import Google Calendar → CasaHub e webhook bidirezionali. È separato dall'export richiesto e richiede gestione dei canali push/sync token.
 - [ ] Octopus Energy e letture reali dei consumi. La card energia resta marcata chiaramente come demo.
 - [ ] WhatsApp e altri canali di messaggistica esterni.
-- [ ] Passkey/2FA e rate limiting distribuito: richiedono configurazione o servizi specifici dell'ambiente di autenticazione/deploy.
+- [ ] Passkey/2FA per i proprietari. Il rate limiting dell'autenticazione è già persistito su PostgreSQL.
 - [ ] Deploy, WAF, monitoraggio, backup e restore: attività infrastrutturali dell'ambiente di produzione.
 
 ## Hardening successivo (non dipende dal prodotto, ma dall'ambiente di test/go-live)
@@ -42,6 +45,6 @@ Audit eseguito l'8 agosto 2026 confrontando codice, schema Prisma, `ANALISI.md`,
 
 - `npx tsc --noEmit`: superato.
 - `npm run lint`: superato.
-- `npm test`: 11 test superati.
-- `npm run build`: superato, 23 route generate correttamente.
+- `npm test`: suite completa superata, inclusi i test AES-256-GCM.
+- `npm run build`: superato, incluse le route di attivazione Google e del worker protetto.
 - Database Docker: non verificato perché Docker Desktop non era avviato durante l'audit.

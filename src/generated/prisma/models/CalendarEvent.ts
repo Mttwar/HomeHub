@@ -34,6 +34,7 @@ export type CalendarEventMinAggregateOutputType = {
   endsAt: Date | null
   createdById: string | null
   issueId: string | null
+  status: $Enums.CalendarEventStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +49,7 @@ export type CalendarEventMaxAggregateOutputType = {
   endsAt: Date | null
   createdById: string | null
   issueId: string | null
+  status: $Enums.CalendarEventStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +64,7 @@ export type CalendarEventCountAggregateOutputType = {
   endsAt: number
   createdById: number
   issueId: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -78,6 +81,7 @@ export type CalendarEventMinAggregateInputType = {
   endsAt?: true
   createdById?: true
   issueId?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -92,6 +96,7 @@ export type CalendarEventMaxAggregateInputType = {
   endsAt?: true
   createdById?: true
   issueId?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -106,6 +111,7 @@ export type CalendarEventCountAggregateInputType = {
   endsAt?: true
   createdById?: true
   issueId?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -193,6 +199,7 @@ export type CalendarEventGroupByOutputType = {
   endsAt: Date
   createdById: string
   issueId: string | null
+  status: $Enums.CalendarEventStatus
   createdAt: Date
   updatedAt: Date
   _count: CalendarEventCountAggregateOutputType | null
@@ -228,10 +235,12 @@ export type CalendarEventWhereInput = {
   endsAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   createdById?: Prisma.StringFilter<"CalendarEvent"> | string
   issueId?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
+  status?: Prisma.EnumCalendarEventStatusFilter<"CalendarEvent"> | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   apartment?: Prisma.XOR<Prisma.ApartmentScalarRelationFilter, Prisma.ApartmentWhereInput>
   participants?: Prisma.EventParticipantListRelationFilter
+  googleLinks?: Prisma.GoogleEventLinkListRelationFilter
 }
 
 export type CalendarEventOrderByWithRelationInput = {
@@ -244,10 +253,12 @@ export type CalendarEventOrderByWithRelationInput = {
   endsAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   issueId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   apartment?: Prisma.ApartmentOrderByWithRelationInput
   participants?: Prisma.EventParticipantOrderByRelationAggregateInput
+  googleLinks?: Prisma.GoogleEventLinkOrderByRelationAggregateInput
 }
 
 export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
@@ -263,10 +274,12 @@ export type CalendarEventWhereUniqueInput = Prisma.AtLeast<{
   endsAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   createdById?: Prisma.StringFilter<"CalendarEvent"> | string
   issueId?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
+  status?: Prisma.EnumCalendarEventStatusFilter<"CalendarEvent"> | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   apartment?: Prisma.XOR<Prisma.ApartmentScalarRelationFilter, Prisma.ApartmentWhereInput>
   participants?: Prisma.EventParticipantListRelationFilter
+  googleLinks?: Prisma.GoogleEventLinkListRelationFilter
 }, "id">
 
 export type CalendarEventOrderByWithAggregationInput = {
@@ -279,6 +292,7 @@ export type CalendarEventOrderByWithAggregationInput = {
   endsAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   issueId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CalendarEventCountOrderByAggregateInput
@@ -299,6 +313,7 @@ export type CalendarEventScalarWhereWithAggregatesInput = {
   endsAt?: Prisma.DateTimeWithAggregatesFilter<"CalendarEvent"> | Date | string
   createdById?: Prisma.StringWithAggregatesFilter<"CalendarEvent"> | string
   issueId?: Prisma.StringNullableWithAggregatesFilter<"CalendarEvent"> | string | null
+  status?: Prisma.EnumCalendarEventStatusWithAggregatesFilter<"CalendarEvent"> | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CalendarEvent"> | Date | string
 }
@@ -312,10 +327,12 @@ export type CalendarEventCreateInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   apartment: Prisma.ApartmentCreateNestedOneWithoutCalendarEventsInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
+  googleLinks?: Prisma.GoogleEventLinkCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventUncheckedCreateInput = {
@@ -328,9 +345,11 @@ export type CalendarEventUncheckedCreateInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
+  googleLinks?: Prisma.GoogleEventLinkUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventUpdateInput = {
@@ -342,10 +361,12 @@ export type CalendarEventUpdateInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   apartment?: Prisma.ApartmentUpdateOneRequiredWithoutCalendarEventsNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
+  googleLinks?: Prisma.GoogleEventLinkUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventUncheckedUpdateInput = {
@@ -358,9 +379,11 @@ export type CalendarEventUncheckedUpdateInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
+  googleLinks?: Prisma.GoogleEventLinkUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventCreateManyInput = {
@@ -373,6 +396,7 @@ export type CalendarEventCreateManyInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -386,6 +410,7 @@ export type CalendarEventUpdateManyMutationInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -400,6 +425,7 @@ export type CalendarEventUncheckedUpdateManyInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,6 +450,7 @@ export type CalendarEventCountOrderByAggregateInput = {
   endsAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   issueId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -438,6 +465,7 @@ export type CalendarEventMaxOrderByAggregateInput = {
   endsAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   issueId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -452,6 +480,7 @@ export type CalendarEventMinOrderByAggregateInput = {
   endsAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   issueId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -503,6 +532,10 @@ export type CalendarEventUncheckedUpdateManyWithoutApartmentNestedInput = {
   deleteMany?: Prisma.CalendarEventScalarWhereInput | Prisma.CalendarEventScalarWhereInput[]
 }
 
+export type EnumCalendarEventStatusFieldUpdateOperationsInput = {
+  set?: $Enums.CalendarEventStatus
+}
+
 export type CalendarEventCreateNestedOneWithoutParticipantsInput = {
   create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutParticipantsInput, Prisma.CalendarEventUncheckedCreateWithoutParticipantsInput>
   connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutParticipantsInput
@@ -517,6 +550,20 @@ export type CalendarEventUpdateOneRequiredWithoutParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CalendarEventUpdateToOneWithWhereWithoutParticipantsInput, Prisma.CalendarEventUpdateWithoutParticipantsInput>, Prisma.CalendarEventUncheckedUpdateWithoutParticipantsInput>
 }
 
+export type CalendarEventCreateNestedOneWithoutGoogleLinksInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedCreateWithoutGoogleLinksInput>
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutGoogleLinksInput
+  connect?: Prisma.CalendarEventWhereUniqueInput
+}
+
+export type CalendarEventUpdateOneRequiredWithoutGoogleLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.CalendarEventCreateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedCreateWithoutGoogleLinksInput>
+  connectOrCreate?: Prisma.CalendarEventCreateOrConnectWithoutGoogleLinksInput
+  upsert?: Prisma.CalendarEventUpsertWithoutGoogleLinksInput
+  connect?: Prisma.CalendarEventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CalendarEventUpdateToOneWithWhereWithoutGoogleLinksInput, Prisma.CalendarEventUpdateWithoutGoogleLinksInput>, Prisma.CalendarEventUncheckedUpdateWithoutGoogleLinksInput>
+}
+
 export type CalendarEventCreateWithoutApartmentInput = {
   id?: string
   title: string
@@ -526,9 +573,11 @@ export type CalendarEventCreateWithoutApartmentInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
+  googleLinks?: Prisma.GoogleEventLinkCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventUncheckedCreateWithoutApartmentInput = {
@@ -540,9 +589,11 @@ export type CalendarEventUncheckedCreateWithoutApartmentInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
+  googleLinks?: Prisma.GoogleEventLinkUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventCreateOrConnectWithoutApartmentInput = {
@@ -584,6 +635,7 @@ export type CalendarEventScalarWhereInput = {
   endsAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   createdById?: Prisma.StringFilter<"CalendarEvent"> | string
   issueId?: Prisma.StringNullableFilter<"CalendarEvent"> | string | null
+  status?: Prisma.EnumCalendarEventStatusFilter<"CalendarEvent"> | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CalendarEvent"> | Date | string
 }
@@ -597,9 +649,11 @@ export type CalendarEventCreateWithoutParticipantsInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   apartment: Prisma.ApartmentCreateNestedOneWithoutCalendarEventsInput
+  googleLinks?: Prisma.GoogleEventLinkCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventUncheckedCreateWithoutParticipantsInput = {
@@ -612,8 +666,10 @@ export type CalendarEventUncheckedCreateWithoutParticipantsInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  googleLinks?: Prisma.GoogleEventLinkUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type CalendarEventCreateOrConnectWithoutParticipantsInput = {
@@ -641,9 +697,11 @@ export type CalendarEventUpdateWithoutParticipantsInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   apartment?: Prisma.ApartmentUpdateOneRequiredWithoutCalendarEventsNestedInput
+  googleLinks?: Prisma.GoogleEventLinkUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventUncheckedUpdateWithoutParticipantsInput = {
@@ -656,8 +714,90 @@ export type CalendarEventUncheckedUpdateWithoutParticipantsInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  googleLinks?: Prisma.GoogleEventLinkUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type CalendarEventCreateWithoutGoogleLinksInput = {
+  id?: string
+  title: string
+  description?: string | null
+  location?: string | null
+  startsAt: Date | string
+  endsAt: Date | string
+  createdById: string
+  issueId?: string | null
+  status?: $Enums.CalendarEventStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  apartment: Prisma.ApartmentCreateNestedOneWithoutCalendarEventsInput
+  participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
+}
+
+export type CalendarEventUncheckedCreateWithoutGoogleLinksInput = {
+  id?: string
+  apartmentId: string
+  title: string
+  description?: string | null
+  location?: string | null
+  startsAt: Date | string
+  endsAt: Date | string
+  createdById: string
+  issueId?: string | null
+  status?: $Enums.CalendarEventStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type CalendarEventCreateOrConnectWithoutGoogleLinksInput = {
+  where: Prisma.CalendarEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.CalendarEventCreateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedCreateWithoutGoogleLinksInput>
+}
+
+export type CalendarEventUpsertWithoutGoogleLinksInput = {
+  update: Prisma.XOR<Prisma.CalendarEventUpdateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedUpdateWithoutGoogleLinksInput>
+  create: Prisma.XOR<Prisma.CalendarEventCreateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedCreateWithoutGoogleLinksInput>
+  where?: Prisma.CalendarEventWhereInput
+}
+
+export type CalendarEventUpdateToOneWithWhereWithoutGoogleLinksInput = {
+  where?: Prisma.CalendarEventWhereInput
+  data: Prisma.XOR<Prisma.CalendarEventUpdateWithoutGoogleLinksInput, Prisma.CalendarEventUncheckedUpdateWithoutGoogleLinksInput>
+}
+
+export type CalendarEventUpdateWithoutGoogleLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  apartment?: Prisma.ApartmentUpdateOneRequiredWithoutCalendarEventsNestedInput
+  participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
+}
+
+export type CalendarEventUncheckedUpdateWithoutGoogleLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  apartmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventCreateManyApartmentInput = {
@@ -669,6 +809,7 @@ export type CalendarEventCreateManyApartmentInput = {
   endsAt: Date | string
   createdById: string
   issueId?: string | null
+  status?: $Enums.CalendarEventStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -682,9 +823,11 @@ export type CalendarEventUpdateWithoutApartmentInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
+  googleLinks?: Prisma.GoogleEventLinkUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventUncheckedUpdateWithoutApartmentInput = {
@@ -696,9 +839,11 @@ export type CalendarEventUncheckedUpdateWithoutApartmentInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
+  googleLinks?: Prisma.GoogleEventLinkUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type CalendarEventUncheckedUpdateManyWithoutApartmentInput = {
@@ -710,6 +855,7 @@ export type CalendarEventUncheckedUpdateManyWithoutApartmentInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   issueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCalendarEventStatusFieldUpdateOperationsInput | $Enums.CalendarEventStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -721,10 +867,12 @@ export type CalendarEventUncheckedUpdateManyWithoutApartmentInput = {
 
 export type CalendarEventCountOutputType = {
   participants: number
+  googleLinks: number
 }
 
 export type CalendarEventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | CalendarEventCountOutputTypeCountParticipantsArgs
+  googleLinks?: boolean | CalendarEventCountOutputTypeCountGoogleLinksArgs
 }
 
 /**
@@ -744,6 +892,13 @@ export type CalendarEventCountOutputTypeCountParticipantsArgs<ExtArgs extends ru
   where?: Prisma.EventParticipantWhereInput
 }
 
+/**
+ * CalendarEventCountOutputType without action
+ */
+export type CalendarEventCountOutputTypeCountGoogleLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GoogleEventLinkWhereInput
+}
+
 
 export type CalendarEventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -755,10 +910,12 @@ export type CalendarEventSelect<ExtArgs extends runtime.Types.Extensions.Interna
   endsAt?: boolean
   createdById?: boolean
   issueId?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   apartment?: boolean | Prisma.ApartmentDefaultArgs<ExtArgs>
   participants?: boolean | Prisma.CalendarEvent$participantsArgs<ExtArgs>
+  googleLinks?: boolean | Prisma.CalendarEvent$googleLinksArgs<ExtArgs>
   _count?: boolean | Prisma.CalendarEventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calendarEvent"]>
 
@@ -772,6 +929,7 @@ export type CalendarEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   endsAt?: boolean
   createdById?: boolean
   issueId?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   apartment?: boolean | Prisma.ApartmentDefaultArgs<ExtArgs>
@@ -787,6 +945,7 @@ export type CalendarEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   endsAt?: boolean
   createdById?: boolean
   issueId?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   apartment?: boolean | Prisma.ApartmentDefaultArgs<ExtArgs>
@@ -802,14 +961,16 @@ export type CalendarEventSelectScalar = {
   endsAt?: boolean
   createdById?: boolean
   issueId?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CalendarEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "apartmentId" | "title" | "description" | "location" | "startsAt" | "endsAt" | "createdById" | "issueId" | "createdAt" | "updatedAt", ExtArgs["result"]["calendarEvent"]>
+export type CalendarEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "apartmentId" | "title" | "description" | "location" | "startsAt" | "endsAt" | "createdById" | "issueId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["calendarEvent"]>
 export type CalendarEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   apartment?: boolean | Prisma.ApartmentDefaultArgs<ExtArgs>
   participants?: boolean | Prisma.CalendarEvent$participantsArgs<ExtArgs>
+  googleLinks?: boolean | Prisma.CalendarEvent$googleLinksArgs<ExtArgs>
   _count?: boolean | Prisma.CalendarEventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CalendarEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -824,6 +985,7 @@ export type $CalendarEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     apartment: Prisma.$ApartmentPayload<ExtArgs>
     participants: Prisma.$EventParticipantPayload<ExtArgs>[]
+    googleLinks: Prisma.$GoogleEventLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -835,6 +997,7 @@ export type $CalendarEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
     endsAt: Date
     createdById: string
     issueId: string | null
+    status: $Enums.CalendarEventStatus
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["calendarEvent"]>
@@ -1233,6 +1396,7 @@ export interface Prisma__CalendarEventClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   apartment<T extends Prisma.ApartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__ApartmentClient<runtime.Types.Result.GetResult<Prisma.$ApartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   participants<T extends Prisma.CalendarEvent$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalendarEvent$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  googleLinks<T extends Prisma.CalendarEvent$googleLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalendarEvent$googleLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoogleEventLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1271,6 +1435,7 @@ export interface CalendarEventFieldRefs {
   readonly endsAt: Prisma.FieldRef<"CalendarEvent", 'DateTime'>
   readonly createdById: Prisma.FieldRef<"CalendarEvent", 'String'>
   readonly issueId: Prisma.FieldRef<"CalendarEvent", 'String'>
+  readonly status: Prisma.FieldRef<"CalendarEvent", 'CalendarEventStatus'>
   readonly createdAt: Prisma.FieldRef<"CalendarEvent", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CalendarEvent", 'DateTime'>
 }
@@ -1695,6 +1860,30 @@ export type CalendarEvent$participantsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.EventParticipantScalarFieldEnum | Prisma.EventParticipantScalarFieldEnum[]
+}
+
+/**
+ * CalendarEvent.googleLinks
+ */
+export type CalendarEvent$googleLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleEventLink
+   */
+  select?: Prisma.GoogleEventLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleEventLink
+   */
+  omit?: Prisma.GoogleEventLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleEventLinkInclude<ExtArgs> | null
+  where?: Prisma.GoogleEventLinkWhereInput
+  orderBy?: Prisma.GoogleEventLinkOrderByWithRelationInput | Prisma.GoogleEventLinkOrderByWithRelationInput[]
+  cursor?: Prisma.GoogleEventLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GoogleEventLinkScalarFieldEnum | Prisma.GoogleEventLinkScalarFieldEnum[]
 }
 
 /**

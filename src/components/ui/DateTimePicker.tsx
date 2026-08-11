@@ -31,7 +31,11 @@ export function DateTimePicker({ ariaInvalid, id, name, required, withTime }: Da
   const [hour, setHour] = useState("09");
   const [minute, setMinute] = useState("00");
 
-  const value = selected ? `${format(selected, "yyyy-MM-dd")}${withTime ? `T${hour}:${minute}` : ""}` : "";
+  const value = selected
+    ? withTime
+      ? new Date(selected.getFullYear(), selected.getMonth(), selected.getDate(), Number(hour), Number(minute)).toISOString()
+      : format(selected, "yyyy-MM-dd")
+    : "";
   const displayValue = selected
     ? `${format(selected, "d MMM yyyy", { locale: dateLocale })}${withTime ? ` · ${hour}:${minute}` : ""}`
     : withTime ? "Scegli data e ora" : "Scegli una data";

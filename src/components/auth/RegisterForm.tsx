@@ -1,12 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { RegisterPage } from "@/components/portal/pages/RegisterPage";
 import { authClient } from "@/lib/auth-client";
+import { authFlowUrl } from "@/lib/auth-flow-url";
 
 export function RegisterForm({ callbackURL = "/onboarding" }: { callbackURL?: string }) {
-  const router = useRouter();
-
   const register = async (name: string, email: string, password: string) => {
     const result = await authClient.signUp.email({ name, email, password, callbackURL });
     if (result.error) {
@@ -14,9 +12,10 @@ export function RegisterForm({ callbackURL = "/onboarding" }: { callbackURL?: st
       return result.error.message ?? "Registrazione non riuscita";
     }
 
-    router.replace(callbackURL);
-    router.refresh();
+    // Reload from the server so the invitation page sees the session cookie
+    // created by Better Auth, including on mobile Safari.
+    window.location.assign(callbackURL);
   };
 
-  return <RegisterPage onRegister={register} />;
+  return <RegisterPage onRegister={register} loginHref={authFlowUrl("/login", callbackURL)} />;
 }

@@ -12,7 +12,7 @@ const features: Array<{ icon: LucideIcon; label: string }> = [
   { icon: MessageCircle, label: "Messaggi" },
 ];
 
-export function LoginPage({ googleConfigured = false, onLogin, onGoogleLogin }: { googleConfigured?: boolean; onLogin: (email: string, password: string) => Promise<string | void>; onGoogleLogin?: (() => Promise<string | void>) | undefined }) {
+export function LoginPage({ googleConfigured = false, onLogin, onGoogleLogin, registerHref = "/registrazione" }: { googleConfigured?: boolean; onLogin: (email: string, password: string) => Promise<string | void>; onGoogleLogin?: (() => Promise<string | void>) | undefined; registerHref?: string }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -76,7 +76,7 @@ export function LoginPage({ googleConfigured = false, onLogin, onGoogleLogin }: 
             {error && <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-3 text-xs font-semibold text-rose-700">{error}</p>}
             <button disabled={pending} className="motion-control group flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-ink text-sm font-bold text-white shadow-[0_12px_32px_rgba(17,24,39,.18)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_38px_rgba(17,24,39,.24)] disabled:cursor-wait disabled:opacity-60">{pending ? "Accesso in corso…" : "Accedi al portale"} <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" /></button>
           </form>
-          <p className="mt-6 text-center text-xs text-slate-500">Non hai ancora un account? <Link href="/registrazione" className="font-bold text-violet hover:underline">Registrati</Link></p>
+          <p className="mt-6 text-center text-xs text-slate-500">Non hai ancora un account? <Link href={registerHref} className="font-bold text-violet hover:underline">Registrati</Link></p>
         </div>
       </section>
     </main>

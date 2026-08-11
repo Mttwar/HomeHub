@@ -15,6 +15,7 @@ import type {
   ProfileData,
   RentScheduleListItem,
 } from "@/features/portal/types";
+import { directCounterpartId } from "@/features/portal/messages";
 import { requireMembership } from "@/server/auth/require-membership";
 import { db } from "@/server/db";
 import { GOOGLE_CALENDAR_SCOPE, GOOGLE_GMAIL_SEND_SCOPE, isGoogleOAuthConfigured, parseGoogleScopes } from "@/server/google/constants";
@@ -176,20 +177,112 @@ export async function listDocuments(expectedRole: MembershipRole): Promise<Docum
   return rows.map((document) => ({ id: document.id, title: document.title, category: document.category, date: dateFormatter.format(document.updatedAt), version: document.version, visibility: document.visibility === "SHARED" ? "Condiviso" : "Solo proprietario" }));
 }
 
-export async function getMessages(expectedRole: MembershipRole): Promise<MessagesViewData> {
-  const context = await requireMembership(expectedRole);
-  const [thread, members] = await Promise.all([
-    db.messageThread.findFirst({ where: { apartmentId: context.membership.apartmentId, participants: { some: { userId: context.session.user.id } } }, include: { messages: { include: { author: { select: { name: true } } }, orderBy: { createdAt: "asc" }, take: 200 } }, orderBy: { updatedAt: "desc" } }),
-    db.apartmentMembership.findMany({ where: { apartmentId: context.membership.apartmentId, status: "ACTIVE", userId: { not: context.session.user.id } }, include: { user: { select: { name: true } } }, take: 10 }),
+type MessageMemberContext = { userId: string; apartmentId: string; role: MembershipRole };
+
+async function hasChatCounterpart(context: MessageMemberContext) {
+  const counterparts = await db.apartmentMembership.findMany({
+    where: {
+      apartmentId: context.apartmentId,
+      role: context.role === "OWNER" ? "TENANT" : "OWNER",
+      status: { in: ["ACTIVE", "SUSPENDED", "REMOVED"] },
+    },
+    select: { userId: true, status: true },
+  });
+  if (counterparts.some((counterpart) => counterpart.status === "ACTIVE")) return true;
+  if (!counterparts.length) return false;
+
+  const allowedCounterpartIds = new Set(counterparts.map((counterpart) => counterpart.userId));
+  const historicalThreads = await db.messageThread.findMany({
+    where: { apartmentId: context.apartmentId, participants: { some: { userId: context.userId } } },
+    select: { participants: { select: { userId: true } } },
+  });
+  return historicalThreads.some((thread) => Boolean(directCounterpartId(context.userId, thread.participants.map((participant) => participant.userId), allowedCounterpartIds)));
+}
+
+export async function getMessagesForMember(context: MessageMemberContext, requestedCounterpartId?: string | null): Promise<MessagesViewData> {
+  const counterpartRole = context.role === "OWNER" ? "TENANT" : "OWNER";
+  const [memberships, threads] = await Promise.all([
+    db.apartmentMembership.findMany({
+      where: { apartmentId: context.apartmentId, role: counterpartRole, status: { in: ["ACTIVE", "SUSPENDED", "REMOVED"] } },
+      include: { user: { select: { name: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    db.messageThread.findMany({
+      where: { apartmentId: context.apartmentId, participants: { some: { userId: context.userId } } },
+      include: {
+        participants: { select: { userId: true } },
+        messages: { include: { author: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 1 },
+      },
+      orderBy: { updatedAt: "desc" },
+    }),
   ]);
-  const counterpartName = members[0]?.user.name ?? "Casa";
+
+  const membershipByUserId = new Map(memberships.map((membership) => [membership.userId, membership]));
+  const allowedCounterpartIds = new Set(membershipByUserId.keys());
+  const threadByCounterpartId = new Map<string, (typeof threads)[number]>();
+  for (const thread of threads) {
+    const counterpartId = directCounterpartId(context.userId, thread.participants.map((participant) => participant.userId), allowedCounterpartIds);
+    if (!counterpartId || threadByCounterpartId.has(counterpartId)) continue;
+    threadByCounterpartId.set(counterpartId, thread);
+  }
+
+  const visibleMemberships = memberships.filter((membership) => membership.status === "ACTIVE" || threadByCounterpartId.has(membership.userId));
+  const conversations = visibleMemberships.map((membership) => {
+    const thread = threadByCounterpartId.get(membership.userId);
+    const latestMessage = thread?.messages[0];
+    return {
+      counterpartId: membership.userId,
+      threadId: thread?.id ?? null,
+      name: membership.user.name,
+      initial: membership.user.name.slice(0, 1).toUpperCase(),
+      lastMessage: latestMessage?.body ?? "Nessun messaggio",
+      lastMessageAt: latestMessage ? messageTimeFormatter.format(latestMessage.createdAt) : null,
+      canSend: membership.status === "ACTIVE",
+    };
+  }).sort((left, right) => {
+    const leftUpdatedAt = threadByCounterpartId.get(left.counterpartId)?.updatedAt.getTime() ?? 0;
+    const rightUpdatedAt = threadByCounterpartId.get(right.counterpartId)?.updatedAt.getTime() ?? 0;
+    return rightUpdatedAt - leftUpdatedAt;
+  });
+
+  const selectedCounterpartId = conversations.some((conversation) => conversation.counterpartId === requestedCounterpartId)
+    ? requestedCounterpartId!
+    : conversations[0]?.counterpartId ?? null;
+  const selectedMembership = selectedCounterpartId ? membershipByUserId.get(selectedCounterpartId) : undefined;
+  const selectedThread = selectedCounterpartId ? threadByCounterpartId.get(selectedCounterpartId) : undefined;
+  const messages = selectedThread
+    ? (await db.message.findMany({
+        where: { threadId: selectedThread.id },
+        include: { author: { select: { name: true } } },
+        orderBy: { createdAt: "desc" },
+        take: 500,
+      })).reverse()
+    : [];
+  const counterpartName = selectedMembership?.user.name ?? "Casa";
+  const version = [
+    selectedCounterpartId ?? "",
+    selectedThread?.updatedAt.toISOString() ?? "",
+    messages.at(-1)?.id ?? "",
+    ...conversations.map((conversation) => `${conversation.counterpartId}:${threadByCounterpartId.get(conversation.counterpartId)?.updatedAt.toISOString() ?? ""}`),
+  ].join(":");
+
   return {
-    threadId: thread?.id ?? null,
-    title: thread?.title ?? "Conversazione della casa",
+    available: conversations.length > 0,
+    version,
+    selectedCounterpartId,
+    threadId: selectedThread?.id ?? null,
+    title: selectedMembership ? `Chat con ${counterpartName}` : "Messaggi",
     counterpartName,
     counterpartInitial: counterpartName.slice(0, 1).toUpperCase(),
-    messages: thread?.messages.map((message) => ({ id: message.id, sender: message.author.name, text: message.body, time: messageTimeFormatter.format(message.createdAt), mine: message.authorId === context.session.user.id })) ?? [],
+    canSend: selectedMembership?.status === "ACTIVE",
+    conversations,
+    messages: messages.map((message) => ({ id: message.id, sender: message.author.name, text: message.body, time: messageTimeFormatter.format(message.createdAt), mine: message.authorId === context.userId })),
   };
+}
+
+export async function getMessages(expectedRole: MembershipRole, requestedCounterpartId?: string | null): Promise<MessagesViewData> {
+  const context = await requireMembership(expectedRole);
+  return getMessagesForMember({ userId: context.session.user.id, apartmentId: context.membership.apartmentId, role: context.membership.role }, requestedCounterpartId);
 }
 
 export async function getDashboard(expectedRole: MembershipRole): Promise<DashboardData> {
@@ -200,12 +293,13 @@ export async function getDashboard(expectedRole: MembershipRole): Promise<Dashbo
   const firstTrendMonth = expenseTrend[0]!;
   const startOfTrend = new Date(Date.UTC(firstTrendMonth.year, firstTrendMonth.monthIndex, 1));
   const expenseQueryStart = startOfTrend < startOfYear ? startOfTrend : startOfYear;
-  const [bills, issues, events, expenses, messages] = await Promise.all([
+  const [bills, issues, events, expenses, messages, hasChat] = await Promise.all([
     billsFor(context, 6),
     issuesFor(context, 20),
     eventsFor(context, 30),
     db.expense.findMany({ where: { apartmentId: context.membership.apartmentId, createdAt: { gte: expenseQueryStart }, ...(context.membership.role === "TENANT" ? { shared: true } : {}) }, orderBy: { createdAt: "asc" } }),
     db.message.findMany({ where: { thread: { apartmentId: context.membership.apartmentId, participants: { some: { userId: context.session.user.id } } } }, include: { author: { select: { name: true } } }, orderBy: { createdAt: "desc" }, take: 4 }),
+    hasChatCounterpart({ userId: context.session.user.id, apartmentId: context.membership.apartmentId, role: context.membership.role }),
   ]);
   const mappedBills = bills.map(mapBill);
   const mappedIssues = issues.map((issue) => mapIssue(issue, context));
@@ -232,6 +326,7 @@ export async function getDashboard(expectedRole: MembershipRole): Promise<Dashbo
     urgentIssue: mappedIssues.find((issue) => issue.priority === "Urgente" && issue.statusCode !== "CLOSED" && issue.statusCode !== "RESOLVED") ?? mappedIssues.find((issue) => issue.statusCode === "OPEN") ?? null,
     bills: mappedBills,
     events: futureEvents.slice(0, 3),
+    hasChat,
     recentMessages: messages.map((message) => ({ id: message.id, name: message.author.name, initial: message.author.name.slice(0, 1).toUpperCase(), text: message.body, time: messageTimeFormatter.format(message.createdAt) })),
   };
 }
@@ -276,10 +371,11 @@ export async function getProfile(expectedRole: MembershipRole): Promise<{ sessio
 }
 
 export async function getPortalShellData(context: Context): Promise<PortalShellData> {
-  const [notifications, unreadByType, openIssues] = await Promise.all([
+  const [notifications, unreadByType, openIssues, hasChat] = await Promise.all([
     db.notification.findMany({ where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null }, orderBy: { createdAt: "desc" }, take: 20 }),
     db.notification.groupBy({ by: ["type"], where: { apartmentId: context.membership.apartmentId, userId: context.session.user.id, readAt: null }, _count: { _all: true } }),
     db.issue.count({ where: { apartmentId: context.membership.apartmentId, status: { in: ["OPEN", "IN_PROGRESS", "SCHEDULED"] } } }),
+    hasChatCounterpart({ userId: context.session.user.id, apartmentId: context.membership.apartmentId, role: context.membership.role }),
   ]);
   const unreadNotifications = unreadByType.reduce((total, row) => total + row._count._all, 0);
   const unreadMessages = unreadByType.find((row) => row.type === "message")?._count._all ?? 0;
@@ -288,6 +384,7 @@ export async function getPortalShellData(context: Context): Promise<PortalShellD
     unreadNotifications,
     openIssues,
     unreadMessages,
+    hasChat,
     apartmentLabel: context.membership.apartment.addressLine,
     apartmentCity: context.membership.apartment.city,
   };

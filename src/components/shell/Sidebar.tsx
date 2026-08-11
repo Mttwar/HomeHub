@@ -9,6 +9,7 @@ type SidebarProps = {
   session: Session;
   openIssues: number;
   unreadMessages: number;
+  hasChat: boolean;
   apartmentLabel: string;
   apartmentCity: string;
   open: boolean;
@@ -18,7 +19,7 @@ type SidebarProps = {
   onSignOut: () => void;
 };
 
-export function Sidebar({ active, session, openIssues, unreadMessages, apartmentLabel, apartmentCity, open, onNavigate, onPrefetch, onClose, onSignOut }: SidebarProps) {
+export function Sidebar({ active, session, openIssues, unreadMessages, hasChat, apartmentLabel, apartmentCity, open, onNavigate, onPrefetch, onClose, onSignOut }: SidebarProps) {
   return (
     <>
       <button
@@ -35,7 +36,7 @@ export function Sidebar({ active, session, openIssues, unreadMessages, apartment
         </div>
         <div className="mt-10 px-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Il tuo spazio</div>
         <nav className="mt-3 space-y-1" aria-label="Navigazione principale">
-          {navItems.map((item) => {
+          {navItems.filter((item) => item.id !== "messages" || hasChat).map((item) => {
             const Icon = item.icon;
             const selected = active === item.id;
             const badge = item.id === "issues" ? openIssues : item.id === "messages" ? unreadMessages : 0;

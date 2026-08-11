@@ -2,6 +2,7 @@
 
 import { LoginPage } from "@/components/portal/pages/LoginPage";
 import { authClient } from "@/lib/auth-client";
+import { authFlowUrl } from "@/lib/auth-flow-url";
 
 export function LoginForm({ callbackURL = "/", googleConfigured = false }: { callbackURL?: string; googleConfigured?: boolean }) {
   const login = async (email: string, password: string) => {
@@ -20,5 +21,5 @@ export function LoginForm({ callbackURL = "/", googleConfigured = false }: { cal
     return result.error?.message ?? undefined;
   };
 
-  return <LoginPage googleConfigured={googleConfigured} onLogin={login} onGoogleLogin={googleConfigured ? loginWithGoogle : undefined} />;
+  return <LoginPage googleConfigured={googleConfigured} onLogin={login} onGoogleLogin={googleConfigured ? loginWithGoogle : undefined} registerHref={authFlowUrl("/registrazione", callbackURL)} />;
 }

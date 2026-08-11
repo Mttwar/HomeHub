@@ -78,7 +78,9 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
   }, [activeView, activeNotificationTypes.length, router]);
 
   useEffect(() => {
-    const paths = Object.values(viewPaths).map((path) => `/${session.role}/${path}`);
+    const paths = Object.entries(viewPaths)
+      .filter(([view]) => view !== "messages" || data.hasChat)
+      .map(([, path]) => `/${session.role}/${path}`);
     let index = 0;
     let timer: number | undefined;
     let cancelled = false;
@@ -98,7 +100,7 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
       cancelled = true;
       if (timer !== undefined) window.clearTimeout(timer);
     };
-  }, [router, session.role]);
+  }, [data.hasChat, router, session.role]);
 
   useEffect(() => {
     if (previousPathname.current === pathname) return;
@@ -163,14 +165,14 @@ export function PortalShell({ children, session, data }: { children: ReactNode; 
     <>
       <RouteProgress active={isNavigating} />
       <div className="app-shell min-h-screen lg:flex">
-        <Sidebar active={displayedActiveView} session={session} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onPrefetch={prefetch} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
+        <Sidebar active={displayedActiveView} session={session} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} hasChat={data.hasChat} apartmentLabel={data.apartmentLabel} apartmentCity={data.apartmentCity} open={mobileMenuOpen} onNavigate={navigate} onPrefetch={prefetch} onClose={() => setMobileMenuOpen(false)} onSignOut={signOut} />
         <div className="min-w-0 flex-1">
           <TopBar query={query} apartmentLabel={data.apartmentLabel} unreadNotifications={visibleUnreadNotifications} onSearch={search} onOpenMenu={() => setMobileMenuOpen(true)} onToggleNotifications={toggleNotifications} />
           <main className="mx-auto max-w-[1480px] px-4 pb-28 pt-5 sm:px-6 lg:px-8 lg:pb-12 lg:pt-3">
             <PageTransition>{children}</PageTransition>
           </main>
         </div>
-        <MobileNav active={displayedActiveView} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} onNavigate={navigate} onPrefetch={prefetch} />
+        <MobileNav active={displayedActiveView} openIssues={data.openIssues} unreadMessages={visibleUnreadMessages} hasChat={data.hasChat} onNavigate={navigate} onPrefetch={prefetch} />
       </div>
       {notificationsMounted ? <NotificationPanel open={notificationsOpen} notifications={visibleNotifications} unread={visibleUnreadNotifications} onClose={() => setNotificationsOpen(false)} onOpenNotification={openNotification} /> : null}
     </>

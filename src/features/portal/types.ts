@@ -66,11 +66,25 @@ export type MessageListItem = {
   time: string;
   mine: boolean;
 };
+export type MessageConversationListItem = {
+  counterpartId: string;
+  threadId: string | null;
+  name: string;
+  initial: string;
+  lastMessage: string;
+  lastMessageAt: string | null;
+  canSend: boolean;
+};
 export type MessagesViewData = {
+  available: boolean;
+  version: string;
+  selectedCounterpartId: string | null;
   threadId: string | null;
   title: string;
   counterpartName: string;
   counterpartInitial: string;
+  canSend: boolean;
+  conversations: MessageConversationListItem[];
   messages: MessageListItem[];
 };
 export type NotificationListItem = {
@@ -95,6 +109,7 @@ export type DashboardData = {
   urgentIssue: IssueListItem | null;
   bills: BillListItem[];
   events: EventListItem[];
+  hasChat: boolean;
   recentMessages: Array<{ id: string; name: string; initial: string; text: string; time: string }>;
 };
 export type ProfileData = {
@@ -122,6 +137,7 @@ export type PortalShellData = {
   unreadNotifications: number;
   openIssues: number;
   unreadMessages: number;
+  hasChat: boolean;
   apartmentLabel: string;
   apartmentCity: string;
 };

@@ -151,15 +151,47 @@ export async function cancelCalendarEvent(formData: FormData) {
 }
 
 export async function sendMessage(_previous: PortalMutationState, formData: FormData): Promise<PortalMutationState> {
-  const parsed = z.object({ body: z.string().trim().min(1, "Scrivi un messaggio").max(4000), threadId: z.union([idSchema, z.literal("")]) }).safeParse({ body: formData.get("body"), threadId: formData.get("threadId") ?? "" });
+  const parsed = z.object({
+    body: z.string().trim().min(1, "Scrivi un messaggio").max(4000),
+    threadId: z.union([idSchema, z.literal("")]),
+    counterpartId: idSchema,
+  }).safeParse({ body: formData.get("body"), threadId: formData.get("threadId") ?? "", counterpartId: formData.get("counterpartId") });
   if (!parsed.success) return { status: "error", message: parsed.error.issues[0]?.message ?? "Messaggio non valido" };
   const { session, membership } = await requireMembership();
   assertCan(membership.role, "message:create");
-  let thread = parsed.data.threadId ? await db.messageThread.findFirst({ where: { id: parsed.data.threadId, apartmentId: membership.apartmentId, participants: { some: { userId: session.user.id } } }, select: { id: true } }) : await db.messageThread.findFirst({ where: { apartmentId: membership.apartmentId, participants: { some: { userId: session.user.id } } }, orderBy: { updatedAt: "desc" }, select: { id: true } });
+  const counterpart = await db.apartmentMembership.findFirst({
+    where: {
+      apartmentId: membership.apartmentId,
+      userId: parsed.data.counterpartId,
+      role: membership.role === "OWNER" ? "TENANT" : "OWNER",
+      status: "ACTIVE",
+    },
+    include: { user: { select: { name: true } } },
+  });
+  if (!counterpart) return { status: "error", message: "Questa persona non è disponibile per la chat" };
+
+  const directParticipants = [session.user.id, counterpart.userId];
+  const directThreadWhere = {
+    apartmentId: membership.apartmentId,
+    AND: [
+      { participants: { some: { userId: session.user.id } } },
+      { participants: { some: { userId: counterpart.userId } } },
+      { participants: { every: { userId: { in: directParticipants } } } },
+    ],
+  };
+  let thread = parsed.data.threadId
+    ? await db.messageThread.findFirst({ where: { id: parsed.data.threadId, ...directThreadWhere }, select: { id: true } })
+    : await db.messageThread.findFirst({ where: directThreadWhere, orderBy: { updatedAt: "desc" }, select: { id: true } });
   if (parsed.data.threadId && !thread) return { status: "error", message: "Conversazione non disponibile" };
   if (!thread) {
-    const members = await db.apartmentMembership.findMany({ where: { apartmentId: membership.apartmentId, status: "ACTIVE" }, select: { userId: true } });
-    thread = await db.messageThread.create({ data: { apartmentId: membership.apartmentId, title: "Conversazione della casa", participants: { create: members.map(({ userId }) => ({ userId, ...(userId === session.user.id ? { readAt: new Date() } : {}) })) } }, select: { id: true } });
+    thread = await db.messageThread.create({
+      data: {
+        apartmentId: membership.apartmentId,
+        title: `Conversazione con ${counterpart.user.name}`,
+        participants: { create: directParticipants.map((userId) => ({ userId, ...(userId === session.user.id ? { readAt: new Date() } : {}) })) },
+      },
+      select: { id: true },
+    });
   }
   const message = await db.$transaction(async (transaction) => {
     const created = await transaction.message.create({ data: { threadId: thread.id, authorId: session.user.id, body: parsed.data.body } });
@@ -168,7 +200,7 @@ export async function sendMessage(_previous: PortalMutationState, formData: Form
     await transaction.auditEvent.create({ data: { apartmentId: membership.apartmentId, actorId: session.user.id, action: "message.create", entityType: "message", entityId: created.id } });
     return created;
   });
-  await notifyApartmentMembers({ apartmentId: membership.apartmentId, actorId: session.user.id, type: "message", title: `Nuovo messaggio da ${session.user.name}`, body: parsed.data.body.slice(0, 140) });
+  await db.notification.create({ data: { apartmentId: membership.apartmentId, userId: counterpart.userId, type: "message", title: `Nuovo messaggio da ${session.user.name}`, body: parsed.data.body.slice(0, 140) } });
   revalidatePath("/owner/messaggi");
   revalidatePath("/tenant/messaggi");
   return { status: "success", message: `Messaggio inviato (${message.id.slice(-6)})` };

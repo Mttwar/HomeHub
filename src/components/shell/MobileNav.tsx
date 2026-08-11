@@ -2,10 +2,10 @@ import { navItems } from "../../data/mock-data";
 import { cx } from "../../lib/cx";
 import type { View } from "../../types";
 
-export function MobileNav({ active, openIssues, unreadMessages, onNavigate, onPrefetch }: { active: View; openIssues: number; unreadMessages: number; onNavigate: (view: View) => void; onPrefetch: (view: View) => void }) {
+export function MobileNav({ active, openIssues, unreadMessages, hasChat, onNavigate, onPrefetch }: { active: View; openIssues: number; unreadMessages: number; hasChat: boolean; onNavigate: (view: View) => void; onPrefetch: (view: View) => void }) {
   return (
     <nav className="fixed inset-x-3 bottom-3 z-30 flex items-center justify-around rounded-[22px] border border-white/70 bg-white/90 p-1.5 shadow-[0_16px_50px_rgba(15,23,42,.18)] backdrop-blur-xl lg:hidden" aria-label="Navigazione mobile">
-      {navItems.filter((item) => item.mobile).map((item) => {
+      {navItems.filter((item) => item.mobile && (item.id !== "messages" || hasChat)).map((item) => {
         const Icon = item.icon;
         const selected = active === item.id;
         const badge = item.id === "issues" ? openIssues : item.id === "messages" ? unreadMessages : 0;
